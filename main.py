@@ -9,6 +9,7 @@ class Runtime:
 
     def __init__(self):
         pygame.init()
+        pygame.mixer.init()
 
         # General
         self.clock = pygame.time.Clock()
@@ -30,6 +31,9 @@ class Runtime:
         self.effects_list = None
 
     def setup(self):
+        pygame.mixer.music.load('assets/sounds/music1.wav')
+        pygame.mixer.music.play(-1)
+        pygame.mixer.music.set_volume(0.4)
         self.difficulty = 1
         self.game_state = 1  # 1 - Main Menu, 2 - Game started, 3 - You lose, 4 - You win
         self.wave = 2 * self.difficulty
@@ -52,7 +56,7 @@ class Runtime:
         self.enemy_list.add(enemy.Enemy(1290, 110))
 
     def spawn_effect(self):
-        #self.effects_list.add(effect.Effect(500, 50))
+        # self.effects_list.add(effect.Effect(500, 50))
         pass
 
     def setup_wave(self):
@@ -99,6 +103,8 @@ class Runtime:
                     # Game state - In game
                     elif self.game_state == 2:
                         button_clicked = self.game_board.click(mouse_pos[0], mouse_pos[1], self.game_state)
+                        if button_clicked is None:
+                            self.game_board.close_open_menus()
 
                     # Game state - You lose
                     elif self.game_state == 3:
@@ -136,6 +142,9 @@ class Runtime:
 
             if global_variables.stats_player_health <= 0:
                 self.you_lose()
+
+            # Draw the background
+            self.game_board.draw_tower_menus(self.game_state)
 
             # Update game display
             pygame.display.update()

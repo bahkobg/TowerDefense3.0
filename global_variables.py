@@ -15,7 +15,10 @@ enemy_4 = [pygame.image.load('assets/enemies/4/' + str(x) + '.png') for x in ran
 enemy_5 = [pygame.image.load('assets/enemies/5/' + str(x) + '.png') for x in range(1, 11)]
 
 # Towers
-#towers = [pygame.image.load('assets/towers/1/' + str(x) + '.png') for x in range(1, 7)]
+towers_archer = [pygame.image.load('assets/towers/archer/' + str(x) + '.png') for x in range(77)]
+towers_magic = [pygame.image.load('assets/towers/magic/' + str(x) + '.png') for x in range(32)]
+towers_stone = [pygame.image.load('assets/towers/stone/' + str(x) + '.png') for x in range(62)]
+towers_support = [pygame.image.load('assets/towers/support/' + str(x) + '.png') for x in range(18)]
 
 # Map specific
 map_1_tower_positions = [(1122, 262), (856, 264), (585, 262), (502, 468), (794, 481), (1078, 480), (366, 642)]
