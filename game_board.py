@@ -53,7 +53,7 @@ class GameBoard:
         )
 
         # Archer Tower
-        self.menu_tower_h2 = pygame.font.SysFont('comicsansms', 48)
+        self.text_h2 = pygame.font.SysFont('comicsansms', bold=True, size=48)
         self.menu_tower_archer_opened = False
         self.menu_tower_archer = pygame.sprite.Group()
         self.menu_tower_archer.add(
@@ -136,23 +136,23 @@ class GameBoard:
             self.screen.blit(self.bottom_menu, (-30, 720))
             self.bottom_menu_buttons.draw(self.screen)
             self.top_menu_buttons.draw(self.screen)
-            self.screen.blit(self.text_stats.render(str(global_variables.stats_money), True, (255, 255, 255)), (75, 38))
-            self.screen.blit(self.text_stats.render(str(global_variables.stats_player_mana), True, (255, 255, 255)),
+            self.screen.blit(self.text_stats.render(str(global_variables.stats_money), True, (247, 187, 31)), (75, 38))
+            self.screen.blit(self.text_stats.render(str(global_variables.stats_player_mana), True, (247, 187, 31)),
                              (75, 83))
-            self.screen.blit(self.text_stats.render(str(global_variables.stats_player_health), True, (255, 255, 255)),
+            self.screen.blit(self.text_stats.render(str(global_variables.stats_player_health), True, (247, 187, 31)),
                              (75, 128))
 
         elif game_state == 3:
             self.screen.blit(self.main_menu_bg, (0, 0))
             self.you_lose_buttons.draw(self.screen)
-            self.screen.blit(self.text_you_lose.render('SORRY :(', True, (255, 160, 0)), (540, 390))
-            self.screen.blit(self.text_you_lose.render('You lose', True, (255, 160, 0)), (540, 450))
+            self.screen.blit(self.text_you_lose.render('SORRY :(', True, (247, 187, 31)), (540, 390))
+            self.screen.blit(self.text_you_lose.render('You lose', True, (247, 187, 31)), (540, 450))
 
         elif game_state == 4:
             self.screen.blit(self.main_menu_bg, (0, 0))
             self.you_win_buttons.draw(self.screen)
-            self.screen.blit(self.text_you_win.render('Congratulations!', True, (255, 140, 0)), (520, 380))
-            self.screen.blit(self.text_you_win.render('Level Complete', True, (255, 140, 0)), (520, 420))
+            self.screen.blit(self.text_you_win.render('Congratulations!', True, (247, 187, 31)), (520, 380))
+            self.screen.blit(self.text_you_win.render('Level Complete', True, (247, 187, 31)), (520, 420))
             self.screen.blit(self.text_you_win.render('+' + str(global_variables.stats_money), True, (255, 180, 0)),
                              (570, 470))
 
@@ -161,12 +161,16 @@ class GameBoard:
         if game_state == 2:
             if self.menu_tower_archer_opened:
                 self.menu_tower_archer.draw(self.screen)
+                self.screen.blit(self.text_h2.render('Archer Towers:', True, (247, 187, 31)), (470, 100))
             elif self.menu_tower_stone_opened:
                 self.menu_tower_stone.draw(self.screen)
+                self.screen.blit(self.text_h2.render('Stone Towers:', True, (247, 187, 31)), (470, 100))
             elif self.menu_tower_magic_opened:
                 self.menu_tower_magic.draw(self.screen)
+                self.screen.blit(self.text_h2.render('Magic Towers:', True, (247, 187, 31)), (470, 100))
             elif self.menu_tower_support_opened:
                 self.menu_tower_support.draw(self.screen)
+                self.screen.blit(self.text_h2.render('Support Towers:', True, (247, 187, 31)), (470, 100))
 
     @property
     def get_screen(self):
