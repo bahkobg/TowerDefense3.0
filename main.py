@@ -8,7 +8,7 @@ class Runtime:
 
     def __init__(self):
         pygame.init()
-
+        #test
         # General
         self.clock = pygame.time.Clock()
         self.game_board = game_board.GameBoard()
