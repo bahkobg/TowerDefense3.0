@@ -1,0 +1,31 @@
+import pygame
+
+
+# General
+stats_kills = 0
+stats_money = 0
+stats_player_mana = 0
+stats_player_health = 0
+
+# Enemies
+enemy_1 = [pygame.image.load('assets/enemies/1/' + str(x) + '.png') for x in range(1, 11)]
+enemy_2 = [pygame.image.load('assets/enemies/2/' + str(x) + '.png') for x in range(1, 11)]
+enemy_3 = [pygame.image.load('assets/enemies/3/' + str(x) + '.png') for x in range(1, 11)]
+enemy_4 = [pygame.image.load('assets/enemies/4/' + str(x) + '.png') for x in range(1, 11)]
+enemy_5 = [pygame.image.load('assets/enemies/5/' + str(x) + '.png') for x in range(1, 11)]
+
+# Towers
+#towers = [pygame.image.load('assets/towers/1/' + str(x) + '.png') for x in range(1, 7)]
+
+# Map specific
+map_1_tower_positions = [(1122, 262), (856, 264), (585, 262), (502, 468), (794, 481), (1078, 480), (366, 642)]
+map_1_path_1 = [(1100, 100), (470, 100), (384, 240), (631, 359), (702, 528), (1194, 541), (1242, 541)]
+map_1_path_2 = [(1100, 100), (470, 100), (384, 240), (639, 444), (603, 509), (469, 562), (479, 690), (475, 699)]
+
+# Menus
+menu_new_game = [pygame.image.load('assets/menus/main_menu/' + str(x) + '.png') for x in range(11)]
+menu_you_win = [pygame.image.load('assets/menus/win/' + str(x) + '.png') for x in range(10)]
+menu_you_lose = [pygame.image.load('assets/menus/lose/' + str(x) + '.png') for x in range(5)]
+menu_bottom = [pygame.image.load('assets/menus/gui/' + str(x) + '.png') for x in range(17)]
+
+
