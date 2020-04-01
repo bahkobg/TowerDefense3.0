@@ -20,7 +20,7 @@ class Enemy(pygame.sprite.Sprite):
         self.flipped = False
         self.change = ()
         self.path_pos = 0
-        self.health = 100
+        self.health_max = self.health = 100
         self.speed = 2
         self.worth = 1
         self.fire_resistance = 0
@@ -40,6 +40,17 @@ class Enemy(pygame.sprite.Sprite):
 
     def die(self):
         pass
+
+    def health_bar(self, surface):
+        width = 40  # length of the bar
+        health_bar = width * (self.health / self.health_max)
+
+        if self.flipped and self.health > 0:
+            pygame.draw.rect(surface, (255, 0, 0), (self.x + 16, self.y, width, 8))
+            pygame.draw.rect(surface, (0, 255, 0), (self.x + 16, self.y, health_bar, 8))
+        elif not self.flipped and self.health > 0:
+            pygame.draw.rect(surface, (255, 0, 0), (self.x, self.y, width, 8))
+            pygame.draw.rect(surface, (0, 255, 0), (self.x, self.y, health_bar, 8))
 
     def jump(self):
         pass
@@ -84,10 +95,6 @@ class Enemy(pygame.sprite.Sprite):
     def animation(self):
         pass
 
-    def update(self):
-
-        self.move()
-
     def draw(self, surface):
         if self.animation_index >= len(self.img_list):
             self.animation_index = 0
@@ -98,3 +105,5 @@ class Enemy(pygame.sprite.Sprite):
             surface.blit(self.image, (self.x, self.y))
         if not self.paused:
             self.animation_index += 1
+        self.move()
+        self.health_bar(surface)
