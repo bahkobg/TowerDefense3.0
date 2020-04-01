@@ -28,4 +28,7 @@ menu_you_win = [pygame.image.load('assets/menus/win/' + str(x) + '.png') for x i
 menu_you_lose = [pygame.image.load('assets/menus/lose/' + str(x) + '.png') for x in range(5)]
 menu_bottom = [pygame.image.load('assets/menus/gui/' + str(x) + '.png') for x in range(17)]
 
+# Effects
+rain = [pygame.image.load('assets/effects/rain/' + str(x) + '.png') for x in range(39)]
+
 

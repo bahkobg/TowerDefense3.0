@@ -2,13 +2,14 @@ import pygame
 import game_board
 import global_variables
 import enemy
+import effect
 
 
 class Runtime:
 
     def __init__(self):
         pygame.init()
-        #test
+
         # General
         self.clock = pygame.time.Clock()
         self.game_board = game_board.GameBoard()
@@ -26,6 +27,7 @@ class Runtime:
         # Player
         self.player_health = None
         self.positions = None
+        self.effects_list = None
 
     def setup(self):
         self.difficulty = 1
@@ -33,17 +35,25 @@ class Runtime:
         self.wave = 2 * self.difficulty
 
         # Enemies
-        self.spawn_timer = pygame.time.set_timer(25, 1000)
+        pygame.time.set_timer(25, 1000)
         self.enemy_queue = []
         self.enemy_list = pygame.sprite.Group()
 
         # Player
         self.player_health = global_variables.stats_player_health = 10 * self.difficulty
 
+        # Effects
+        pygame.time.set_timer(26, 2000)
+        self.effects_list = pygame.sprite.Group()
+
         self.positions = []
 
     def spawn_enemy(self):
         self.enemy_list.add(enemy.Enemy(1290, 110))
+
+    def spawn_effect(self):
+        #self.effects_list.add(effect.Effect(500, 50))
+        pass
 
     def setup_wave(self):
         pass
@@ -106,8 +116,11 @@ class Runtime:
                 if event.type == pygame.MOUSEMOTION:
                     pass
 
+                # Spawn events
                 if event.type == 25 and len(self.enemy_list) <= self.wave and self.game_state == 2:
                     self.spawn_enemy()
+                if event.type == 26 and self.game_state == 2:
+                    self.spawn_effect()
 
             # Draw the background
             self.game_board.draw(self.game_state)
@@ -117,7 +130,9 @@ class Runtime:
             for en in self.enemy_list:
                 en.draw(self.screen)
 
-            # Draw the overlay tails
+            # Draw the effects
+            for effct in self.effects_list:
+                effct.draw(self.screen)
 
             if global_variables.stats_player_health <= 0:
                 self.you_lose()
