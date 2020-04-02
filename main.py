@@ -70,6 +70,8 @@ class Runtime:
         pass
 
     def spawn_tower(self):
+        for twr in self.moving_objects:
+            twr.set_in_position()
         self.towers_list.add(
             self.moving_objects
         )
@@ -203,6 +205,7 @@ class Runtime:
 
         # Draw the tower's buy menu
         self.game_board.draw_tower_menus(self.game_state)
+
 
         # Update game display
         pygame.display.update()

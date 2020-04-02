@@ -1,5 +1,6 @@
 import pygame
 import global_variables
+import archer
 
 
 class Tower(pygame.sprite.Sprite):
@@ -17,6 +18,7 @@ class Tower(pygame.sprite.Sprite):
         self.clicked = False
         self.being_dragged = False
         self.image = None
+        self.in_position = False
 
         # Tower stuff
         self.range = 120
@@ -24,6 +26,14 @@ class Tower(pygame.sprite.Sprite):
         self.rate = 1
         self.price = 1
         self.bullets = []
+
+        # Archer
+        self.archer = None
+
+    def set_in_position(self):
+        if not self.in_position:
+            self.in_position = True
+            self.archer = archer.Archer(self.rect.x+20, self.rect.y-23)
 
     def get_nearest_enemy(self):
         pass
@@ -44,7 +54,8 @@ class Tower(pygame.sprite.Sprite):
         self.rect.center = center
 
     def update(self, *args):
-        pass
+        if self.in_position:
+            self.archer.update()
 
     def draw(self, surface):
         if self.clicked:
@@ -52,6 +63,8 @@ class Tower(pygame.sprite.Sprite):
             pygame.draw.circle(circle_surface, (128, 128, 128, 128), (self.range, self.range), self.range, 0)
             surface.blit(circle_surface, (self.rect.center[0] - self.range, self.rect.center[1] - self.range))
         surface.blit(self.image, self.rect)
+        if self.in_position:
+            self.archer.draw(surface)
 
     def click(self, x, y):
         if self.rect.collidepoint(x, y):
