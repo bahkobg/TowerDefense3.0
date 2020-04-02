@@ -4,6 +4,8 @@ import global_variables
 import enemy
 import effect
 import tower
+import random
+import time
 
 
 class Runtime:
@@ -20,6 +22,7 @@ class Runtime:
         self.difficulty = None
         self.game_state = None
         self.wave = None
+        self.timer = None
 
         # Enemies
         self.spawn_timer = None
@@ -43,6 +46,7 @@ class Runtime:
         self.difficulty = 1
         self.game_state = 1  # 1 - Main Menu, 2 - Game started, 3 - You lose, 4 - You win
         self.wave = 2 * self.difficulty
+        self.timer = time.time()
 
         # Enemies
         pygame.time.set_timer(25, 1000)
@@ -174,6 +178,12 @@ class Runtime:
             if global_variables.stats_player_health <= 0:
                 self.you_lose()
 
+            # Enemy in range of tower
+            for twr in self.towers_list:
+                enemies = pygame.sprite.spritecollide(twr, self.enemy_list, False, pygame.sprite.collide_circle)
+                if enemies:
+                    enemies[random.randint(0, len(enemies)-1)].take_damage(twr.damage, twr.rate)
+
             self.draw()
         pygame.quit()
 
@@ -186,9 +196,8 @@ class Runtime:
         self.game_board.draw(self.game_state)
 
         # Draw the enemies
-        self.enemy_list.update()
         for en in self.enemy_list:
-            en.draw(self.screen)
+            en.draw(self.screen, self.game_state)
 
         # Draw the effects
         for effct in self.effects_list:
@@ -196,16 +205,15 @@ class Runtime:
 
         # Draws the towers
         for twr in self.towers_list:
-            twr.draw(self.screen)
+            twr.draw(self.screen, self.game_state)
 
         if self.object_being_dragged:
             for obj in self.moving_objects:
                 obj.drag(pygame.mouse.get_pos())
-                obj.draw(self.screen)
+                obj.draw(self.screen, self.game_state)
 
         # Draw the tower's buy menu
         self.game_board.draw_tower_menus(self.game_state)
-
 
         # Update game display
         pygame.display.update()

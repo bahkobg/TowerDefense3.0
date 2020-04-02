@@ -22,8 +22,9 @@ class Tower(pygame.sprite.Sprite):
 
         # Tower stuff
         self.range = 120
+        self.radius = 120
         self.damage = 1
-        self.rate = 1
+        self.rate = 0.8
         self.price = 1
         self.bullets = []
 
@@ -33,7 +34,12 @@ class Tower(pygame.sprite.Sprite):
     def set_in_position(self):
         if not self.in_position:
             self.in_position = True
-            self.archer = archer.Archer(self.rect.x+20, self.rect.y-23)
+            self.archer = archer.Archer(self.rect.x + 20, self.rect.y - 23)
+
+    def get_range_rect(self):
+        range_sprite = pygame.sprite.Sprite()
+        range_sprite.rect = pygame.Rect(self.rect.centerx-self.range, self.rect.centery-self.range, self.range*2, self.range*2.)
+        return range_sprite
 
     def get_nearest_enemy(self):
         pass
@@ -53,18 +59,15 @@ class Tower(pygame.sprite.Sprite):
     def drag(self, center):
         self.rect.center = center
 
-    def update(self, *args):
-        if self.in_position:
-            self.archer.update()
-
-    def draw(self, surface):
-        if self.clicked:
-            circle_surface = pygame.Surface((self.range * 2, self.range * 2), pygame.SRCALPHA, 32)
-            pygame.draw.circle(circle_surface, (128, 128, 128, 128), (self.range, self.range), self.range, 0)
-            surface.blit(circle_surface, (self.rect.center[0] - self.range, self.rect.center[1] - self.range))
-        surface.blit(self.image, self.rect)
-        if self.in_position:
-            self.archer.draw(surface)
+    def draw(self, surface, game_state):
+        if game_state == 2:
+            if self.clicked:
+                circle_surface = pygame.Surface((self.range * 2, self.range * 2), pygame.SRCALPHA, 32)
+                pygame.draw.circle(circle_surface, (128, 128, 128, 128), (self.range, self.range), self.range, 0)
+                surface.blit(circle_surface, (self.rect.center[0] - self.range, self.rect.center[1] - self.range))
+            surface.blit(self.image, self.rect)
+            if self.in_position:
+                self.archer.draw(surface)
 
     def click(self, x, y):
         if self.rect.collidepoint(x, y):
@@ -91,7 +94,7 @@ class TowerArcher2(Tower):
         # Tower stuff
         self.range = 130
         self.damage = 2
-        self.rate = 1
+        self.rate = 0.7
         self.price = 2
         self.bullets = []
 
@@ -104,7 +107,7 @@ class TowerArcher3(Tower):
         # Tower stuff
         self.range = 140
         self.damage = 3
-        self.rate = 1
+        self.rate = 0.6
         self.price = 3
         self.bullets = []
 
@@ -117,7 +120,7 @@ class TowerArcher4(Tower):
         # Tower stuff
         self.range = 150
         self.damage = 4
-        self.rate = 1
+        self.rate = 0.5
         self.price = 4
         self.bullets = []
 
@@ -169,7 +172,7 @@ class TowerMagic4(Tower):
         # Tower stuff
         self.range = 150
         self.damage = 8
-        self.rate = 1
+        self.rate = 1 # in seconds
         self.price = 8
         self.bullets = []
 
