@@ -23,12 +23,13 @@ class Enemy(pygame.sprite.Sprite):
              global_variables.enemy_5])
         self.animation_index = 0
         self.flipped = False
+        self.dying = False
         self.change = ()
         self.path_pos = 0
-        self.health_max = 10
-        self.health = 10
+        self.health_max = random.randint(5, 30)
+        self.health = self.health_max
         self.speed = 2
-        self.worth = 1
+        self.worth = random.randint(1,5)
         self.fire_resistance = 0
         self.freeze_resistance = 0
         self.lighting_resistance = 0
@@ -42,14 +43,15 @@ class Enemy(pygame.sprite.Sprite):
             self.paused = x
 
     def take_damage(self, damage, rate):
+        if self.health <= 0:
+            self.die()
         if time.time() - self.timer > rate:
             if self.health > 0:
                 self.health -= damage
-            else:
-                self.die()
             self.timer = time.time()
 
     def die(self):
+        self.dying = True
         global_variables.stats_kills += 1
         global_variables.stats_money += self.worth
         self.kill()
@@ -111,7 +113,7 @@ class Enemy(pygame.sprite.Sprite):
 
     def draw(self, surface, game_state):
         if game_state == 2:
-            if self.animation_index >= len(self.img_list):
+            if self.animation_index >= 10:
                 self.animation_index = 0
             self.image = pygame.transform.scale(self.img_list[self.animation_index], (self.width, self.height))
             if self.flipped:  # if the enemy is moving left
@@ -120,5 +122,6 @@ class Enemy(pygame.sprite.Sprite):
                 surface.blit(self.image, (self.x, self.y))
             if not self.paused:
                 self.animation_index += 1
-            self.move()
             self.health_bar(surface)
+            self.move()
+

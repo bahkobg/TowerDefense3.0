@@ -30,13 +30,22 @@ class Tower(pygame.sprite.Sprite):
 
         # Archer
         self.archer = None
+        self.enemy_in_range = False
 
     def set_in_position(self):
+        """
+        Spawn the archer after the tower is set in position on the board.
+        :return: None
+        """
         if not self.in_position:
             self.in_position = True
             self.archer = archer.Archer(self.rect.x + 20, self.rect.y - 23)
 
     def get_range_rect(self):
+        """
+        Overrides the tower's rect bigger one = tower's range
+        :return: pygame Sprite()
+        """
         range_sprite = pygame.sprite.Sprite()
         range_sprite.rect = pygame.Rect(self.rect.centerx-self.range, self.rect.centery-self.range, self.range*2, self.range*2.)
         return range_sprite
@@ -44,8 +53,18 @@ class Tower(pygame.sprite.Sprite):
     def get_nearest_enemy(self):
         pass
 
-    def detect_enemy(self):
-        pass
+    def set_enemy_in_range(self, x):
+        """
+        Sets enemy in range
+        :param x: bool
+        :return: None
+        """
+        if self.enemy_in_range != x:
+            self.enemy_in_range = x
+            self.archer.set_enemy_in_range(x)
+
+    def set_archer_flipped(self, x):
+        self.archer.flipped = x
 
     def attack(self, enemy):
         pass
@@ -53,13 +72,21 @@ class Tower(pygame.sprite.Sprite):
     def shoot(self):
         pass
 
-    def animate(self):
-        pass
-
     def drag(self, center):
+        """
+        Sets the tower position equal to the current mouse position.
+        :param center: tuple -> (x, y) mouse coordinates
+        :return: None
+        """
         self.rect.center = center
 
     def draw(self, surface, game_state):
+        """
+        All tower's drawing logic goes here.
+        :param surface: pygame Surface()
+        :param game_state: int
+        :return: None
+        """
         if game_state == 2:
             if self.clicked:
                 circle_surface = pygame.Surface((self.range * 2, self.range * 2), pygame.SRCALPHA, 32)
@@ -70,6 +97,12 @@ class Tower(pygame.sprite.Sprite):
                 self.archer.draw(surface)
 
     def click(self, x, y):
+        """
+        All logic when the tower is clicked
+        :param x: int
+        :param y: int
+        :return: bool
+        """
         if self.rect.collidepoint(x, y):
             if self.clicked:
                 self.clicked = False

@@ -7,11 +7,11 @@ stats_player_mana = 0
 stats_player_health = 0
 
 # Enemies
-enemy_1 = [pygame.image.load('assets/enemies/1/' + str(x) + '.png') for x in range(1, 11)]
-enemy_2 = [pygame.image.load('assets/enemies/2/' + str(x) + '.png') for x in range(1, 11)]
-enemy_3 = [pygame.image.load('assets/enemies/3/' + str(x) + '.png') for x in range(1, 11)]
-enemy_4 = [pygame.image.load('assets/enemies/4/' + str(x) + '.png') for x in range(1, 11)]
-enemy_5 = [pygame.image.load('assets/enemies/5/' + str(x) + '.png') for x in range(1, 11)]
+enemy_1 = [pygame.image.load('assets/enemies/1/' + str(x) + '.png') for x in range(20)]
+enemy_2 = [pygame.image.load('assets/enemies/2/' + str(x) + '.png') for x in range(20)]
+enemy_3 = [pygame.image.load('assets/enemies/3/' + str(x) + '.png') for x in range(20)]
+enemy_4 = [pygame.image.load('assets/enemies/4/' + str(x) + '.png') for x in range(20)]
+enemy_5 = [pygame.image.load('assets/enemies/5/' + str(x) + '.png') for x in range(20)]
 
 # Towers
 towers_archer = [pygame.image.load('assets/towers/archer/' + str(x) + '.png') for x in range(77)]

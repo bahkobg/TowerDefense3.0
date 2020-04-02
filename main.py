@@ -2,10 +2,9 @@ import pygame
 import game_board
 import global_variables
 import enemy
-import effect
 import tower
-import random
 import time
+import random
 
 
 class Runtime:
@@ -40,12 +39,16 @@ class Runtime:
         self.effects_list = None
 
     def setup(self):
+        """
+        All variables held here, so the game can be restarted in runtime.
+        :return: None
+        """
         pygame.mixer.music.load('assets/sounds/music1.wav')
         pygame.mixer.music.play(-1)
         pygame.mixer.music.set_volume(0.3)
         self.difficulty = 1
         self.game_state = 1  # 1 - Main Menu, 2 - Game started, 3 - You lose, 4 - You win
-        self.wave = 2 * self.difficulty
+        self.wave = 4 * self.difficulty
         self.timer = time.time()
 
         # Enemies
@@ -67,13 +70,25 @@ class Runtime:
         self.positions = []
 
     def spawn_enemy(self):
+        """
+        Spawn new enemy and add it to the list.
+        :return: None
+        """
         self.enemy_list.add(enemy.Enemy(1290, 110))
 
     def spawn_effect(self):
+        """
+        Spawn new effect and add it to the list.
+        :return:
+        """
         # self.effects_list.add(effect.Effect(500, 50))
         pass
 
     def spawn_tower(self):
+        """
+        Spawn new tower.
+        :return: None
+        """
         for twr in self.moving_objects:
             twr.set_in_position()
         self.towers_list.add(
@@ -182,7 +197,15 @@ class Runtime:
             for twr in self.towers_list:
                 enemies = pygame.sprite.spritecollide(twr, self.enemy_list, False, pygame.sprite.collide_circle)
                 if enemies:
-                    enemies[random.randint(0, len(enemies)-1)].take_damage(twr.damage, twr.rate)
+                    for enmy in enemies:
+                        twr.set_enemy_in_range(True)
+                        enmy.take_damage(twr.damage, twr.rate)
+                        if twr.rect.x > enmy.rect.x:
+                            twr.set_archer_flipped(True)
+                        else:
+                            twr.set_archer_flipped(False)
+                else:
+                    twr.set_enemy_in_range(False)
 
             self.draw()
         pygame.quit()
