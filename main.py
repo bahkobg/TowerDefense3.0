@@ -69,7 +69,14 @@ class Runtime:
         # self.effects_list.add(effect.Effect(500, 50))
         pass
 
-    def spawn_tower(self, name):
+    def spawn_tower(self):
+        self.towers_list.add(
+            self.moving_objects
+        )
+        self.object_being_dragged = False
+        self.moving_objects.empty()
+
+    def drag_tower(self, name):
         """
         Spawn a tower from the buy menu
         :return: None
@@ -79,6 +86,7 @@ class Runtime:
         if obj:
             self.moving_objects.add(obj)
             self.object_being_dragged = True
+            self.game_board.close_open_menus()
 
     def setup_wave(self):
         pass
@@ -104,47 +112,55 @@ class Runtime:
                 if event.type == pygame.QUIT:
                     running = False
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    mouse_pos = pygame.mouse.get_pos()
-                    print(mouse_pos)
+                    if self.object_being_dragged:
+                        self.spawn_tower()
+                    else:
+                        if event.button == 1:
+                            mouse_pos = pygame.mouse.get_pos()
+                            print(mouse_pos)
 
-                    # Game state - Main Menu
-                    if self.game_state == 1:
-                        button_clicked = self.game_board.click(mouse_pos[0], mouse_pos[1], self.game_state)
-                        if button_clicked == 'EASY':
-                            self.difficulty = 1
-                            self.game_state = 2
-                        elif button_clicked == 'NORMAL':
-                            self.difficulty = 2
-                            self.game_state = 2
-                        elif button_clicked == 'HARD':
-                            self.difficulty = 3
-                            self.game_state = 2
+                            # Game state - Main Menu
+                            if self.game_state == 1:
+                                button_clicked = self.game_board.click(mouse_pos[0], mouse_pos[1], self.game_state)
+                                if button_clicked == 'EASY':
+                                    self.difficulty = 1
+                                    self.game_state = 2
+                                elif button_clicked == 'NORMAL':
+                                    self.difficulty = 2
+                                    self.game_state = 2
+                                elif button_clicked == 'HARD':
+                                    self.difficulty = 3
+                                    self.game_state = 2
 
-                    # Game state - In game
-                    elif self.game_state == 2:
-                        button_clicked = self.game_board.click(mouse_pos[0], mouse_pos[1], self.game_state)
-                        print(button_clicked)
-                        for twr in self.towers_list:
-                            twr.click(mouse_pos[0], mouse_pos[1])
+                            # Game state - In game
+                            elif self.game_state == 2:
+                                button_clicked = self.game_board.click(mouse_pos[0], mouse_pos[1], self.game_state)
+                                print(button_clicked)
+                                for twr in self.towers_list:
+                                    twr.click(mouse_pos[0], mouse_pos[1])
 
-                        if button_clicked is None:
+                                if button_clicked is None:
+                                    self.game_board.close_open_menus()
+                                elif button_clicked:
+                                    self.drag_tower(button_clicked)
+
+
+                            # Game state - You lose
+                            elif self.game_state == 3:
+                                button_clicked = self.game_board.click(mouse_pos[0], mouse_pos[1], self.game_state)
+                                if button_clicked == 'BACK':
+                                    self.setup()
+                                elif button_clicked == 'RESTART':
+                                    self.setup()
+                                    self.game_state = 2
+
+                            # Game state - You win
+                            elif self.game_state == 4:
+                                button_clicked = self.game_board.click(mouse_pos[0], mouse_pos[1], self.game_state)
+
+                        else:
                             self.game_board.close_open_menus()
-                        elif button_clicked:
-                            self.spawn_tower(button_clicked)
-
-
-                    # Game state - You lose
-                    elif self.game_state == 3:
-                        button_clicked = self.game_board.click(mouse_pos[0], mouse_pos[1], self.game_state)
-                        if button_clicked == 'BACK':
-                            self.setup()
-                        elif button_clicked == 'RESTART':
-                            self.setup()
-                            self.game_state = 2
-
-                    # Game state - You win
-                    elif self.game_state == 4:
-                        button_clicked = self.game_board.click(mouse_pos[0], mouse_pos[1], self.game_state)
+                            self.object_being_dragged = False
 
                 # Spawn events
                 if event.type == 25 and len(self.enemy_list) <= self.wave and self.game_state == 2:
