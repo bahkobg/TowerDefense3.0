@@ -112,10 +112,11 @@ class Runtime:
                 if event.type == pygame.QUIT:
                     running = False
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    if self.object_being_dragged:
-                        self.spawn_tower()
-                    else:
-                        if event.button == 1:
+
+                    if event.button == 1:
+                        if self.object_being_dragged:
+                            self.spawn_tower()
+                        else:
                             mouse_pos = pygame.mouse.get_pos()
                             print(mouse_pos)
 
@@ -158,9 +159,9 @@ class Runtime:
                             elif self.game_state == 4:
                                 button_clicked = self.game_board.click(mouse_pos[0], mouse_pos[1], self.game_state)
 
-                        else:
-                            self.game_board.close_open_menus()
-                            self.object_being_dragged = False
+                    else:
+                        self.game_board.close_open_menus()
+                        self.object_being_dragged = False
 
                 # Spawn events
                 if event.type == 25 and len(self.enemy_list) <= self.wave and self.game_state == 2:
@@ -217,29 +218,29 @@ class Runtime:
         elif name == 'BUY_ARCHER_TOWER_4':
             return tower.TowerArcher4(x, y)
         elif name == 'BUY_MAGIC_TOWER_1':
-            return tower.TowerArcher1(x, y)
+            return tower.TowerMagic1(x, y)
         elif name == 'BUY_MAGIC_TOWER_2':
-            return tower.TowerArcher2(x, y)
+            return tower.TowerMagic2(x, y)
         elif name == 'BUY_MAGIC_TOWER_3':
-            return tower.TowerArcher3(x, y)
+            return tower.TowerMagic3(x, y)
         elif name == 'BUY_MAGIC_TOWER_4':
-            return tower.TowerArcher4(x, y)
+            return tower.TowerMagic4(x, y)
         elif name == 'BUY_STONE_TOWER_1':
-            return tower.TowerArcher1(x, y)
+            return tower.TowerStone1(x, y)
         elif name == 'BUY_STONE_TOWER_2':
-            return tower.TowerArcher2(x, y)
+            return tower.TowerStone2(x, y)
         elif name == 'BUY_STONE_TOWER_3':
-            return tower.TowerArcher3(x, y)
+            return tower.TowerStone3(x, y)
         elif name == 'BUY_STONE_TOWER_4':
-            return tower.TowerArcher4(x, y)
+            return tower.TowerStone4(x, y)
         elif name == 'BUY_SUPPORT_TOWER_1':
-            return tower.TowerArcher1(x, y)
+            return tower.TowerSupport1(x, y)
         elif name == 'BUY_SUPPORT_TOWER_2':
-            return tower.TowerArcher2(x, y)
+            return tower.TowerSupport2(x, y)
         elif name == 'BUY_SUPPORT_TOWER_3':
-            return tower.TowerArcher3(x, y)
+            return tower.TowerSupport3(x, y)
         elif name == 'BUY_SUPPORT_TOWER_4':
-            return tower.TowerArcher4(x, y)
+            return tower.TowerSupport4(x, y)
         else:
             return False
 

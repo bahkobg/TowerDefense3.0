@@ -88,10 +88,10 @@ class GameBoard:
         self.menu_tower_support = pygame.sprite.Group()
         self.menu_tower_support.add(
             Button(global_variables.towers_support[0], 330, 100, 670, 400, False),
-            Button(global_variables.towers_support[3], 370, 170, 125, 140, 'BUY_SUPPORT_TOWER_1'),
-            Button(global_variables.towers_support[6], 525, 170, 125, 140, 'BUY_SUPPORT_TOWER_2'),
-            Button(global_variables.towers_support[12], 680, 170, 125, 140, 'BUY_SUPPORT_TOWER_3'),
-            Button(global_variables.towers_support[15], 835, 170, 125, 140, 'BUY_SUPPORT_TOWER_4')
+            Button(global_variables.towers_support[1], 370, 170, 125, 140, 'BUY_SUPPORT_TOWER_1'),
+            Button(global_variables.towers_support[4], 525, 170, 125, 140, 'BUY_SUPPORT_TOWER_2'),
+            Button(global_variables.towers_support[7], 680, 170, 125, 140, 'BUY_SUPPORT_TOWER_3'),
+            Button(global_variables.towers_support[10], 835, 170, 125, 140, 'BUY_SUPPORT_TOWER_4')
         )
 
         # You Lose

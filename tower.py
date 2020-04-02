@@ -112,8 +112,8 @@ class TowerArcher4(Tower):
 class TowerMagic1(Tower):
     def __init__(self, x, y):
         super().__init__(x, y)
-        self.image = pygame.transform.scale(global_variables.towers_archer[2], (self.width, self.height))
-        self.image_upgrade = pygame.transform.scale(global_variables.towers_archer[3], (self.width, self.height))
+        self.image = pygame.transform.scale(global_variables.towers_magic[2], (self.width, self.height))
+        self.image_upgrade = pygame.transform.scale(global_variables.towers_magic[3], (self.width, self.height))
         # Tower stuff
         self.range = 120
         self.damage = 5
@@ -125,8 +125,8 @@ class TowerMagic1(Tower):
 class TowerMagic2(Tower):
     def __init__(self, x, y):
         super().__init__(x, y)
-        self.image = pygame.transform.scale(global_variables.towers_archer[6], (self.width, self.height))
-        self.image_upgrade = pygame.transform.scale(global_variables.towers_archer[7], (self.width, self.height))
+        self.image = pygame.transform.scale(global_variables.towers_magic[6], (self.width, self.height))
+        self.image_upgrade = pygame.transform.scale(global_variables.towers_magic[7], (self.width, self.height))
         # Tower stuff
         self.range = 130
         self.damage = 6
@@ -138,8 +138,8 @@ class TowerMagic2(Tower):
 class TowerMagic3(Tower):
     def __init__(self, x, y):
         super().__init__(x, y)
-        self.image = pygame.transform.scale(global_variables.towers_archer[11], (self.width, self.height))
-        self.image_upgrade = pygame.transform.scale(global_variables.towers_archer[12], (self.width, self.height))
+        self.image = pygame.transform.scale(global_variables.towers_magic[11], (self.width, self.height))
+        self.image_upgrade = pygame.transform.scale(global_variables.towers_magic[12], (self.width, self.height))
         # Tower stuff
         self.range = 140
         self.damage = 7
@@ -151,11 +151,115 @@ class TowerMagic3(Tower):
 class TowerMagic4(Tower):
     def __init__(self, x, y):
         super().__init__(x, y)
-        self.image = pygame.transform.scale(global_variables.towers_archer[16], (self.width, self.height))
-        self.image_upgrade = pygame.transform.scale(global_variables.towers_archer[17], (self.width, self.height))
+        self.image = pygame.transform.scale(global_variables.towers_magic[16], (self.width, self.height))
+        self.image_upgrade = pygame.transform.scale(global_variables.towers_magic[17], (self.width, self.height))
         # Tower stuff
         self.range = 150
         self.damage = 8
         self.rate = 1
         self.price = 8
+        self.bullets = []
+
+
+class TowerStone1(Tower):
+    def __init__(self, x, y):
+        super().__init__(x, y)
+        self.image = pygame.transform.scale(global_variables.towers_stone[3], (self.width, self.height))
+        self.image_upgrade = pygame.transform.scale(global_variables.towers_stone[6], (self.width, self.height))
+        # Tower stuff
+        self.range = 120
+        self.damage = 9
+        self.rate = 1
+        self.price = 9
+        self.bullets = []
+
+
+class TowerStone2(Tower):
+    def __init__(self, x, y):
+        super().__init__(x, y)
+        self.image = pygame.transform.scale(global_variables.towers_stone[6], (self.width, self.height))
+        self.image_upgrade = pygame.transform.scale(global_variables.towers_stone[7], (self.width, self.height))
+        # Tower stuff
+        self.range = 130
+        self.damage = 10
+        self.rate = 1
+        self.price = 10
+        self.bullets = []
+
+
+class TowerStone3(Tower):
+    def __init__(self, x, y):
+        super().__init__(x, y)
+        self.image = pygame.transform.scale(global_variables.towers_stone[12], (self.width, self.height))
+        self.image_upgrade = pygame.transform.scale(global_variables.towers_stone[13], (self.width, self.height))
+        # Tower stuff
+        self.range = 140
+        self.damage = 11
+        self.rate = 1
+        self.price = 11
+        self.bullets = []
+
+
+class TowerStone4(Tower):
+    def __init__(self, x, y):
+        super().__init__(x, y)
+        self.image = pygame.transform.scale(global_variables.towers_stone[16], (self.width, self.height))
+        self.image_upgrade = pygame.transform.scale(global_variables.towers_stone[17], (self.width, self.height))
+        # Tower stuff
+        self.range = 150
+        self.damage = 12
+        self.rate = 1
+        self.price = 12
+        self.bullets = []
+
+
+class TowerSupport1(Tower):
+    def __init__(self, x, y):
+        super().__init__(x, y)
+        self.image = pygame.transform.scale(global_variables.towers_support[1], (self.width, self.height))
+        self.image_upgrade = pygame.transform.scale(global_variables.towers_support[2], (self.width, self.height))
+        # Tower stuff
+        self.range = 120
+        self.damage = 13
+        self.rate = 1
+        self.price = 13
+        self.bullets = []
+
+
+class TowerSupport2(Tower):
+    def __init__(self, x, y):
+        super().__init__(x, y)
+        self.image = pygame.transform.scale(global_variables.towers_support[4], (self.width, self.height))
+        self.image_upgrade = pygame.transform.scale(global_variables.towers_support[5], (self.width, self.height))
+        # Tower stuff
+        self.range = 130
+        self.damage = 14
+        self.rate = 1
+        self.price = 14
+        self.bullets = []
+
+
+class TowerSupport3(Tower):
+    def __init__(self, x, y):
+        super().__init__(x, y)
+        self.image = pygame.transform.scale(global_variables.towers_support[7], (self.width, self.height))
+        self.image_upgrade = pygame.transform.scale(global_variables.towers_support[8], (self.width, self.height))
+        # Tower stuff
+        self.range = 140
+        self.damage = 15
+        self.rate = 1
+        self.price = 15
+        self.bullets = []
+
+
+class TowerSupport4(Tower):
+    def __init__(self, x, y):
+        super().__init__(x, y)
+        self.image = pygame.transform.scale(global_variables.towers_support[10], (self.width, self.height))
+        self.image_upgrade = pygame.transform.scale(global_variables.towers_support[11], (self.width, self.height))
+        # Tower stuff
+        self.range = 150
+        self.damage = 16
+        self.rate = 1
+        self.price = 16
         self.bullets = []
