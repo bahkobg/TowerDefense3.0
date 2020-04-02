@@ -5,6 +5,9 @@ import math
 
 
 class Enemy(pygame.sprite.Sprite):
+    """
+    Defines the main enemy class.
+    """
     def __init__(self, x, y):
         super().__init__()
         self.x = x

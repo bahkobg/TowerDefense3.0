@@ -58,40 +58,40 @@ class GameBoard:
         self.menu_tower_archer = pygame.sprite.Group()
         self.menu_tower_archer.add(
             Button(global_variables.towers_archer[0], 330, 100, 670, 400, False),
-            Button(global_variables.towers_archer[2], 370, 170, 125, 140, 'EASY'),
-            Button(global_variables.towers_archer[7], 525, 170, 125, 140, 'EASY'),
-            Button(global_variables.towers_archer[9], 680, 170, 125, 140, 'EASY'),
-            Button(global_variables.towers_archer[11], 835, 170, 125, 140, 'EASY')
+            Button(global_variables.towers_archer[2], 370, 170, 125, 140, 'BUY_ARCHER_TOWER_1'),
+            Button(global_variables.towers_archer[7], 525, 170, 125, 140, 'BUY_ARCHER_TOWER_2'),
+            Button(global_variables.towers_archer[9], 680, 170, 125, 140, 'BUY_ARCHER_TOWER_3'),
+            Button(global_variables.towers_archer[11], 835, 170, 125, 140, 'BUY_ARCHER_TOWER_4')
         )
         # Magic Tower
         self.menu_tower_magic_opened = False
         self.menu_tower_magic = pygame.sprite.Group()
         self.menu_tower_magic.add(
             Button(global_variables.towers_magic[0], 330, 100, 670, 400, False),
-            Button(global_variables.towers_magic[2], 370, 170, 125, 140, 'EASY'),
-            Button(global_variables.towers_magic[6], 525, 170, 125, 140, 'EASY'),
-            Button(global_variables.towers_magic[11], 680, 170, 125, 140, 'EASY'),
-            Button(global_variables.towers_magic[16], 835, 170, 125, 140, 'EASY')
+            Button(global_variables.towers_magic[2], 370, 170, 125, 140, 'BUY_MAGIC_TOWER_1'),
+            Button(global_variables.towers_magic[6], 525, 170, 125, 140, 'BUY_MAGIC_TOWER_2'),
+            Button(global_variables.towers_magic[11], 680, 170, 125, 140, 'BUY_MAGIC_TOWER_3'),
+            Button(global_variables.towers_magic[16], 835, 170, 125, 140, 'BUY_MAGIC_TOWER_4')
         )
         # Stone Tower
         self.menu_tower_stone_opened = False
         self.menu_tower_stone = pygame.sprite.Group()
         self.menu_tower_stone.add(
             Button(global_variables.towers_stone[0], 330, 100, 670, 400, False),
-            Button(global_variables.towers_stone[3], 370, 170, 125, 140, 'EASY'),
-            Button(global_variables.towers_stone[6], 525, 170, 125, 140, 'EASY'),
-            Button(global_variables.towers_stone[12], 680, 170, 125, 140, 'EASY'),
-            Button(global_variables.towers_stone[15], 835, 170, 125, 140, 'EASY')
+            Button(global_variables.towers_stone[3], 370, 170, 125, 140, 'BUY_STONE_TOWER_1'),
+            Button(global_variables.towers_stone[6], 525, 170, 125, 140, 'BUY_STONE_TOWER_2'),
+            Button(global_variables.towers_stone[12], 680, 170, 125, 140, 'BUY_STONE_TOWER_3'),
+            Button(global_variables.towers_stone[15], 835, 170, 125, 140, 'BUY_STONE_TOWER_4')
         )
         # Support Tower
         self.menu_tower_support_opened = False
         self.menu_tower_support = pygame.sprite.Group()
         self.menu_tower_support.add(
             Button(global_variables.towers_support[0], 330, 100, 670, 400, False),
-            Button(global_variables.towers_support[3], 370, 170, 125, 140, 'EASY'),
-            Button(global_variables.towers_support[6], 525, 170, 125, 140, 'EASY'),
-            Button(global_variables.towers_support[12], 680, 170, 125, 140, 'EASY'),
-            Button(global_variables.towers_support[15], 835, 170, 125, 140, 'EASY')
+            Button(global_variables.towers_support[3], 370, 170, 125, 140, 'BUY_SUPPORT_TOWER_1'),
+            Button(global_variables.towers_support[6], 525, 170, 125, 140, 'BUY_SUPPORT_TOWER_2'),
+            Button(global_variables.towers_support[12], 680, 170, 125, 140, 'BUY_SUPPORT_TOWER_3'),
+            Button(global_variables.towers_support[15], 835, 170, 125, 140, 'BUY_SUPPORT_TOWER_4')
         )
 
         # You Lose
@@ -157,6 +157,14 @@ class GameBoard:
                              (570, 470))
 
     def draw_tower_menus(self, game_state):
+        """
+        Draws the tower's shop menus.
+        :param:game_state -> 1: Main menu,
+                             2: Game- Started,
+                             3: You lose,
+                             4: You win
+        :return: None
+        """
         # Draw the menus
         if game_state == 2:
             if self.menu_tower_archer_opened:
@@ -181,29 +189,60 @@ class GameBoard:
         return self.screen
 
     def click(self, x, y, game_state):
+        """
+        Check the mouse coordinates against all menu buttons
+        :param x: int
+        :param y: int
+        :param:game_state: int -> 1: Main menu,
+                                  2: Game- Started,
+                                  3: You lose,
+                                  4: You win
+        :return:
+        """
         if game_state == 1:
             for sprite in self.main_menu_buttons:
                 if sprite.click(x, y):
                     return sprite.button_id
         elif game_state == 2:
+            # Bottom menus
             for sprite in self.bottom_menu_buttons:
                 if sprite.click(x, y):
                     if sprite.click(x, y) == 'ARCHER':
                         self.close_open_menus()
                         self.menu_tower_archer_opened = True
-                        return True
+                        return 'ARCHER'
                     elif sprite.click(x, y) == 'MAGIC':
                         self.close_open_menus()
                         self.menu_tower_magic_opened = True
-                        return True
+                        return 'MAGIC'
                     elif sprite.click(x, y) == 'STONE':
                         self.close_open_menus()
                         self.menu_tower_stone_opened = True
-                        return True
+                        return 'STONE'
                     elif sprite.click(x, y) == 'SUPPORT':
                         self.close_open_menus()
                         self.menu_tower_support_opened = True
-                        return True
+                        return 'SUPPORT'
+
+            # Buy menus
+            if self.menu_tower_archer_opened:
+                for sprite in self.menu_tower_archer:
+                    if sprite.click(x, y):
+                        return sprite.button_id
+            elif self.menu_tower_stone_opened:
+                for sprite in self.menu_tower_stone:
+                    if sprite.click(x, y):
+                        return sprite.button_id
+            elif self.menu_tower_magic_opened:
+                for sprite in self.menu_tower_magic:
+                    if sprite.click(x, y):
+                        return sprite.button_id
+            elif self.menu_tower_support_opened:
+                for sprite in self.menu_tower_support:
+                    if sprite.click(x, y):
+                        return sprite.button_id
+
+
         elif game_state == 3:
             for sprite in self.you_lose_buttons:
                 if sprite.click(x, y):
@@ -214,6 +253,10 @@ class GameBoard:
                     return sprite.button_id
 
     def close_open_menus(self):
+        """
+        Closes all open tower's shop menus
+        :return:
+        """
         self.menu_tower_archer_opened = False
         self.menu_tower_support_opened = False
         self.menu_tower_magic_opened = False
@@ -221,6 +264,9 @@ class GameBoard:
 
 
 class Button(pygame.sprite.Sprite):
+    """
+    Defines the main button class
+    """
     def __init__(self, img, x, y, width, height, button_id):
         pygame.sprite.Sprite.__init__(self)
         self.sound_click = pygame.mixer.Sound('assets/sounds/click.wav')
@@ -233,6 +279,12 @@ class Button(pygame.sprite.Sprite):
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
 
     def click(self, x, y):
+        """
+        Check the mouse coordinates against all menu buttons
+        :param x: int
+        :param y: int
+        :return:
+        """
         if self.rect.collidepoint(x, y):
             if self.button_id:
                 pygame.mixer.Sound.play(self.sound_click)

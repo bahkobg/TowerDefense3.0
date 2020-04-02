@@ -1,6 +1,5 @@
 import pygame
 
-
 # General
 stats_kills = 0
 stats_money = 0
@@ -20,6 +19,7 @@ towers_magic = [pygame.image.load('assets/towers/magic/' + str(x) + '.png') for 
 towers_stone = [pygame.image.load('assets/towers/stone/' + str(x) + '.png') for x in range(62)]
 towers_support = [pygame.image.load('assets/towers/support/' + str(x) + '.png') for x in range(18)]
 
+
 # Map specific
 map_1_tower_positions = [(1122, 262), (856, 264), (585, 262), (502, 468), (794, 481), (1078, 480), (366, 642)]
 map_1_path_1 = [(1100, 100), (470, 100), (384, 240), (631, 359), (702, 528), (1194, 541), (1242, 541)]
@@ -33,5 +33,3 @@ menu_bottom = [pygame.image.load('assets/menus/gui/' + str(x) + '.png') for x in
 
 # Effects
 rain = [pygame.image.load('assets/effects/rain/' + str(x) + '.png') for x in range(39)]
-
-
