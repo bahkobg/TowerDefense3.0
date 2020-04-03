@@ -4,7 +4,6 @@ import global_variables
 import enemy
 import tower
 import time
-import random
 
 
 class Runtime:
@@ -32,6 +31,7 @@ class Runtime:
         self.towers_list = None
         self.moving_objects = None
         self.object_being_dragged = None
+        self.tower_available_positions = None
 
         # Player
         self.player_health = None
@@ -59,6 +59,7 @@ class Runtime:
         # Towers
         self.towers_list = pygame.sprite.Group()
         self.moving_objects = pygame.sprite.Group()
+        self.tower_available_positions = global_variables.map_1_tower_positions
 
         # Player
         self.player_health = global_variables.stats_player_health = 10 * self.difficulty
@@ -135,8 +136,17 @@ class Runtime:
                 if event.type == pygame.MOUSEBUTTONDOWN:
 
                     if event.button == 1:
+                        # First check if any tower is currently being drag on the screen
                         if self.object_being_dragged:
-                            self.spawn_tower()
+                            for obj in self.moving_objects:
+
+                                # Check the tower dragged position against the map specific tower points/
+                                for point in self.tower_available_positions:
+
+                                    # If the point is not already taken by another tower.
+                                    if obj.rect.collidepoint(point) and not pygame.sprite.spritecollide(obj, self.towers_list, False):
+                                        self.spawn_tower()
+
                         else:
                             mouse_pos = pygame.mouse.get_pos()
                             print(mouse_pos)
@@ -157,7 +167,6 @@ class Runtime:
                             # Game state - In game
                             elif self.game_state == 2:
                                 button_clicked = self.game_board.click(mouse_pos[0], mouse_pos[1], self.game_state)
-                                print(button_clicked)
                                 for twr in self.towers_list:
                                     twr.click(mouse_pos[0], mouse_pos[1])
 
@@ -180,8 +189,10 @@ class Runtime:
                             elif self.game_state == 4:
                                 button_clicked = self.game_board.click(mouse_pos[0], mouse_pos[1], self.game_state)
 
-                    else:
+                    else:  # If mouse right button is pressed
+                        # Close all opened menus
                         self.game_board.close_open_menus()
+                        # Stop dragging sprites
                         self.object_being_dragged = False
 
                 # Spawn events
@@ -230,8 +241,15 @@ class Runtime:
         for twr in self.towers_list:
             twr.draw(self.screen, self.game_state)
 
+        # Logic when a tower is being dragged with the mouse
         if self.object_being_dragged:
+
             for obj in self.moving_objects:
+                for point in self.tower_available_positions:
+                    if obj.rect.collidepoint(point) and not pygame.sprite.spritecollide(obj, self.towers_list, False):
+                        circle_surface_green = pygame.Surface((64 * 2, 64 * 2), pygame.SRCALPHA, 32)
+                        pygame.draw.circle(circle_surface_green, (0, 128, 0, 128), (64, 64), 64, 0)
+                        self.screen.blit(circle_surface_green, (pygame.mouse.get_pos()[0] - 68, pygame.mouse.get_pos()[1] - 64))
                 obj.drag(pygame.mouse.get_pos())
                 obj.draw(self.screen, self.game_state)
 
@@ -286,8 +304,8 @@ if __name__ == '__main__':
 
 """
 TO DO 
-- Archers shoot animation
+- DONE -> Archers shoot animation
 - Moneys
-- Tower's placement availability
+- DONE -> Tower's placement availability
 - Tower's descriptions
 """

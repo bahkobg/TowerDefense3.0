@@ -48,8 +48,9 @@ class Tower(pygame.sprite.Sprite):
         Spawn the archer after the tower is set in position on the board.
         :return: None
         """
-        if not self.in_position:
-            self.in_position = True
+        self.being_dragged = False
+        self.in_position = True
+
 
     def get_range_rect(self):
         """
@@ -77,6 +78,10 @@ class Tower(pygame.sprite.Sprite):
         """
         if self.enemy_in_range != x:
             self.enemy_in_range = x
+
+    def set_being_dragged(self, x):
+        if self.being_dragged != x:
+            self.being_dragged = x
 
     def set_archer_flipped(self, x):
         self.flipped = x
@@ -118,7 +123,7 @@ class Tower(pygame.sprite.Sprite):
             pygame.mixer.Sound.play(self.sound_bow)
             self.animation_index = 0
 
-        arrow = self.shoot_list[self.shoot_index]
+        arrow = pygame.transform.scale(self.shoot_list[self.shoot_index], (self.arrow_rect.width, self.arrow_rect.height))
         archer = pygame.transform.scale(self.animation_list[self.animation_index], (self.archer_rect.width, self.archer_rect.height))
 
         if self.enemy_in_range:
@@ -127,7 +132,7 @@ class Tower(pygame.sprite.Sprite):
                 self.animation_index += 1
                 self.timer = time.time()
         else:
-            arrow = self.shoot_list[0]
+            arrow = pygame.transform.scale(self.shoot_list[0], (0, 0))
             archer = pygame.transform.scale(self.animation_list[0], (self.archer_rect.width, self.archer_rect.height))
 
         if self.flipped:  # if the enemy is left
@@ -162,7 +167,7 @@ class TowerArcher1(Tower):
         self.image = pygame.transform.scale(global_variables.towers_archer[4], (self.width, self.height))
         self.image_upgrade = pygame.transform.scale(global_variables.towers_archer[6], (self.width, self.height))
         self.animation_list = global_variables.towers_archer[38:43]
-        self.shoot_list = [pygame.transform.scale(global_variables.towers_archer[35], (6 * x, 6 * x)) for x in range(5)]
+        self.shoot_list = global_variables.towers_archer[77:82]
 
     def set_in_position(self):
         """
@@ -172,7 +177,7 @@ class TowerArcher1(Tower):
         if not self.in_position:
             self.in_position = True
             self.archer_rect = pygame.Rect(self.rect.x + 20, self.rect.y - 36, 45, 45)
-            self.arrow_rect = pygame.Rect(self.archer_rect.topright[0], self.archer_rect.y - 30, 0, 0)
+            self.arrow_rect = pygame.Rect(self.archer_rect.topright[0], self.archer_rect.y - 30, 30, 30)
 
 
 class TowerArcher2(Tower):
@@ -181,7 +186,7 @@ class TowerArcher2(Tower):
         self.image = pygame.transform.scale(global_variables.towers_archer[7], (self.width, self.height))
         self.image_upgrade = pygame.transform.scale(global_variables.towers_archer[8], (self.width, self.height))
         self.animation_list = global_variables.towers_archer[38:43]
-        self.shoot_list = [pygame.transform.scale(global_variables.towers_archer[35], (6 * x, 6 * x)) for x in range(5)]
+        self.shoot_list = global_variables.towers_archer[77:82]
         # Tower stuff
         self.range = 130
         self.damage = 2
@@ -197,7 +202,7 @@ class TowerArcher2(Tower):
         if not self.in_position:
             self.in_position = True
             self.archer_rect = pygame.Rect(self.rect.x + 20, self.rect.y - 24, 45, 45)
-            self.arrow_rect = pygame.Rect(self.archer_rect.topright[0], self.archer_rect.y - 30, 0, 0)
+            self.arrow_rect = pygame.Rect(self.archer_rect.topright[0], self.archer_rect.y - 30, 30, 30)
 
 
 class TowerArcher3(Tower):
@@ -206,7 +211,7 @@ class TowerArcher3(Tower):
         self.image = pygame.transform.scale(global_variables.towers_archer[9], (self.width, self.height))
         self.image_upgrade = pygame.transform.scale(global_variables.towers_archer[10], (self.width, self.height))
         self.animation_list = global_variables.towers_archer[51:56]
-        self.shoot_list = [pygame.transform.scale(global_variables.towers_archer[35], (6 * x, 6 * x)) for x in range(5)]
+        self.shoot_list = global_variables.towers_archer[77:82]
         # Tower stuff
         self.range = 140
         self.damage = 3
@@ -222,7 +227,8 @@ class TowerArcher3(Tower):
         if not self.in_position:
             self.in_position = True
             self.archer_rect = pygame.Rect(self.rect.x + 20, self.rect.y - 24, 45, 45)
-            self.arrow_rect = pygame.Rect(self.archer_rect.topright[0], self.archer_rect.y - 30, 0, 0)
+            self.arrow_rect = pygame.Rect(self.archer_rect.topright[0], self.archer_rect.y - 30, 30, 30)
+
 
 class TowerArcher4(Tower):
     def __init__(self, x, y):
@@ -230,7 +236,7 @@ class TowerArcher4(Tower):
         self.image = pygame.transform.scale(global_variables.towers_archer[11], (self.width, self.height))
         self.image_upgrade = pygame.transform.scale(global_variables.towers_archer[12], (self.width, self.height))
         self.animation_list = global_variables.towers_archer[64:69]
-        self.shoot_list = [pygame.transform.scale(global_variables.towers_archer[35], (6 * x, 6 * x)) for x in range(5)]
+        self.shoot_list = global_variables.towers_archer[77:82]
         # Tower stuff
         self.range = 150
         self.damage = 4
@@ -246,13 +252,16 @@ class TowerArcher4(Tower):
         if not self.in_position:
             self.in_position = True
             self.archer_rect = pygame.Rect(self.rect.x + 20, self.rect.y - 24, 45, 45)
-            self.arrow_rect = pygame.Rect(self.archer_rect.topright[0], self.archer_rect.y - 30, 0, 0)
+            self.arrow_rect = pygame.Rect(self.archer_rect.topright[0], self.archer_rect.y - 30, 30, 30)
+
 
 class TowerMagic1(Tower):
     def __init__(self, x, y):
         super().__init__(x, y)
         self.image = pygame.transform.scale(global_variables.towers_magic[2], (self.width, self.height))
         self.image_upgrade = pygame.transform.scale(global_variables.towers_magic[3], (self.width, self.height))
+        self.animation_list = [global_variables.towers_magic[1]]
+        self.shoot_list = global_variables.towers_magic[19:26]
         # Tower stuff
         self.range = 120
         self.damage = 5
@@ -260,12 +269,24 @@ class TowerMagic1(Tower):
         self.price = 5
         self.bullets = []
 
+    def set_in_position(self):
+        """
+        Spawn the archer after the tower is set in position on the board.
+        :return: None
+        """
+        if not self.in_position:
+            self.in_position = True
+            self.archer_rect = pygame.Rect(self.rect.x + 20, self.rect.y - 40, 34, 55)
+            self.arrow_rect = pygame.Rect(self.archer_rect.topright[0], self.archer_rect.y - 30, 21, 69)
+
 
 class TowerMagic2(Tower):
     def __init__(self, x, y):
         super().__init__(x, y)
         self.image = pygame.transform.scale(global_variables.towers_magic[6], (self.width, self.height))
         self.image_upgrade = pygame.transform.scale(global_variables.towers_magic[7], (self.width, self.height))
+        self.animation_list = [global_variables.towers_magic[28]]
+        self.shoot_list = global_variables.towers_magic[19:26]
         # Tower stuff
         self.range = 130
         self.damage = 6
@@ -273,12 +294,24 @@ class TowerMagic2(Tower):
         self.price = 6
         self.bullets = []
 
+    def set_in_position(self):
+        """
+        Spawn the archer after the tower is set in position on the board.
+        :return: None
+        """
+        if not self.in_position:
+            self.in_position = True
+            self.archer_rect = pygame.Rect(self.rect.x + 20, self.rect.y - 40, 34, 55)
+            self.arrow_rect = pygame.Rect(self.archer_rect.topright[0], self.archer_rect.y - 30, 21, 69)
+
 
 class TowerMagic3(Tower):
     def __init__(self, x, y):
         super().__init__(x, y)
         self.image = pygame.transform.scale(global_variables.towers_magic[11], (self.width, self.height))
         self.image_upgrade = pygame.transform.scale(global_variables.towers_magic[12], (self.width, self.height))
+        self.animation_list = [global_variables.towers_magic[29]]
+        self.shoot_list = global_variables.towers_magic[19:26]
         # Tower stuff
         self.range = 140
         self.damage = 7
@@ -286,12 +319,24 @@ class TowerMagic3(Tower):
         self.price = 7
         self.bullets = []
 
+    def set_in_position(self):
+        """
+        Spawn the archer after the tower is set in position on the board.
+        :return: None
+        """
+        if not self.in_position:
+            self.in_position = True
+            self.archer_rect = pygame.Rect(self.rect.x + 20, self.rect.y - 40, 34, 55)
+            self.arrow_rect = pygame.Rect(self.archer_rect.topright[0], self.archer_rect.y - 30, 21, 69)
+
 
 class TowerMagic4(Tower):
     def __init__(self, x, y):
         super().__init__(x, y)
         self.image = pygame.transform.scale(global_variables.towers_magic[16], (self.width, self.height))
         self.image_upgrade = pygame.transform.scale(global_variables.towers_magic[17], (self.width, self.height))
+        self.animation_list = [global_variables.towers_magic[30]]
+        self.shoot_list = global_variables.towers_magic[19:26]
         # Tower stuff
         self.range = 150
         self.damage = 8
@@ -299,18 +344,40 @@ class TowerMagic4(Tower):
         self.price = 8
         self.bullets = []
 
+    def set_in_position(self):
+        """
+        Spawn the archer after the tower is set in position on the board.
+        :return: None
+        """
+        if not self.in_position:
+            self.in_position = True
+            self.archer_rect = pygame.Rect(self.rect.x + 20, self.rect.y - 40, 34, 55)
+            self.arrow_rect = pygame.Rect(self.archer_rect.topright[0], self.archer_rect.y - 30, 21, 69)
+
 
 class TowerStone1(Tower):
     def __init__(self, x, y):
         super().__init__(x, y)
         self.image = pygame.transform.scale(global_variables.towers_stone[3], (self.width, self.height))
         self.image_upgrade = pygame.transform.scale(global_variables.towers_stone[6], (self.width, self.height))
+        self.animation_list = [global_variables.towers_stone[27]]
+        self.shoot_list = global_variables.towers_stone[29:33]
         # Tower stuff
         self.range = 120
         self.damage = 9
         self.rate = 1
         self.price = 9
         self.bullets = []
+
+    def set_in_position(self):
+        """
+        Spawn the archer after the tower is set in position on the board.
+        :return: None
+        """
+        if not self.in_position:
+            self.in_position = True
+            self.archer_rect = pygame.Rect(self.rect.x + 20, self.rect.y - 40, 66, 97)
+            self.arrow_rect = pygame.Rect(self.archer_rect.topright[0], self.archer_rect.y - 30, 80, 97)
 
 
 class TowerStone2(Tower):
@@ -325,6 +392,16 @@ class TowerStone2(Tower):
         self.price = 10
         self.bullets = []
 
+    def set_in_position(self):
+        """
+        Spawn the archer after the tower is set in position on the board.
+        :return: None
+        """
+        if not self.in_position:
+            self.in_position = True
+            self.archer_rect = pygame.Rect(self.rect.x + 20, self.rect.y - 40, 66, 97)
+            self.arrow_rect = pygame.Rect(self.archer_rect.topright[0], self.archer_rect.y - 30, 80, 97)
+
 
 class TowerStone3(Tower):
     def __init__(self, x, y):
@@ -338,6 +415,16 @@ class TowerStone3(Tower):
         self.price = 11
         self.bullets = []
 
+    def set_in_position(self):
+        """
+        Spawn the archer after the tower is set in position on the board.
+        :return: None
+        """
+        if not self.in_position:
+            self.in_position = True
+            self.archer_rect = pygame.Rect(self.rect.x + 20, self.rect.y - 40, 66, 97)
+            self.arrow_rect = pygame.Rect(self.archer_rect.topright[0], self.archer_rect.y - 30, 80, 97)
+
 
 class TowerStone4(Tower):
     def __init__(self, x, y):
@@ -350,6 +437,16 @@ class TowerStone4(Tower):
         self.rate = 1
         self.price = 12
         self.bullets = []
+
+    def set_in_position(self):
+        """
+        Spawn the archer after the tower is set in position on the board.
+        :return: None
+        """
+        if not self.in_position:
+            self.in_position = True
+            self.archer_rect = pygame.Rect(self.rect.x + 20, self.rect.y - 40, 66, 97)
+            self.arrow_rect = pygame.Rect(self.archer_rect.topright[0], self.archer_rect.y - 30, 80, 97)
 
 
 class TowerSupport1(Tower):
