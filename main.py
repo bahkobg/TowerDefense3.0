@@ -4,6 +4,7 @@ import global_variables
 import enemy
 import tower
 import time
+import random
 
 
 class Runtime:
@@ -14,15 +15,20 @@ class Runtime:
 
         # General
         self.clock = pygame.time.Clock()
-        self.game_board = game_board.GameBoard()
-        self.screen = self.game_board.get_screen
+        self.game_board = None
+        self.screen = None
         self.paused = False
         self.difficulty = None
         self.game_state = None
         self.wave = None
         self.timer = None
+        self.wave_number = None
+        self.wave_level = None
+        self.game_settings = None
+        self.positions = []
 
         # Enemies
+        self.enemy_paths = None
         self.spawn_timer = None
         self.enemy_queue = None
         self.enemy_list = None
@@ -38,28 +44,35 @@ class Runtime:
         self.positions = None
         self.effects_list = None
 
-    def setup(self):
+    def setup(self, map):
         """
         All variables held here, so the game can be restarted in runtime.
+        :param map: int
         :return: None
         """
+        self.game_settings = global_variables.game_settings
+        self.game_board = game_board.GameBoard(self.game_settings[map][0])
+        self.screen = self.game_board.get_screen
         pygame.mixer.music.load('assets/sounds/music1.wav')
         pygame.mixer.music.play(-1)
         pygame.mixer.music.set_volume(0.3)
         self.difficulty = 1
         self.game_state = 1  # 1 - Main Menu, 2 - Game started, 3 - You lose, 4 - You win
-        self.wave = 4 * self.difficulty
+        self.wave = 2 * self.difficulty
+        self.wave_number = 0
+        self.wave_level = 1
         self.timer = time.time()
 
         # Enemies
         pygame.time.set_timer(25, 1000)
         self.enemy_queue = []
         self.enemy_list = pygame.sprite.Group()
+        self.enemy_paths = self.game_settings[map][2:4]
 
         # Towers
         self.towers_list = pygame.sprite.Group()
         self.moving_objects = pygame.sprite.Group()
-        self.tower_available_positions = global_variables.map_1_tower_positions
+        self.tower_available_positions = self.game_settings[map][1]
 
         # Player
         self.player_health = global_variables.stats_player_health = 10 * self.difficulty
@@ -75,7 +88,13 @@ class Runtime:
         Spawn new enemy and add it to the list.
         :return: None
         """
-        self.enemy_list.add(enemy.Enemy(1290, 110))
+        self.enemy_list.add(enemy.Enemy(1290, 110, (random.randint(5, 20)) * self.wave_level, self.enemy_paths))
+        if self.wave_number >= self.wave:
+            self.wave_number = 0
+            self.wave_level += 1
+            self.wave *= 1.5
+            print(self.wave)
+        self.wave_number += 1
 
     def spawn_effect(self):
         """
@@ -149,7 +168,8 @@ class Runtime:
 
                         else:
                             mouse_pos = pygame.mouse.get_pos()
-                            print(mouse_pos)
+                            self.positions.append(mouse_pos)
+                            print(self.positions)
 
                             # Game state - Main Menu
                             if self.game_state == 1:
@@ -175,14 +195,13 @@ class Runtime:
                                 elif button_clicked:
                                     self.drag_tower(button_clicked)
 
-
                             # Game state - You lose
                             elif self.game_state == 3:
                                 button_clicked = self.game_board.click(mouse_pos[0], mouse_pos[1], self.game_state)
                                 if button_clicked == 'BACK':
-                                    self.setup()
+                                    self.setup(random.randint(0,4))
                                 elif button_clicked == 'RESTART':
-                                    self.setup()
+                                    self.setup(random.randint(0,4))
                                     self.game_state = 2
 
                             # Game state - You win
@@ -299,7 +318,7 @@ class Runtime:
 
 if __name__ == '__main__':
     g = Runtime()
-    g.setup()
+    g.setup(random.randint(0, 4))
     g.run()
 
 """

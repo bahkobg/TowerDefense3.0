@@ -7,7 +7,7 @@ class GameBoard:
     Defines the main screen and background.
     """
 
-    def __init__(self):
+    def __init__(self, settings):
 
         # General
         self.screen = pygame.display.set_mode((1280, 780), pygame.SRCALPHA)
@@ -26,7 +26,7 @@ class GameBoard:
         )
 
         # In-Game
-        self.in_game_bg = pygame.transform.scale(pygame.image.load('assets/backgrounds/1/bg.png'), (1280, 720))
+        self.in_game_bg = settings
         self.bottom_menu = pygame.transform.scale(pygame.image.load('assets/menus/gui/0.png'), (1340, 70))
         self.tree = pygame.transform.scale(pygame.image.load('assets/backgrounds/1/tree.png'), (67, 105))
         self.text_stats = pygame.font.SysFont('comicsansms', 28)
@@ -54,6 +54,7 @@ class GameBoard:
 
         # Archer Tower
         self.text_h2 = pygame.font.SysFont('comicsansms', bold=True, size=48)
+        self.text_p = pygame.font.SysFont('comicsansms', size=24)
         self.menu_tower_archer_opened = False
         self.menu_tower_archer = pygame.sprite.Group()
         self.menu_tower_archer.add(
@@ -170,15 +171,78 @@ class GameBoard:
             if self.menu_tower_archer_opened:
                 self.menu_tower_archer.draw(self.screen)
                 self.screen.blit(self.text_h2.render('Archer Towers:', True, (247, 187, 31)), (470, 100))
+                self.screen.blit(self.text_p.render('Damage: 1', True, (247, 187, 31)), (370, 300))
+                self.screen.blit(self.text_p.render('Range: 120', True, (247, 187, 31)), (370, 330))
+                self.screen.blit(self.text_p.render('Attack: 0.7', True, (247, 187, 31)), (370, 360))
+                self.screen.blit(self.text_p.render('Price: 12', True, (247, 187, 31)), (370, 390))
+                self.screen.blit(self.text_p.render('Damage: 2', True, (247, 187, 31)), (525, 300))
+                self.screen.blit(self.text_p.render('Range: 130', True, (247, 187, 31)), (525, 330))
+                self.screen.blit(self.text_p.render('Attack: 1.5', True, (247, 187, 31)), (525, 360))
+                self.screen.blit(self.text_p.render('Price: 24', True, (247, 187, 31)), (525, 390))
+                self.screen.blit(self.text_p.render('Damage: 3', True, (247, 187, 31)), (680, 300))
+                self.screen.blit(self.text_p.render('Range: 120', True, (247, 187, 31)), (680, 330))
+                self.screen.blit(self.text_p.render('Attack: 1.8', True, (247, 187, 31)), (680, 360))
+                self.screen.blit(self.text_p.render('Price: 38', True, (247, 187, 31)), (680, 390))
+                self.screen.blit(self.text_p.render('Damage: 4', True, (247, 187, 31)), (835, 300))
+                self.screen.blit(self.text_p.render('Range: 150', True, (247, 187, 31)), (835, 330))
+                self.screen.blit(self.text_p.render('Attack: 3', True, (247, 187, 31)), (835, 360))
+                self.screen.blit(self.text_p.render('Price: 50', True, (247, 187, 31)), (835, 390))
             elif self.menu_tower_stone_opened:
                 self.menu_tower_stone.draw(self.screen)
                 self.screen.blit(self.text_h2.render('Stone Towers:', True, (247, 187, 31)), (470, 100))
+                self.screen.blit(self.text_p.render('Damage: 1', True, (247, 187, 31)), (370, 300))
+                self.screen.blit(self.text_p.render('Range: 120', True, (247, 187, 31)), (370, 330))
+                self.screen.blit(self.text_p.render('Attack: 0.7', True, (247, 187, 31)), (370, 360))
+                self.screen.blit(self.text_p.render('Price: 12', True, (247, 187, 31)), (370, 390))
+                self.screen.blit(self.text_p.render('Damage: 2', True, (247, 187, 31)), (525, 300))
+                self.screen.blit(self.text_p.render('Range: 130', True, (247, 187, 31)), (525, 330))
+                self.screen.blit(self.text_p.render('Attack: 1.5', True, (247, 187, 31)), (525, 360))
+                self.screen.blit(self.text_p.render('Price: 24', True, (247, 187, 31)), (525, 390))
+                self.screen.blit(self.text_p.render('Damage: 3', True, (247, 187, 31)), (680, 300))
+                self.screen.blit(self.text_p.render('Range: 120', True, (247, 187, 31)), (680, 330))
+                self.screen.blit(self.text_p.render('Attack: 1.8', True, (247, 187, 31)), (680, 360))
+                self.screen.blit(self.text_p.render('Price: 38', True, (247, 187, 31)), (680, 390))
+                self.screen.blit(self.text_p.render('Damage: 4', True, (247, 187, 31)), (835, 300))
+                self.screen.blit(self.text_p.render('Range: 150', True, (247, 187, 31)), (835, 330))
+                self.screen.blit(self.text_p.render('Attack: 3', True, (247, 187, 31)), (835, 360))
+                self.screen.blit(self.text_p.render('Price: 50', True, (247, 187, 31)), (835, 390))
             elif self.menu_tower_magic_opened:
                 self.menu_tower_magic.draw(self.screen)
                 self.screen.blit(self.text_h2.render('Magic Towers:', True, (247, 187, 31)), (470, 100))
+                self.screen.blit(self.text_p.render('Damage: 1', True, (247, 187, 31)), (370, 300))
+                self.screen.blit(self.text_p.render('Range: 120', True, (247, 187, 31)), (370, 330))
+                self.screen.blit(self.text_p.render('Attack: 0.7', True, (247, 187, 31)), (370, 360))
+                self.screen.blit(self.text_p.render('Price: 12', True, (247, 187, 31)), (370, 390))
+                self.screen.blit(self.text_p.render('Damage: 2', True, (247, 187, 31)), (525, 300))
+                self.screen.blit(self.text_p.render('Range: 130', True, (247, 187, 31)), (525, 330))
+                self.screen.blit(self.text_p.render('Attack: 1.5', True, (247, 187, 31)), (525, 360))
+                self.screen.blit(self.text_p.render('Price: 24', True, (247, 187, 31)), (525, 390))
+                self.screen.blit(self.text_p.render('Damage: 3', True, (247, 187, 31)), (680, 300))
+                self.screen.blit(self.text_p.render('Range: 120', True, (247, 187, 31)), (680, 330))
+                self.screen.blit(self.text_p.render('Attack: 1.8', True, (247, 187, 31)), (680, 360))
+                self.screen.blit(self.text_p.render('Price: 38', True, (247, 187, 31)), (680, 390))
+                self.screen.blit(self.text_p.render('Damage: 4', True, (247, 187, 31)), (835, 300))
+                self.screen.blit(self.text_p.render('Range: 150', True, (247, 187, 31)), (835, 330))
+                self.screen.blit(self.text_p.render('Attack: 3', True, (247, 187, 31)), (835, 360))
+                self.screen.blit(self.text_p.render('Price: 50', True, (247, 187, 31)), (835, 390))
             elif self.menu_tower_support_opened:
                 self.menu_tower_support.draw(self.screen)
-                self.screen.blit(self.text_h2.render('Support Towers:', True, (247, 187, 31)), (470, 100))
+                self.screen.blit(self.text_p.render('Damage: 1', True, (247, 187, 31)), (370, 300))
+                self.screen.blit(self.text_p.render('Range: 120', True, (247, 187, 31)), (370, 330))
+                self.screen.blit(self.text_p.render('Attack: 0.7', True, (247, 187, 31)), (370, 360))
+                self.screen.blit(self.text_p.render('Price: 12', True, (247, 187, 31)), (370, 390))
+                self.screen.blit(self.text_p.render('Damage: 2', True, (247, 187, 31)), (525, 300))
+                self.screen.blit(self.text_p.render('Range: 130', True, (247, 187, 31)), (525, 330))
+                self.screen.blit(self.text_p.render('Attack: 1.5', True, (247, 187, 31)), (525, 360))
+                self.screen.blit(self.text_p.render('Price: 24', True, (247, 187, 31)), (525, 390))
+                self.screen.blit(self.text_p.render('Damage: 3', True, (247, 187, 31)), (680, 300))
+                self.screen.blit(self.text_p.render('Range: 120', True, (247, 187, 31)), (680, 330))
+                self.screen.blit(self.text_p.render('Attack: 1.8', True, (247, 187, 31)), (680, 360))
+                self.screen.blit(self.text_p.render('Price: 38', True, (247, 187, 31)), (680, 390))
+                self.screen.blit(self.text_p.render('Damage: 4', True, (247, 187, 31)), (835, 300))
+                self.screen.blit(self.text_p.render('Range: 150', True, (247, 187, 31)), (835, 330))
+                self.screen.blit(self.text_p.render('Attack: 3', True, (247, 187, 31)), (835, 360))
+                self.screen.blit(self.text_p.render('Price: 50', True, (247, 187, 31)), (835, 390))
 
     @property
     def get_screen(self):
