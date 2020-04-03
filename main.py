@@ -283,3 +283,11 @@ if __name__ == '__main__':
     g = Runtime()
     g.setup()
     g.run()
+
+"""
+TO DO 
+- Archers shoot animation
+- Moneys
+- Tower's placement availability
+- Tower's descriptions
+"""
