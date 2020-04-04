@@ -25,7 +25,7 @@ class Enemy(pygame.sprite.Sprite):
         self.flipped = False
         self.dying = False
         self.change = ()
-        self.path_pos = 0
+        self.path_pos = 1
         self.health_max = health
         self.health = self.health_max
         self.speed = 2

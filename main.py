@@ -32,6 +32,8 @@ class Runtime:
         self.spawn_timer = None
         self.enemy_queue = None
         self.enemy_list = None
+        self.enemy_spawn_position_x = None
+        self.enemy_spawn_position_y = None
 
         # Towers
         self.towers_list = None
@@ -44,14 +46,14 @@ class Runtime:
         self.positions = None
         self.effects_list = None
 
-    def setup(self, map):
+    def setup(self, game_map):
         """
         All variables held here, so the game can be restarted in runtime.
         :param map: int
         :return: None
         """
         self.game_settings = global_variables.game_settings
-        self.game_board = game_board.GameBoard(self.game_settings[map][0])
+        self.game_board = game_board.GameBoard(self.game_settings[game_map][0])
         self.screen = self.game_board.get_screen
         pygame.mixer.music.load('assets/sounds/music1.wav')
         pygame.mixer.music.play(-1)
@@ -67,12 +69,14 @@ class Runtime:
         pygame.time.set_timer(25, 1000)
         self.enemy_queue = []
         self.enemy_list = pygame.sprite.Group()
-        self.enemy_paths = self.game_settings[map][2:4]
+        self.enemy_paths = self.game_settings[game_map][2:4]
+        self.enemy_spawn_position_x = self.game_settings[game_map][2][0][0]
+        self.enemy_spawn_position_y = self.game_settings[game_map][2][0][1]
 
         # Towers
         self.towers_list = pygame.sprite.Group()
         self.moving_objects = pygame.sprite.Group()
-        self.tower_available_positions = self.game_settings[map][1]
+        self.tower_available_positions = self.game_settings[game_map][1]
 
         # Player
         self.player_health = global_variables.stats_player_health = 10 * self.difficulty
@@ -82,18 +86,18 @@ class Runtime:
         self.effects_list = pygame.sprite.Group()
 
         self.positions = []
+        print(self.enemy_spawn_position_x, self.enemy_spawn_position_y)
 
     def spawn_enemy(self):
         """
         Spawn new enemy and add it to the list.
         :return: None
         """
-        self.enemy_list.add(enemy.Enemy(1290, 110, (random.randint(5, 20)) * self.wave_level, self.enemy_paths))
+        self.enemy_list.add(enemy.Enemy(self.enemy_spawn_position_x, self.enemy_spawn_position_y, (random.randint(5, 20)) * self.wave_level, self.enemy_paths))
         if self.wave_number >= self.wave:
             self.wave_number = 0
             self.wave_level += 1
             self.wave *= 1.5
-            print(self.wave)
         self.wave_number += 1
 
     def spawn_effect(self):
@@ -199,9 +203,9 @@ class Runtime:
                             elif self.game_state == 3:
                                 button_clicked = self.game_board.click(mouse_pos[0], mouse_pos[1], self.game_state)
                                 if button_clicked == 'BACK':
-                                    self.setup(random.randint(0,4))
+                                    self.setup(random.randint(0, 4))
                                 elif button_clicked == 'RESTART':
-                                    self.setup(random.randint(0,4))
+                                    self.setup(random.randint(0, 4))
                                     self.game_state = 2
 
                             # Game state - You win
@@ -318,7 +322,7 @@ class Runtime:
 
 if __name__ == '__main__':
     g = Runtime()
-    g.setup(random.randint(0, 4))
+    g.setup(random.randint(0, 11))
     g.run()
 
 """
@@ -326,5 +330,7 @@ TO DO
 - DONE -> Archers shoot animation
 - Moneys
 - DONE -> Tower's placement availability
-- Tower's descriptions
+- DONE -> Tower's descriptions
+- Auto level up
+- Effects
 """
