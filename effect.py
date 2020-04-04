@@ -74,15 +74,11 @@ class Effect(pygame.sprite.Sprite):
     def buy_effect(name):
         if name == 'FIRE':
             return 10, 10, global_variables.fire
-        elif name == 'STONE':
+        elif name == 'STONES':
             return 10, 10, global_variables.stone
         elif name == 'FREEZE':
             return 10, 10, global_variables.freeze
         elif name == 'RAIN':
             return 10, 10, global_variables.rain
-        elif name == 'TIME':
-            return 10, 10, global_variables.time
-        elif name == 'ZIP':
-            return 10, 10, global_variables.zip
         else:
             return False

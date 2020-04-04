@@ -32,6 +32,9 @@ freeze = [pygame.image.load('assets/effects/freeze/' + str(x) + '.png') for x in
 stone = [pygame.image.load('assets/effects/stone/' + str(x) + '.png') for x in range(18)]
 time = [pygame.image.load('assets/effects/time/' + str(x) + '.png') for x in range(14)]
 zip = [pygame.image.load('assets/effects/zip/' + str(x) + '.png') for x in range(14)]
+damage = [pygame.image.load('assets/effects/damage/' + str(x) + '.png') for x in range(10)]
+defense = [pygame.image.load('assets/effects/def/' + str(x) + '.png') for x in range(10)]
+effect_icons = [pygame.image.load('assets/effects/icons/' + str(x) + '.png') for x in range(1,9)]
 
 # Map specific
 # Map 1

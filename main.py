@@ -26,6 +26,7 @@ class Runtime:
         self.wave_number = None
         self.wave_level = None
         self.game_settings = None
+        self.game_map = None
         self.positions = []
 
         # Enemies
@@ -65,19 +66,19 @@ class Runtime:
         self.wave_number = 0
         self.wave_level = 1
         self.timer = time.time()
+        self.game_map = game_map
 
         # Enemies
         pygame.time.set_timer(25, 1000)
         self.enemy_queue = []
         self.enemy_list = pygame.sprite.Group()
-        self.enemy_paths = self.game_settings[game_map][2:4]
-        self.enemy_spawn_position_x = self.game_settings[game_map][2][0][0]
-        self.enemy_spawn_position_y = self.game_settings[game_map][2][0][1]
+        self.enemy_spawn_position_x = global_variables.game_settings[game_map][2][0][0]
+        self.enemy_spawn_position_y = global_variables.game_settings[game_map][2][0][1]
 
         # Towers
         self.towers_list = pygame.sprite.Group()
         self.moving_objects = pygame.sprite.Group()
-        self.tower_available_positions = self.game_settings[game_map][1]
+        self.tower_available_positions = global_variables.game_settings[game_map][1]
 
         # Player
         self.player_health = global_variables.stats_player_health = 10 * self.difficulty
@@ -90,14 +91,13 @@ class Runtime:
         )
 
         self.positions = []
-        print(self.enemy_spawn_position_x, self.enemy_spawn_position_y)
 
     def spawn_enemy(self):
         """
         Spawn new enemy and add it to the list.
         :return: None
         """
-        self.enemy_list.add(enemy.Enemy(self.enemy_spawn_position_x, self.enemy_spawn_position_y, (random.randint(5, 20)) * self.wave_level, self.enemy_paths))
+        self.enemy_list.add(enemy.Enemy(self.enemy_spawn_position_x, self.enemy_spawn_position_y, (random.randint(5, 20)) * self.wave_level, self.game_map))
         if self.wave_number >= self.wave:
             self.wave_number = 0
             self.wave_level += 1
@@ -109,8 +109,14 @@ class Runtime:
         Spawn new effect and add it to the list.
         :return:
         """
-        # self.effects_list.add(effect.Effect(500, 50))
-        pass
+        for effct in self.moving_objects:
+            effct.set_in_position()
+        self.effects_list.add(
+            self.moving_objects
+        )
+        self.object_being_dragged = False
+        self.moving_objects.empty()
+
 
     def spawn_tower(self):
         """
@@ -176,8 +182,7 @@ class Runtime:
 
                         else:
                             mouse_pos = pygame.mouse.get_pos()
-                            self.positions.append(mouse_pos)
-                            print(self.positions)
+                            print(mouse_pos)
 
                             # Game state - Main Menu
                             if self.game_state == 1:
@@ -195,6 +200,7 @@ class Runtime:
                             # Game state - In game
                             elif self.game_state == 2:
                                 button_clicked = self.game_board.click(mouse_pos[0], mouse_pos[1], self.game_state)
+                                print(button_clicked)
                                 for twr in self.towers_list:
                                     twr.click(mouse_pos[0], mouse_pos[1])
 
@@ -225,8 +231,6 @@ class Runtime:
                 # Spawn events
                 if event.type == 25 and len(self.enemy_list) <= self.wave and self.game_state == 2:
                     self.spawn_enemy()
-                if event.type == 26 and self.game_state == 2:
-                    self.spawn_effect()
 
             if global_variables.stats_player_health <= 0:
                 self.you_lose()
@@ -270,7 +274,6 @@ class Runtime:
 
         # Logic when a tower is being dragged with the mouse
         if self.object_being_dragged:
-
             for obj in self.moving_objects:
                 for point in self.tower_available_positions:
                     if obj.rect.collidepoint(point) and not pygame.sprite.spritecollide(obj, self.towers_list, False):
@@ -286,40 +289,47 @@ class Runtime:
         # Update game display
         pygame.display.update()
 
-    @staticmethod
-    def buy_tower(x, y, name):
+    def buy_tower(self, x, y, name):
         if name == 'BUY_ARCHER_TOWER_1':
-            return tower.TowerArcher1(x, y)
+            return tower.TowerArcher1(x, y, self.game_map)
         elif name == 'BUY_ARCHER_TOWER_2':
-            return tower.TowerArcher2(x, y)
+            return tower.TowerArcher2(x, y, self.game_map)
         elif name == 'BUY_ARCHER_TOWER_3':
-            return tower.TowerArcher3(x, y)
+            return tower.TowerArcher3(x, y, self.game_map)
         elif name == 'BUY_ARCHER_TOWER_4':
-            return tower.TowerArcher4(x, y)
+            return tower.TowerArcher4(x, y, self.game_map)
         elif name == 'BUY_MAGIC_TOWER_1':
-            return tower.TowerMagic1(x, y)
+            return tower.TowerMagic1(x, y, self.game_map)
         elif name == 'BUY_MAGIC_TOWER_2':
-            return tower.TowerMagic2(x, y)
+            return tower.TowerMagic2(x, y, self.game_map)
         elif name == 'BUY_MAGIC_TOWER_3':
-            return tower.TowerMagic3(x, y)
+            return tower.TowerMagic3(x, y, self.game_map)
         elif name == 'BUY_MAGIC_TOWER_4':
-            return tower.TowerMagic4(x, y)
+            return tower.TowerMagic4(x, y, self.game_map)
         elif name == 'BUY_STONE_TOWER_1':
-            return tower.TowerStone1(x, y)
+            return tower.TowerStone1(x, y, self.game_map)
         elif name == 'BUY_STONE_TOWER_2':
-            return tower.TowerStone2(x, y)
+            return tower.TowerStone2(x, y, self.game_map)
         elif name == 'BUY_STONE_TOWER_3':
-            return tower.TowerStone3(x, y)
+            return tower.TowerStone3(x, y, self.game_map)
         elif name == 'BUY_STONE_TOWER_4':
-            return tower.TowerStone4(x, y)
+            return tower.TowerStone4(x, y, self.game_map)
         elif name == 'BUY_SUPPORT_TOWER_1':
-            return tower.TowerSupport1(x, y)
+            return tower.TowerSupport1(x, y, self.game_map)
         elif name == 'BUY_SUPPORT_TOWER_2':
-            return tower.TowerSupport2(x, y)
+            return tower.TowerSupport2(x, y, self.game_map)
         elif name == 'BUY_SUPPORT_TOWER_3':
-            return tower.TowerSupport3(x, y)
+            return tower.TowerSupport3(x, y, self.game_map)
         elif name == 'BUY_SUPPORT_TOWER_4':
-            return tower.TowerSupport4(x, y)
+            return tower.TowerSupport4(x, y, self.game_map)
+        elif name == 'BUY_FREEZE':
+            return effect.Effect(x, y, 'FREEZE')
+        elif name == 'BUY_FIRE':
+            return effect.Effect(x, y, 'FIRE')
+        elif name == 'BUY_RAIN':
+            return effect.Effect(x, y, 'RAIN')
+        elif name == 'BUY_STONES':
+            return effect.Effect(x, y, 'STONES')
         else:
             return False
 

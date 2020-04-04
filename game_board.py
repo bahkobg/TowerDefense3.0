@@ -36,10 +36,10 @@ class GameBoard:
             Button(global_variables.menu_bottom[1], 50, 684, 80, 80, 'PAUSE'),
             Button(global_variables.menu_bottom[2], 140, 684, 80, 80, 'QUICK'),
             Button(global_variables.menu_bottom[3], 230, 684, 80, 80, 'PLAY'),
-            Button(global_variables.menu_bottom[4], 410, 684, 80, 80, 'EASY'),
-            Button(global_variables.menu_bottom[5], 500, 684, 80, 80, 'EASY'),
-            Button(global_variables.menu_bottom[6], 590, 684, 80, 80, 'EASY'),
-            Button(global_variables.menu_bottom[7], 680, 684, 80, 80, 'EASY'),
+            Button(global_variables.menu_bottom[4], 410, 684, 80, 80, 'FREEZE'),
+            Button(global_variables.menu_bottom[5], 500, 684, 80, 80, 'FIRE'),
+            Button(global_variables.menu_bottom[6], 590, 684, 80, 80, 'STONES'),
+            Button(global_variables.menu_bottom[7], 680, 684, 80, 80, 'RAIN'),
             Button(global_variables.menu_bottom[8], 770, 684, 80, 80, 'MAGIC'),
             Button(global_variables.menu_bottom[9], 860, 684, 80, 80, 'STONE'),
             Button(global_variables.menu_bottom[10], 950, 684, 80, 80, 'SUPPORT'),
@@ -93,6 +93,34 @@ class GameBoard:
             Button(global_variables.towers_support[4], 525, 170, 125, 140, 'BUY_SUPPORT_TOWER_2'),
             Button(global_variables.towers_support[7], 680, 170, 125, 140, 'BUY_SUPPORT_TOWER_3'),
             Button(global_variables.towers_support[10], 835, 170, 125, 140, 'BUY_SUPPORT_TOWER_4')
+        )
+        # Freeze Effect
+        self.menu_freeze_effect_opened = False
+        self.menu_freeze_effect = pygame.sprite.Group()
+        self.menu_freeze_effect.add(
+            Button(global_variables.towers_support[0], 330, 100, 670, 400, False),
+            Button(global_variables.effect_icons[2], 370, 220, 140, 140, 'BUY_FREEZE')
+        )
+        # Fire Effect
+        self.menu_fire_effect_opened = False
+        self.menu_fire_effect = pygame.sprite.Group()
+        self.menu_fire_effect.add(
+            Button(global_variables.towers_support[0], 330, 100, 670, 400, False),
+            Button(global_variables.effect_icons[1], 370, 220, 140, 140, 'BUY_FIRE')
+        )
+        # Stones Effect
+        self.menu_stones_effect_opened = False
+        self.menu_stones_effect = pygame.sprite.Group()
+        self.menu_stones_effect.add(
+            Button(global_variables.towers_support[0], 330, 100, 670, 400, False),
+            Button(global_variables.effect_icons[7], 370, 220, 140, 140, 'BUY_STONES')
+        )
+        # Rain Effect
+        self.menu_rain_effect_opened = False
+        self.menu_rain_effect = pygame.sprite.Group()
+        self.menu_rain_effect.add(
+            Button(global_variables.towers_support[0], 330, 100, 670, 400, False),
+            Button(global_variables.effect_icons[4], 370, 220, 140, 140, 'BUY_RAIN')
         )
 
         # You Lose
@@ -227,6 +255,7 @@ class GameBoard:
                 self.screen.blit(self.text_p.render('Price: 50', True, (247, 187, 31)), (835, 390))
             elif self.menu_tower_support_opened:
                 self.menu_tower_support.draw(self.screen)
+                self.screen.blit(self.text_h2.render('Support Towers:', True, (247, 187, 31)), (470, 100))
                 self.screen.blit(self.text_p.render('Damage: 1', True, (247, 187, 31)), (370, 300))
                 self.screen.blit(self.text_p.render('Range: 120', True, (247, 187, 31)), (370, 330))
                 self.screen.blit(self.text_p.render('Attack: 0.7', True, (247, 187, 31)), (370, 360))
@@ -243,6 +272,38 @@ class GameBoard:
                 self.screen.blit(self.text_p.render('Range: 150', True, (247, 187, 31)), (835, 330))
                 self.screen.blit(self.text_p.render('Attack: 3', True, (247, 187, 31)), (835, 360))
                 self.screen.blit(self.text_p.render('Price: 50', True, (247, 187, 31)), (835, 390))
+            elif self.menu_freeze_effect_opened:
+                self.menu_freeze_effect.draw(self.screen)
+                self.screen.blit(self.text_h2.render('Freeze Effect', True, (247, 187, 31)), (470, 100))
+                self.screen.blit(self.text_p.render('Damage: 20 *', True, (247, 187, 31)), (530, 210))
+                self.screen.blit(self.text_p.render('Range: 25', True, (247, 187, 31)), (530, 240))
+                self.screen.blit(self.text_p.render('Attack: 10', True, (247, 187, 31)), (530, 270))
+                self.screen.blit(self.text_p.render('Price: 35', True, (247, 187, 31)), (530, 300))
+                self.screen.blit(self.text_p.render('* Some creatures have freeze resistance!', True, (247, 187, 31)), (470, 370))
+            elif self.menu_stones_effect_opened:
+                self.menu_stones_effect.draw(self.screen)
+                self.screen.blit(self.text_h2.render('Falling Stones Effect', True, (247, 187, 31)), (470, 100))
+                self.screen.blit(self.text_p.render('Damage: 30 *', True, (247, 187, 31)), (530, 210))
+                self.screen.blit(self.text_p.render('Range: 25', True, (247, 187, 31)), (530, 240))
+                self.screen.blit(self.text_p.render('Attack: 10', True, (247, 187, 31)), (530, 270))
+                self.screen.blit(self.text_p.render('Price: 35', True, (247, 187, 31)), (530, 300))
+                self.screen.blit(self.text_p.render('* Some creatures have stones resistance!', True, (247, 187, 31)), (470, 370))
+            elif self.menu_fire_effect_opened:
+                self.menu_fire_effect.draw(self.screen)
+                self.screen.blit(self.text_h2.render('Fire Effect', True, (247, 187, 31)), (470, 100))
+                self.screen.blit(self.text_p.render('Damage: 25 *', True, (247, 187, 31)), (530, 210))
+                self.screen.blit(self.text_p.render('Range: 25', True, (247, 187, 31)), (530, 240))
+                self.screen.blit(self.text_p.render('Attack: 10', True, (247, 187, 31)), (530, 270))
+                self.screen.blit(self.text_p.render('Price: 55', True, (247, 187, 31)), (530, 300))
+                self.screen.blit(self.text_p.render('* Some creatures have fire resistance!', True, (247, 187, 31)), (470, 370))
+            elif self.menu_rain_effect_opened:
+                self.menu_rain_effect.draw(self.screen)
+                self.screen.blit(self.text_h2.render('Poison rain Effect:', True, (247, 187, 31)), (470, 100))
+                self.screen.blit(self.text_p.render('Damage: 30 *', True, (247, 187, 31)), (530, 210))
+                self.screen.blit(self.text_p.render('Range: 20', True, (247, 187, 31)), (530, 240))
+                self.screen.blit(self.text_p.render('Attack: 10', True, (247, 187, 31)), (530, 270))
+                self.screen.blit(self.text_p.render('Price: 50', True, (247, 187, 31)), (530, 300))
+                self.screen.blit(self.text_p.render('* Some creatures have poison rain resistance!', True, (247, 187, 31)), (470, 370))
 
     @property
     def get_screen(self):
@@ -287,6 +348,22 @@ class GameBoard:
                         self.close_open_menus()
                         self.menu_tower_support_opened = True
                         return 'SUPPORT'
+                    elif sprite.click(x, y) == 'FREEZE':
+                        self.close_open_menus()
+                        self.menu_freeze_effect_opened = True
+                        return 'FREEZE'
+                    elif sprite.click(x, y) == 'FIRE':
+                        self.close_open_menus()
+                        self.menu_fire_effect_opened = True
+                        return 'FIRE'
+                    elif sprite.click(x, y) == 'RAIN':
+                        self.close_open_menus()
+                        self.menu_rain_effect_opened = True
+                        return 'RAIN'
+                    elif sprite.click(x, y) == 'STONES':
+                        self.close_open_menus()
+                        self.menu_stones_effect_opened = True
+                        return 'STONES'
 
             # Buy menus
             if self.menu_tower_archer_opened:
@@ -303,6 +380,22 @@ class GameBoard:
                         return sprite.button_id
             elif self.menu_tower_support_opened:
                 for sprite in self.menu_tower_support:
+                    if sprite.click(x, y):
+                        return sprite.button_id
+            elif self.menu_freeze_effect_opened:
+                for sprite in self.menu_freeze_effect:
+                    if sprite.click(x, y):
+                        return sprite.button_id
+            elif self.menu_stones_effect_opened:
+                for sprite in self.menu_stones_effect:
+                    if sprite.click(x, y):
+                        return sprite.button_id
+            elif self.menu_fire_effect_opened:
+                for sprite in self.menu_fire_effect:
+                    if sprite.click(x, y):
+                        return sprite.button_id
+            elif self.menu_rain_effect_opened:
+                for sprite in self.menu_rain_effect:
                     if sprite.click(x, y):
                         return sprite.button_id
 
@@ -325,12 +418,17 @@ class GameBoard:
         self.menu_tower_support_opened = False
         self.menu_tower_magic_opened = False
         self.menu_tower_stone_opened = False
+        self.menu_rain_effect_opened = False
+        self.menu_fire_effect_opened = False
+        self.menu_stones_effect_opened = False
+        self.menu_freeze_effect_opened = False
 
 
 class Button(pygame.sprite.Sprite):
     """
     Defines the main button class
     """
+
     def __init__(self, img, x, y, width, height, button_id):
         pygame.sprite.Sprite.__init__(self)
         self.sound_click = pygame.mixer.Sound('assets/sounds/click.wav')

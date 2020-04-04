@@ -9,14 +9,14 @@ class Enemy(pygame.sprite.Sprite):
     """
     Defines the main enemy class.
     """
-    def __init__(self, x, y, health, enemy_paths):
+    def __init__(self, x, y, health, map_number):
         super().__init__()
         self.x = x
         self.y = y
         self.width = 64
         self.height = 64
         self.radius = 64
-        self.path = random.choice([enemy_paths[0], enemy_paths[1]])
+        self.path = random.choice([global_variables.game_settings[map_number][2], global_variables.game_settings[map_number][3]])
         self.image = None
         self.img_list = random.choice(
             [global_variables.enemy_1, global_variables.enemy_2, global_variables.enemy_3, global_variables.enemy_4,
