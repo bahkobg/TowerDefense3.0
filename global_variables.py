@@ -26,7 +26,12 @@ menu_you_lose = [pygame.image.load('assets/menus/lose/' + str(x) + '.png') for x
 menu_bottom = [pygame.image.load('assets/menus/gui/' + str(x) + '.png') for x in range(17)]
 
 # Effects
-rain = [pygame.image.load('assets/effects/rain/' + str(x) + '.png') for x in range(39)]
+rain = [pygame.image.load('assets/effects/rain/' + str(x) + '.png') for x in range(19)]
+fire = [pygame.image.load('assets/effects/fire/' + str(x) + '.png') for x in range(19)]
+freeze = [pygame.image.load('assets/effects/freeze/' + str(x) + '.png') for x in range(16)]
+stone = [pygame.image.load('assets/effects/stone/' + str(x) + '.png') for x in range(18)]
+time = [pygame.image.load('assets/effects/time/' + str(x) + '.png') for x in range(14)]
+zip = [pygame.image.load('assets/effects/zip/' + str(x) + '.png') for x in range(14)]
 
 # Map specific
 # Map 1

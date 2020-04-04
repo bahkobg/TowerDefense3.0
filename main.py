@@ -5,6 +5,7 @@ import enemy
 import tower
 import time
 import random
+import effect
 
 
 class Runtime:
@@ -84,6 +85,9 @@ class Runtime:
         # Effects
         pygame.time.set_timer(26, 2000)
         self.effects_list = pygame.sprite.Group()
+        self.effects_list.add(
+            effect.Effect(600, 400, 'FIRE')
+        )
 
         self.positions = []
         print(self.enemy_spawn_position_x, self.enemy_spawn_position_y)
@@ -258,7 +262,7 @@ class Runtime:
 
         # Draw the effects
         for effct in self.effects_list:
-            effct.draw(self.screen)
+            effct.draw(self.screen, self.game_state)
 
         # Draws the towers
         for twr in self.towers_list:
