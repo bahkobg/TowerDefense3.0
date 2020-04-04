@@ -18,9 +18,11 @@ class Enemy(pygame.sprite.Sprite):
         self.radius = 64
         self.path = random.choice([global_variables.game_settings[map_number][2], global_variables.game_settings[map_number][3]])
         self.image = None
+        self.sound_enemy_die = pygame.mixer.Sound('assets/sounds/enemy_die.wav')
         self.img_list = random.choice(
             [global_variables.enemy_1, global_variables.enemy_2, global_variables.enemy_3, global_variables.enemy_4,
-             global_variables.enemy_5])
+             global_variables.enemy_5, global_variables.enemy_6, global_variables.enemy_7, global_variables.enemy_8, global_variables.enemy_9,
+             global_variables.enemy_10])
         self.animation_index = 0
         self.flipped = False
         self.dying = False
@@ -54,6 +56,7 @@ class Enemy(pygame.sprite.Sprite):
         self.dying = True
         global_variables.stats_kills += 1
         global_variables.stats_money += self.worth
+        pygame.mixer.Sound.play(self.sound_enemy_die)
         self.kill()
 
     def health_bar(self, surface):

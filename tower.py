@@ -81,16 +81,35 @@ class Tower(pygame.sprite.Sprite):
             self.enemy_in_range = x
 
     def set_being_dragged(self, x):
+        """
+        Indicates whether a sprite is being dragged.
+        :param x: bool
+        :return: None
+        """
         if self.being_dragged != x:
             self.being_dragged = x
 
     def set_archer_flipped(self, x):
+        """
+        Flips the archers image.
+        :param x: bool
+        :return: None
+        """
         self.flipped = x
 
     def attack(self, enemy):
+        """
+        Attack logic goes here.
+        :param enemy:
+        :return:
+        """
         pass
 
     def shoot(self):
+        """
+        Shoot logic goes here.
+        :return:
+        """
         pass
 
     def drag(self, center):
@@ -118,6 +137,11 @@ class Tower(pygame.sprite.Sprite):
                 self.animation(surface)
 
     def animation(self, surface):
+        """
+        All animation logic goes here.
+        :param surface: pygame Surface()
+        :return: None
+        """
 
         if self.shoot_index >= len(self.shoot_list):
             self.shoot_index = 0
@@ -164,6 +188,10 @@ class Tower(pygame.sprite.Sprite):
 
 
 class TowerArcher1(Tower):
+    """
+    Tower subclass
+    """
+
     def __init__(self, x, y, game_map):
         super().__init__(x, y, game_map)
         self.image = pygame.transform.scale(global_variables.towers_archer[4], (self.width, self.height))
@@ -183,6 +211,10 @@ class TowerArcher1(Tower):
 
 
 class TowerArcher2(Tower):
+    """
+        Tower subclass
+    """
+
     def __init__(self, x, y, game_map):
         super().__init__(x, y, game_map)
         self.image = pygame.transform.scale(global_variables.towers_archer[7], (self.width, self.height))
@@ -208,6 +240,11 @@ class TowerArcher2(Tower):
 
 
 class TowerArcher3(Tower):
+    """
+        Tower subclass
+
+    """
+
     def __init__(self, x, y, game_map):
         super().__init__(x, y, game_map)
         self.image = pygame.transform.scale(global_variables.towers_archer[9], (self.width, self.height))
@@ -233,6 +270,11 @@ class TowerArcher3(Tower):
 
 
 class TowerArcher4(Tower):
+    """
+        Tower subclass
+
+    """
+
     def __init__(self, x, y, game_map):
         super().__init__(x, y, game_map)
         self.image = pygame.transform.scale(global_variables.towers_archer[11], (self.width, self.height))
@@ -258,6 +300,11 @@ class TowerArcher4(Tower):
 
 
 class TowerMagic1(Tower):
+    """
+        Tower subclass
+
+    """
+
     def __init__(self, x, y, game_map):
         super().__init__(x, y, game_map)
         self.image = pygame.transform.scale(global_variables.towers_magic[2], (self.width, self.height))
@@ -283,6 +330,11 @@ class TowerMagic1(Tower):
 
 
 class TowerMagic2(Tower):
+    """
+        Tower subclass
+
+    """
+
     def __init__(self, x, y, game_map):
         super().__init__(x, y, game_map)
         self.image = pygame.transform.scale(global_variables.towers_magic[6], (self.width, self.height))
@@ -308,6 +360,11 @@ class TowerMagic2(Tower):
 
 
 class TowerMagic3(Tower):
+    """
+        Tower subclass
+
+    """
+
     def __init__(self, x, y, game_map):
         super().__init__(x, y, game_map)
         self.image = pygame.transform.scale(global_variables.towers_magic[11], (self.width, self.height))
@@ -333,6 +390,11 @@ class TowerMagic3(Tower):
 
 
 class TowerMagic4(Tower):
+    """
+        Tower subclass
+
+    """
+
     def __init__(self, x, y, game_map):
         super().__init__(x, y, game_map)
         self.image = pygame.transform.scale(global_variables.towers_magic[16], (self.width, self.height))
@@ -358,6 +420,11 @@ class TowerMagic4(Tower):
 
 
 class TowerStone1(Tower):
+    """
+        Tower subclass
+
+    """
+
     def __init__(self, x, y, game_map):
         super().__init__(x, y, game_map)
         self.image = pygame.transform.scale(global_variables.towers_stone[3], (self.width, self.height))
@@ -383,6 +450,11 @@ class TowerStone1(Tower):
 
 
 class TowerStone2(Tower):
+    """
+        Tower subclass
+
+    """
+
     def __init__(self, x, y, game_map):
         super().__init__(x, y, game_map)
         self.image = pygame.transform.scale(global_variables.towers_stone[6], (self.width, self.height))
@@ -408,6 +480,11 @@ class TowerStone2(Tower):
 
 
 class TowerStone3(Tower):
+    """
+        Tower subclass
+
+    """
+
     def __init__(self, x, y, game_map):
         super().__init__(x, y, game_map)
         self.image = pygame.transform.scale(global_variables.towers_stone[12], (self.width, self.height))
@@ -433,6 +510,11 @@ class TowerStone3(Tower):
 
 
 class TowerStone4(Tower):
+    """
+        Tower subclass
+
+    """
+
     def __init__(self, x, y, game_map):
         super().__init__(x, y, game_map)
         self.image = pygame.transform.scale(global_variables.towers_stone[16], (self.width, self.height))
@@ -458,6 +540,11 @@ class TowerStone4(Tower):
 
 
 class TowerSupport1(Tower):
+    """
+        Tower subclass
+
+    """
+
     def __init__(self, x, y, game_map):
         super().__init__(x, y, game_map)
         self.image = pygame.transform.scale(global_variables.towers_support[1], (self.width, self.height))
@@ -522,6 +609,11 @@ class TowerSupport1(Tower):
 
 
 class TowerSupport2(Tower):
+    """
+        Tower subclass
+
+    """
+
     def __init__(self, x, y, game_map):
         super().__init__(x, y, game_map)
         self.image = pygame.transform.scale(global_variables.towers_support[4], (self.width, self.height))
@@ -586,6 +678,11 @@ class TowerSupport2(Tower):
 
 
 class TowerSupport3(Tower):
+    """
+        Tower subclass
+
+    """
+
     def __init__(self, x, y, game_map):
         super().__init__(x, y, game_map)
         self.image = pygame.transform.scale(global_variables.towers_support[7], (self.width, self.height))
@@ -650,6 +747,11 @@ class TowerSupport3(Tower):
 
 
 class TowerSupport4(Tower):
+    """
+        Tower subclass
+
+    """
+
     def __init__(self, x, y, game_map):
         super().__init__(x, y, game_map)
         self.image = pygame.transform.scale(global_variables.towers_support[10], (self.width, self.height))
@@ -680,7 +782,7 @@ class TowerSupport4(Tower):
             self.in_position = True
             self.arrow_rect = pygame.Rect(0, 0, 150, 350)
             self.arrow_rect.centerx = x
-            self.arrow_rect.centery = y-75
+            self.arrow_rect.centery = y - 75
 
     def draw(self, surface, game_state):
         """

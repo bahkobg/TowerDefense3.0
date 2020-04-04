@@ -9,6 +9,9 @@ import effect
 
 
 class Runtime:
+    """
+    Main game logic goes here.
+    """
 
     def __init__(self):
         pygame.init()
@@ -27,7 +30,7 @@ class Runtime:
         self.wave_level = None
         self.game_settings = None
         self.game_map = None
-        self.positions = []
+        self.sound_you_lose = None
 
         # Enemies
         self.enemy_paths = None
@@ -60,6 +63,7 @@ class Runtime:
         pygame.mixer.music.load('assets/sounds/music1.wav')
         pygame.mixer.music.play(-1)
         pygame.mixer.music.set_volume(0.3)
+        self.sound_you_lose = pygame.mixer.Sound('assets/sounds/youlose.wav')
         self.difficulty = 1
         self.game_state = 1  # 1 - Main Menu, 2 - Game started, 3 - You lose, 4 - You win
         self.wave = 2 * self.difficulty
@@ -150,7 +154,7 @@ class Runtime:
         # empty towers
         self.enemy_list.empty()
         self.game_state = 3
-        # play sound
+        pygame.mixer.Sound(self.sound_you_lose)
 
     def you_win(self):
         pass

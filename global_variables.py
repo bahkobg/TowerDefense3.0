@@ -12,6 +12,11 @@ enemy_2 = [pygame.image.load('assets/enemies/2/' + str(x) + '.png') for x in ran
 enemy_3 = [pygame.image.load('assets/enemies/3/' + str(x) + '.png') for x in range(20)]
 enemy_4 = [pygame.image.load('assets/enemies/4/' + str(x) + '.png') for x in range(20)]
 enemy_5 = [pygame.image.load('assets/enemies/5/' + str(x) + '.png') for x in range(20)]
+enemy_6 = [pygame.image.load('assets/enemies/6/' + str(x) + '.png') for x in range(10)]
+enemy_7 = [pygame.image.load('assets/enemies/6/' + str(x) + '.png') for x in range(10)]
+enemy_8 = [pygame.image.load('assets/enemies/8/' + str(x) + '.png') for x in range(10)]
+enemy_9 = [pygame.image.load('assets/enemies/9/' + str(x) + '.png') for x in range(10)]
+enemy_10 = [pygame.image.load('assets/enemies/10/' + str(x) + '.png') for x in range(10)]
 
 # Towers
 towers_archer = [pygame.image.load('assets/towers/archer/' + str(x) + '.png') for x in range(82)]
