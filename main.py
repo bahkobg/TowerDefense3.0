@@ -123,7 +123,6 @@ class Runtime:
         self.object_being_dragged = False
         self.moving_objects.empty()
 
-
     def spawn_tower(self):
         """
         Spawn new tower.
@@ -188,7 +187,6 @@ class Runtime:
 
                         else:
                             mouse_pos = pygame.mouse.get_pos()
-
 
                             # Game state - Main Menu
                             if self.game_state == 1:
@@ -345,7 +343,7 @@ class Runtime:
 
 if __name__ == '__main__':
     g = Runtime()
-    g.setup(0)
+    g.setup(random.randint(0, 11))
     g.run()
 
 """

@@ -357,9 +357,12 @@ class TowerMagic1(Tower):
 
                 arrow = pygame.transform.scale(self.shoot_list[self.shoot_index], (self.arrow_rect.width, self.arrow_rect.height))
 
-                if time.time() - self.timer > 0.30:
-                    self.shoot_index += 1
-                    self.timer = time.time()
+                if self.enemy_in_range:
+                    if time.time() - self.timer > 0.15:
+                        self.shoot_index += 1
+                        self.timer = time.time()
+                else:
+                    self.shoot_index = 0
 
                 if self.flipped:  # if the enemy is left
                     surface.blit(arrow, self.arrow_rect)
@@ -426,9 +429,12 @@ class TowerMagic2(Tower):
 
                 arrow = pygame.transform.scale(self.shoot_list[self.shoot_index], (self.arrow_rect.width, self.arrow_rect.height))
 
-                if time.time() - self.timer > 0.30:
-                    self.shoot_index += 1
-                    self.timer = time.time()
+                if self.enemy_in_range:
+                    if time.time() - self.timer > 0.15:
+                        self.shoot_index += 1
+                        self.timer = time.time()
+                else:
+                    self.shoot_index = 0
 
                 if self.flipped:  # if the enemy is left
                     surface.blit(arrow, self.arrow_rect)
@@ -495,9 +501,12 @@ class TowerMagic3(Tower):
 
                 arrow = pygame.transform.scale(self.shoot_list[self.shoot_index], (self.arrow_rect.width, self.arrow_rect.height))
 
-                if time.time() - self.timer > 0.15:
-                    self.shoot_index += 1
-                    self.timer = time.time()
+                if self.enemy_in_range:
+                    if time.time() - self.timer > 0.15:
+                        self.shoot_index += 1
+                        self.timer = time.time()
+                else:
+                    self.shoot_index = 0
 
                 if self.flipped:  # if the enemy is left
                     surface.blit(arrow, self.arrow_rect)
@@ -564,9 +573,12 @@ class TowerMagic4(Tower):
 
                 arrow = pygame.transform.scale(self.shoot_list[self.shoot_index], (self.arrow_rect.width, self.arrow_rect.height))
 
-                if time.time() - self.timer > 0.15:
-                    self.shoot_index += 1
-                    self.timer = time.time()
+                if self.enemy_in_range:
+                    if time.time() - self.timer > 0.15:
+                        self.shoot_index += 1
+                        self.timer = time.time()
+                else:
+                    self.shoot_index = 0
 
                 if self.flipped:  # if the enemy is left
                     surface.blit(arrow, self.arrow_rect)
@@ -643,7 +655,7 @@ class TowerStone1(Tower):
                     surface.blit(pygame.transform.flip(arrow, True, False), self.arrow_rect)
 
 
-class TowerStone1(Tower):
+class TowerStone2(Tower):
     """
         Tower subclass
 
@@ -651,15 +663,15 @@ class TowerStone1(Tower):
 
     def __init__(self, x, y, game_map):
         super().__init__(x, y, game_map)
-        self.image = pygame.transform.scale(global_variables.towers_stone[3], (self.width, self.height))
-        self.image_upgrade = pygame.transform.scale(global_variables.towers_stone[6], (self.width, self.height))
+        self.image = pygame.transform.scale(global_variables.towers_stone[6], (self.width, self.height))
+        self.image_upgrade = pygame.transform.scale(global_variables.towers_stone[7], (self.width, self.height))
         self.animation_list = []
         self.shoot_list = global_variables.stone
         # Tower stuff
-        self.range = 120
-        self.damage = 9
+        self.range = 130
+        self.damage = 10
         self.rate = 1
-        self.price = 9
+        self.price = 10
         self.bullets = []
 
     def set_in_position(self):
@@ -711,7 +723,7 @@ class TowerStone1(Tower):
                     surface.blit(pygame.transform.flip(arrow, True, False), self.arrow_rect)
 
 
-class TowerStone1(Tower):
+class TowerStone3(Tower):
     """
         Tower subclass
 
@@ -719,15 +731,15 @@ class TowerStone1(Tower):
 
     def __init__(self, x, y, game_map):
         super().__init__(x, y, game_map)
-        self.image = pygame.transform.scale(global_variables.towers_stone[3], (self.width, self.height))
-        self.image_upgrade = pygame.transform.scale(global_variables.towers_stone[6], (self.width, self.height))
+        self.image = pygame.transform.scale(global_variables.towers_stone[12], (self.width, self.height))
+        self.image_upgrade = pygame.transform.scale(global_variables.towers_stone[13], (self.width, self.height))
         self.animation_list = []
         self.shoot_list = global_variables.stone
         # Tower stuff
-        self.range = 120
-        self.damage = 9
+        self.range = 140
+        self.damage = 11
         self.rate = 1
-        self.price = 9
+        self.price = 11
         self.bullets = []
 
     def set_in_position(self):
@@ -779,7 +791,7 @@ class TowerStone1(Tower):
                     surface.blit(pygame.transform.flip(arrow, True, False), self.arrow_rect)
 
 
-class TowerStone1(Tower):
+class TowerStone4(Tower):
     """
         Tower subclass
 
@@ -787,15 +799,15 @@ class TowerStone1(Tower):
 
     def __init__(self, x, y, game_map):
         super().__init__(x, y, game_map)
-        self.image = pygame.transform.scale(global_variables.towers_stone[3], (self.width, self.height))
-        self.image_upgrade = pygame.transform.scale(global_variables.towers_stone[6], (self.width, self.height))
+        self.image = pygame.transform.scale(global_variables.towers_stone[16], (self.width, self.height))
+        self.image_upgrade = pygame.transform.scale(global_variables.towers_stone[17], (self.width, self.height))
         self.animation_list = []
         self.shoot_list = global_variables.stone
         # Tower stuff
-        self.range = 120
-        self.damage = 9
+        self.range = 150
+        self.damage = 12
         self.rate = 1
-        self.price = 9
+        self.price = 12
         self.bullets = []
 
     def set_in_position(self):
@@ -886,9 +898,12 @@ class TowerSupport1(Tower):
 
                 arrow = pygame.transform.scale(self.shoot_list[self.shoot_index], (self.arrow_rect.width, self.arrow_rect.height))
 
-                if time.time() - self.timer > 0.15:
-                    self.shoot_index += 1
-                    self.timer = time.time()
+                if self.enemy_in_range:
+                    if time.time() - self.timer > 0.15:
+                        self.shoot_index += 1
+                        self.timer = time.time()
+                else:
+                    self.shoot_index = 0
 
                 if self.flipped:  # if the enemy is left
                     surface.blit(arrow, self.arrow_rect)
@@ -974,9 +989,12 @@ class TowerSupport2(Tower):
 
                 arrow = pygame.transform.scale(self.shoot_list[self.shoot_index], (self.arrow_rect.width, self.arrow_rect.height))
 
-                if time.time() - self.timer > 0.15:
-                    self.shoot_index += 1
-                    self.timer = time.time()
+                if self.enemy_in_range:
+                    if time.time() - self.timer > 0.15:
+                        self.shoot_index += 1
+                        self.timer = time.time()
+                else:
+                    self.shoot_index = 0
 
                 if self.flipped:  # if the enemy is left
                     surface.blit(arrow, self.arrow_rect)
@@ -1043,9 +1061,12 @@ class TowerSupport3(Tower):
 
                 arrow = pygame.transform.scale(self.shoot_list[self.shoot_index], (self.arrow_rect.width, self.arrow_rect.height))
 
-                if time.time() - self.timer > 0.15:
-                    self.shoot_index += 1
-                    self.timer = time.time()
+                if self.enemy_in_range:
+                    if time.time() - self.timer > 0.15:
+                        self.shoot_index += 1
+                        self.timer = time.time()
+                else:
+                    self.shoot_index = 0
 
                 if self.flipped:  # if the enemy is left
                     surface.blit(arrow, self.arrow_rect)
@@ -1112,9 +1133,12 @@ class TowerSupport4(Tower):
 
                 arrow = pygame.transform.scale(self.shoot_list[self.shoot_index], (self.arrow_rect.width, self.arrow_rect.height))
 
-                if time.time() - self.timer > 0.15:
-                    self.shoot_index += 1
-                    self.timer = time.time()
+                if self.enemy_in_range:
+                    if time.time() - self.timer > 0.15:
+                        self.shoot_index += 1
+                        self.timer = time.time()
+                else:
+                    self.shoot_index = 0
 
                 if self.flipped:  # if the enemy is left
                     surface.blit(arrow, self.arrow_rect)
