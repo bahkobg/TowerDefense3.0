@@ -51,6 +51,8 @@ class Runtime:
         self.positions = None
         self.effects_list = None
 
+        self.pos = []
+
     def setup(self, game_map):
         """
         All variables held here, so the game can be restarted in runtime.
@@ -186,7 +188,7 @@ class Runtime:
 
                         else:
                             mouse_pos = pygame.mouse.get_pos()
-                            print(mouse_pos)
+
 
                             # Game state - Main Menu
                             if self.game_state == 1:
@@ -203,6 +205,9 @@ class Runtime:
 
                             # Game state - In game
                             elif self.game_state == 2:
+                                self.pos.append(mouse_pos)
+                                print(self.pos)
+
                                 button_clicked = self.game_board.click(mouse_pos[0], mouse_pos[1], self.game_state)
                                 print(button_clicked)
                                 for twr in self.towers_list:
@@ -340,7 +345,7 @@ class Runtime:
 
 if __name__ == '__main__':
     g = Runtime()
-    g.setup(random.randint(0, 11))
+    g.setup(0)
     g.run()
 
 """

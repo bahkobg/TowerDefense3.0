@@ -309,8 +309,8 @@ class TowerMagic1(Tower):
         super().__init__(x, y, game_map)
         self.image = pygame.transform.scale(global_variables.towers_magic[2], (self.width, self.height))
         self.image_upgrade = pygame.transform.scale(global_variables.towers_magic[3], (self.width, self.height))
-        self.animation_list = [global_variables.towers_magic[1]]
-        self.shoot_list = global_variables.towers_magic[19:26]
+        self.animation_list = []
+        self.shoot_list = global_variables.freeze
         # Tower stuff
         self.range = 120
         self.damage = 5
@@ -323,10 +323,49 @@ class TowerMagic1(Tower):
         Spawn the archer after the tower is set in position on the board.
         :return: None
         """
+
+        distance_min = 1000
+        x, y = 0, 0
         if not self.in_position:
+            for point in global_variables.game_settings[self.game_map][4]:
+                distance = math.sqrt((point[0] - self.rect.x) ** 2 + (point[1] - self.rect.y) ** 2)
+                if distance < distance_min:
+                    distance_min = distance
+                    x, y = point[0], point[1]
             self.in_position = True
-            self.archer_rect = pygame.Rect(self.rect.x + 20, self.rect.y - 40, 34, 55)
-            self.arrow_rect = pygame.Rect(self.archer_rect.topright[0], self.archer_rect.y - 30, 21, 69)
+            self.arrow_rect = pygame.Rect(0, 0, self.width + 15, self.height + 15)
+            self.arrow_rect.centerx = x
+            self.arrow_rect.centery = y
+
+    def draw(self, surface, game_state):
+        """
+        All tower's drawing logic goes here.
+        :param surface: pygame Surface()
+        :param game_state: int
+        :return: None
+        """
+        if game_state == 2:
+
+            if self.clicked:
+                circle_surface = pygame.Surface((self.range * 2, self.range * 2), pygame.SRCALPHA, 32)
+                pygame.draw.circle(circle_surface, (128, 128, 128, 128), (self.range, self.range), self.range, 0)
+                surface.blit(circle_surface, (self.rect.center[0] - self.range, self.rect.center[1] - self.range))
+            surface.blit(self.image, self.rect)
+            if self.in_position:
+                if self.shoot_index >= len(self.shoot_list):
+                    self.shoot_index = 0
+
+                arrow = pygame.transform.scale(self.shoot_list[self.shoot_index], (self.arrow_rect.width, self.arrow_rect.height))
+
+                if time.time() - self.timer > 0.30:
+                    self.shoot_index += 1
+                    self.timer = time.time()
+
+                if self.flipped:  # if the enemy is left
+                    surface.blit(arrow, self.arrow_rect)
+
+                else:  # if the enemy is right
+                    surface.blit(pygame.transform.flip(arrow, True, False), self.arrow_rect)
 
 
 class TowerMagic2(Tower):
@@ -339,8 +378,8 @@ class TowerMagic2(Tower):
         super().__init__(x, y, game_map)
         self.image = pygame.transform.scale(global_variables.towers_magic[6], (self.width, self.height))
         self.image_upgrade = pygame.transform.scale(global_variables.towers_magic[7], (self.width, self.height))
-        self.animation_list = [global_variables.towers_magic[28]]
-        self.shoot_list = global_variables.towers_magic[19:26]
+        self.animation_list = []
+        self.shoot_list = global_variables.freeze
         # Tower stuff
         self.range = 130
         self.damage = 6
@@ -353,10 +392,49 @@ class TowerMagic2(Tower):
         Spawn the archer after the tower is set in position on the board.
         :return: None
         """
+
+        distance_min = 1000
+        x, y = 0, 0
         if not self.in_position:
+            for point in global_variables.game_settings[self.game_map][4]:
+                distance = math.sqrt((point[0] - self.rect.x) ** 2 + (point[1] - self.rect.y) ** 2)
+                if distance < distance_min:
+                    distance_min = distance
+                    x, y = point[0], point[1]
             self.in_position = True
-            self.archer_rect = pygame.Rect(self.rect.x + 20, self.rect.y - 40, 34, 55)
-            self.arrow_rect = pygame.Rect(self.archer_rect.topright[0], self.archer_rect.y - 30, 21, 69)
+            self.arrow_rect = pygame.Rect(0, 0, self.width + 15, self.height + 15)
+            self.arrow_rect.centerx = x
+            self.arrow_rect.centery = y
+
+    def draw(self, surface, game_state):
+        """
+        All tower's drawing logic goes here.
+        :param surface: pygame Surface()
+        :param game_state: int
+        :return: None
+        """
+        if game_state == 2:
+
+            if self.clicked:
+                circle_surface = pygame.Surface((self.range * 2, self.range * 2), pygame.SRCALPHA, 32)
+                pygame.draw.circle(circle_surface, (128, 128, 128, 128), (self.range, self.range), self.range, 0)
+                surface.blit(circle_surface, (self.rect.center[0] - self.range, self.rect.center[1] - self.range))
+            surface.blit(self.image, self.rect)
+            if self.in_position:
+                if self.shoot_index >= len(self.shoot_list):
+                    self.shoot_index = 0
+
+                arrow = pygame.transform.scale(self.shoot_list[self.shoot_index], (self.arrow_rect.width, self.arrow_rect.height))
+
+                if time.time() - self.timer > 0.30:
+                    self.shoot_index += 1
+                    self.timer = time.time()
+
+                if self.flipped:  # if the enemy is left
+                    surface.blit(arrow, self.arrow_rect)
+
+                else:  # if the enemy is right
+                    surface.blit(pygame.transform.flip(arrow, True, False), self.arrow_rect)
 
 
 class TowerMagic3(Tower):
@@ -369,8 +447,8 @@ class TowerMagic3(Tower):
         super().__init__(x, y, game_map)
         self.image = pygame.transform.scale(global_variables.towers_magic[11], (self.width, self.height))
         self.image_upgrade = pygame.transform.scale(global_variables.towers_magic[12], (self.width, self.height))
-        self.animation_list = [global_variables.towers_magic[29]]
-        self.shoot_list = global_variables.towers_magic[19:26]
+        self.animation_list = []
+        self.shoot_list = global_variables.freeze
         # Tower stuff
         self.range = 140
         self.damage = 7
@@ -383,10 +461,49 @@ class TowerMagic3(Tower):
         Spawn the archer after the tower is set in position on the board.
         :return: None
         """
+
+        distance_min = 1000
+        x, y = 0, 0
         if not self.in_position:
+            for point in global_variables.game_settings[self.game_map][4]:
+                distance = math.sqrt((point[0] - self.rect.x) ** 2 + (point[1] - self.rect.y) ** 2)
+                if distance < distance_min:
+                    distance_min = distance
+                    x, y = point[0], point[1]
             self.in_position = True
-            self.archer_rect = pygame.Rect(self.rect.x + 20, self.rect.y - 40, 34, 55)
-            self.arrow_rect = pygame.Rect(self.archer_rect.topright[0], self.archer_rect.y - 30, 21, 69)
+            self.arrow_rect = pygame.Rect(0, 0, self.width + 5, self.height + 5)
+            self.arrow_rect.centerx = x
+            self.arrow_rect.centery = y
+
+    def draw(self, surface, game_state):
+        """
+        All tower's drawing logic goes here.
+        :param surface: pygame Surface()
+        :param game_state: int
+        :return: None
+        """
+        if game_state == 2:
+
+            if self.clicked:
+                circle_surface = pygame.Surface((self.range * 2, self.range * 2), pygame.SRCALPHA, 32)
+                pygame.draw.circle(circle_surface, (128, 128, 128, 128), (self.range, self.range), self.range, 0)
+                surface.blit(circle_surface, (self.rect.center[0] - self.range, self.rect.center[1] - self.range))
+            surface.blit(self.image, self.rect)
+            if self.in_position:
+                if self.shoot_index >= len(self.shoot_list):
+                    self.shoot_index = 0
+
+                arrow = pygame.transform.scale(self.shoot_list[self.shoot_index], (self.arrow_rect.width, self.arrow_rect.height))
+
+                if time.time() - self.timer > 0.15:
+                    self.shoot_index += 1
+                    self.timer = time.time()
+
+                if self.flipped:  # if the enemy is left
+                    surface.blit(arrow, self.arrow_rect)
+
+                else:  # if the enemy is right
+                    surface.blit(pygame.transform.flip(arrow, True, False), self.arrow_rect)
 
 
 class TowerMagic4(Tower):
@@ -399,8 +516,8 @@ class TowerMagic4(Tower):
         super().__init__(x, y, game_map)
         self.image = pygame.transform.scale(global_variables.towers_magic[16], (self.width, self.height))
         self.image_upgrade = pygame.transform.scale(global_variables.towers_magic[17], (self.width, self.height))
-        self.animation_list = [global_variables.towers_magic[30]]
-        self.shoot_list = global_variables.towers_magic[19:26]
+        self.animation_list = []
+        self.shoot_list = global_variables.fire[19:27]
         # Tower stuff
         self.range = 150
         self.damage = 8
@@ -413,10 +530,49 @@ class TowerMagic4(Tower):
         Spawn the archer after the tower is set in position on the board.
         :return: None
         """
+
+        distance_min = 1000
+        x, y = 0, 0
         if not self.in_position:
+            for point in global_variables.game_settings[self.game_map][4]:
+                distance = math.sqrt((point[0] - self.rect.x) ** 2 + (point[1] - self.rect.y) ** 2)
+                if distance < distance_min:
+                    distance_min = distance
+                    x, y = point[0], point[1]
             self.in_position = True
-            self.archer_rect = pygame.Rect(self.rect.x + 20, self.rect.y - 40, 34, 55)
-            self.arrow_rect = pygame.Rect(self.archer_rect.topright[0], self.archer_rect.y - 30, 21, 69)
+            self.arrow_rect = pygame.Rect(0, 0, self.width + 5, self.height + 5)
+            self.arrow_rect.centerx = x
+            self.arrow_rect.centery = y
+
+    def draw(self, surface, game_state):
+        """
+        All tower's drawing logic goes here.
+        :param surface: pygame Surface()
+        :param game_state: int
+        :return: None
+        """
+        if game_state == 2:
+
+            if self.clicked:
+                circle_surface = pygame.Surface((self.range * 2, self.range * 2), pygame.SRCALPHA, 32)
+                pygame.draw.circle(circle_surface, (128, 128, 128, 128), (self.range, self.range), self.range, 0)
+                surface.blit(circle_surface, (self.rect.center[0] - self.range, self.rect.center[1] - self.range))
+            surface.blit(self.image, self.rect)
+            if self.in_position:
+                if self.shoot_index >= len(self.shoot_list):
+                    self.shoot_index = 0
+
+                arrow = pygame.transform.scale(self.shoot_list[self.shoot_index], (self.arrow_rect.width, self.arrow_rect.height))
+
+                if time.time() - self.timer > 0.15:
+                    self.shoot_index += 1
+                    self.timer = time.time()
+
+                if self.flipped:  # if the enemy is left
+                    surface.blit(arrow, self.arrow_rect)
+
+                else:  # if the enemy is right
+                    surface.blit(pygame.transform.flip(arrow, True, False), self.arrow_rect)
 
 
 class TowerStone1(Tower):
@@ -429,8 +585,8 @@ class TowerStone1(Tower):
         super().__init__(x, y, game_map)
         self.image = pygame.transform.scale(global_variables.towers_stone[3], (self.width, self.height))
         self.image_upgrade = pygame.transform.scale(global_variables.towers_stone[6], (self.width, self.height))
-        self.animation_list = [global_variables.towers_stone[27]]
-        self.shoot_list = global_variables.towers_stone[29:33]
+        self.animation_list = []
+        self.shoot_list = global_variables.stone
         # Tower stuff
         self.range = 120
         self.damage = 9
@@ -443,13 +599,51 @@ class TowerStone1(Tower):
         Spawn the archer after the tower is set in position on the board.
         :return: None
         """
+
+        distance_min = 1000
+        x, y = 0, 0
         if not self.in_position:
+            for point in global_variables.game_settings[self.game_map][4]:
+                distance = math.sqrt((point[0] - self.rect.x) ** 2 + (point[1] - self.rect.y) ** 2)
+                if distance < distance_min:
+                    distance_min = distance
+                    x, y = point[0], point[1]
             self.in_position = True
-            self.archer_rect = pygame.Rect(self.rect.x + 20, self.rect.y - 40, 66, 97)
-            self.arrow_rect = pygame.Rect(self.archer_rect.topright[0], self.archer_rect.y - 30, 80, 97)
+            self.arrow_rect = pygame.Rect(0, 0, self.width + 5, self.height * 2.5)
+            self.arrow_rect.midbottom = (x, y)
+
+    def draw(self, surface, game_state):
+        """
+        All tower's drawing logic goes here.
+        :param surface: pygame Surface()
+        :param game_state: int
+        :return: None
+        """
+        if game_state == 2:
+
+            if self.clicked:
+                circle_surface = pygame.Surface((self.range * 2, self.range * 2), pygame.SRCALPHA, 32)
+                pygame.draw.circle(circle_surface, (128, 128, 128, 128), (self.range, self.range), self.range, 0)
+                surface.blit(circle_surface, (self.rect.center[0] - self.range, self.rect.center[1] - self.range))
+            surface.blit(self.image, self.rect)
+            if self.in_position:
+                if self.shoot_index >= len(self.shoot_list):
+                    self.shoot_index = 0
+
+                arrow = pygame.transform.scale(self.shoot_list[self.shoot_index], (self.arrow_rect.width, self.arrow_rect.height))
+
+                if time.time() - self.timer > 0.10:
+                    self.shoot_index += 1
+                    self.timer = time.time()
+
+                if self.flipped:  # if the enemy is left
+                    surface.blit(arrow, self.arrow_rect)
+
+                else:  # if the enemy is right
+                    surface.blit(pygame.transform.flip(arrow, True, False), self.arrow_rect)
 
 
-class TowerStone2(Tower):
+class TowerStone1(Tower):
     """
         Tower subclass
 
@@ -457,15 +651,15 @@ class TowerStone2(Tower):
 
     def __init__(self, x, y, game_map):
         super().__init__(x, y, game_map)
-        self.image = pygame.transform.scale(global_variables.towers_stone[6], (self.width, self.height))
-        self.image_upgrade = pygame.transform.scale(global_variables.towers_stone[7], (self.width, self.height))
-        self.animation_list = [global_variables.towers_stone[27]]
-        self.shoot_list = global_variables.towers_stone[29:33]
+        self.image = pygame.transform.scale(global_variables.towers_stone[3], (self.width, self.height))
+        self.image_upgrade = pygame.transform.scale(global_variables.towers_stone[6], (self.width, self.height))
+        self.animation_list = []
+        self.shoot_list = global_variables.stone
         # Tower stuff
-        self.range = 130
-        self.damage = 10
+        self.range = 120
+        self.damage = 9
         self.rate = 1
-        self.price = 10
+        self.price = 9
         self.bullets = []
 
     def set_in_position(self):
@@ -473,13 +667,51 @@ class TowerStone2(Tower):
         Spawn the archer after the tower is set in position on the board.
         :return: None
         """
+
+        distance_min = 1000
+        x, y = 0, 0
         if not self.in_position:
+            for point in global_variables.game_settings[self.game_map][4]:
+                distance = math.sqrt((point[0] - self.rect.x) ** 2 + (point[1] - self.rect.y) ** 2)
+                if distance < distance_min:
+                    distance_min = distance
+                    x, y = point[0], point[1]
             self.in_position = True
-            self.archer_rect = pygame.Rect(self.rect.x + 20, self.rect.y - 40, 66, 97)
-            self.arrow_rect = pygame.Rect(self.archer_rect.topright[0], self.archer_rect.y - 30, 80, 97)
+            self.arrow_rect = pygame.Rect(0, 0, self.width + 5, self.height * 2.5)
+            self.arrow_rect.midbottom = (x, y)
+
+    def draw(self, surface, game_state):
+        """
+        All tower's drawing logic goes here.
+        :param surface: pygame Surface()
+        :param game_state: int
+        :return: None
+        """
+        if game_state == 2:
+
+            if self.clicked:
+                circle_surface = pygame.Surface((self.range * 2, self.range * 2), pygame.SRCALPHA, 32)
+                pygame.draw.circle(circle_surface, (128, 128, 128, 128), (self.range, self.range), self.range, 0)
+                surface.blit(circle_surface, (self.rect.center[0] - self.range, self.rect.center[1] - self.range))
+            surface.blit(self.image, self.rect)
+            if self.in_position:
+                if self.shoot_index >= len(self.shoot_list):
+                    self.shoot_index = 0
+
+                arrow = pygame.transform.scale(self.shoot_list[self.shoot_index], (self.arrow_rect.width, self.arrow_rect.height))
+
+                if time.time() - self.timer > 0.10:
+                    self.shoot_index += 1
+                    self.timer = time.time()
+
+                if self.flipped:  # if the enemy is left
+                    surface.blit(arrow, self.arrow_rect)
+
+                else:  # if the enemy is right
+                    surface.blit(pygame.transform.flip(arrow, True, False), self.arrow_rect)
 
 
-class TowerStone3(Tower):
+class TowerStone1(Tower):
     """
         Tower subclass
 
@@ -487,15 +719,15 @@ class TowerStone3(Tower):
 
     def __init__(self, x, y, game_map):
         super().__init__(x, y, game_map)
-        self.image = pygame.transform.scale(global_variables.towers_stone[12], (self.width, self.height))
-        self.image_upgrade = pygame.transform.scale(global_variables.towers_stone[13], (self.width, self.height))
-        self.animation_list = [global_variables.towers_stone[27]]
-        self.shoot_list = global_variables.towers_stone[29:33]
+        self.image = pygame.transform.scale(global_variables.towers_stone[3], (self.width, self.height))
+        self.image_upgrade = pygame.transform.scale(global_variables.towers_stone[6], (self.width, self.height))
+        self.animation_list = []
+        self.shoot_list = global_variables.stone
         # Tower stuff
-        self.range = 140
-        self.damage = 11
+        self.range = 120
+        self.damage = 9
         self.rate = 1
-        self.price = 11
+        self.price = 9
         self.bullets = []
 
     def set_in_position(self):
@@ -503,13 +735,51 @@ class TowerStone3(Tower):
         Spawn the archer after the tower is set in position on the board.
         :return: None
         """
+
+        distance_min = 1000
+        x, y = 0, 0
         if not self.in_position:
+            for point in global_variables.game_settings[self.game_map][4]:
+                distance = math.sqrt((point[0] - self.rect.x) ** 2 + (point[1] - self.rect.y) ** 2)
+                if distance < distance_min:
+                    distance_min = distance
+                    x, y = point[0], point[1]
             self.in_position = True
-            self.archer_rect = pygame.Rect(self.rect.x + 20, self.rect.y - 40, 66, 97)
-            self.arrow_rect = pygame.Rect(self.archer_rect.topright[0], self.archer_rect.y - 30, 80, 97)
+            self.arrow_rect = pygame.Rect(0, 0, self.width + 5, self.height * 2.5)
+            self.arrow_rect.midbottom = (x, y)
+
+    def draw(self, surface, game_state):
+        """
+        All tower's drawing logic goes here.
+        :param surface: pygame Surface()
+        :param game_state: int
+        :return: None
+        """
+        if game_state == 2:
+
+            if self.clicked:
+                circle_surface = pygame.Surface((self.range * 2, self.range * 2), pygame.SRCALPHA, 32)
+                pygame.draw.circle(circle_surface, (128, 128, 128, 128), (self.range, self.range), self.range, 0)
+                surface.blit(circle_surface, (self.rect.center[0] - self.range, self.rect.center[1] - self.range))
+            surface.blit(self.image, self.rect)
+            if self.in_position:
+                if self.shoot_index >= len(self.shoot_list):
+                    self.shoot_index = 0
+
+                arrow = pygame.transform.scale(self.shoot_list[self.shoot_index], (self.arrow_rect.width, self.arrow_rect.height))
+
+                if time.time() - self.timer > 0.10:
+                    self.shoot_index += 1
+                    self.timer = time.time()
+
+                if self.flipped:  # if the enemy is left
+                    surface.blit(arrow, self.arrow_rect)
+
+                else:  # if the enemy is right
+                    surface.blit(pygame.transform.flip(arrow, True, False), self.arrow_rect)
 
 
-class TowerStone4(Tower):
+class TowerStone1(Tower):
     """
         Tower subclass
 
@@ -517,15 +787,15 @@ class TowerStone4(Tower):
 
     def __init__(self, x, y, game_map):
         super().__init__(x, y, game_map)
-        self.image = pygame.transform.scale(global_variables.towers_stone[16], (self.width, self.height))
-        self.image_upgrade = pygame.transform.scale(global_variables.towers_stone[17], (self.width, self.height))
-        self.animation_list = [global_variables.towers_stone[27]]
-        self.shoot_list = global_variables.towers_stone[29:33]
+        self.image = pygame.transform.scale(global_variables.towers_stone[3], (self.width, self.height))
+        self.image_upgrade = pygame.transform.scale(global_variables.towers_stone[6], (self.width, self.height))
+        self.animation_list = []
+        self.shoot_list = global_variables.stone
         # Tower stuff
-        self.range = 150
-        self.damage = 12
+        self.range = 120
+        self.damage = 9
         self.rate = 1
-        self.price = 12
+        self.price = 9
         self.bullets = []
 
     def set_in_position(self):
@@ -533,10 +803,48 @@ class TowerStone4(Tower):
         Spawn the archer after the tower is set in position on the board.
         :return: None
         """
+
+        distance_min = 1000
+        x, y = 0, 0
         if not self.in_position:
+            for point in global_variables.game_settings[self.game_map][4]:
+                distance = math.sqrt((point[0] - self.rect.x) ** 2 + (point[1] - self.rect.y) ** 2)
+                if distance < distance_min:
+                    distance_min = distance
+                    x, y = point[0], point[1]
             self.in_position = True
-            self.archer_rect = pygame.Rect(self.rect.x + 20, self.rect.y - 40, 66, 97)
-            self.arrow_rect = pygame.Rect(self.archer_rect.topright[0], self.archer_rect.y - 30, 80, 97)
+            self.arrow_rect = pygame.Rect(0, 0, self.width + 5, self.height * 2.5)
+            self.arrow_rect.midbottom = (x, y)
+
+    def draw(self, surface, game_state):
+        """
+        All tower's drawing logic goes here.
+        :param surface: pygame Surface()
+        :param game_state: int
+        :return: None
+        """
+        if game_state == 2:
+
+            if self.clicked:
+                circle_surface = pygame.Surface((self.range * 2, self.range * 2), pygame.SRCALPHA, 32)
+                pygame.draw.circle(circle_surface, (128, 128, 128, 128), (self.range, self.range), self.range, 0)
+                surface.blit(circle_surface, (self.rect.center[0] - self.range, self.rect.center[1] - self.range))
+            surface.blit(self.image, self.rect)
+            if self.in_position:
+                if self.shoot_index >= len(self.shoot_list):
+                    self.shoot_index = 0
+
+                arrow = pygame.transform.scale(self.shoot_list[self.shoot_index], (self.arrow_rect.width, self.arrow_rect.height))
+
+                if time.time() - self.timer > 0.10:
+                    self.shoot_index += 1
+                    self.timer = time.time()
+
+                if self.flipped:  # if the enemy is left
+                    surface.blit(arrow, self.arrow_rect)
+
+                else:  # if the enemy is right
+                    surface.blit(pygame.transform.flip(arrow, True, False), self.arrow_rect)
 
 
 class TowerSupport1(Tower):
@@ -597,7 +905,7 @@ class TowerSupport1(Tower):
         distance_min = 1000
         x, y = 0, 0
         if not self.in_position:
-            for point in global_variables.game_settings[self.game_map][2]:
+            for point in global_variables.game_settings[self.game_map][4]:
                 distance = math.sqrt((point[0] - self.rect.x) ** 2 + (point[1] - self.rect.y) ** 2)
                 if distance < distance_min:
                     distance_min = distance
@@ -619,7 +927,7 @@ class TowerSupport2(Tower):
         self.image = pygame.transform.scale(global_variables.towers_support[4], (self.width, self.height))
         self.image_upgrade = pygame.transform.scale(global_variables.towers_support[5], (self.width, self.height))
         self.animation_list = []
-        self.shoot_list = global_variables.defense[0:10]
+        self.shoot_list = global_variables.time[0:14]
         # Tower stuff
         self.range = 130
         self.damage = 14
@@ -636,13 +944,13 @@ class TowerSupport2(Tower):
         distance_min = 1000
         x, y = 0, 0
         if not self.in_position:
-            for point in global_variables.game_settings[self.game_map][2]:
+            for point in global_variables.game_settings[self.game_map][4]:
                 distance = math.sqrt((point[0] - self.rect.x) ** 2 + (point[1] - self.rect.y) ** 2)
                 if distance < distance_min:
                     distance_min = distance
                     x, y = point[0], point[1]
             self.in_position = True
-            self.arrow_rect = pygame.Rect(0, 0, self.width, self.height)
+            self.arrow_rect = pygame.Rect(0, 0, self.width + 5, self.height + 5)
             self.arrow_rect.centerx = x
             self.arrow_rect.centery = y
 
@@ -688,7 +996,7 @@ class TowerSupport3(Tower):
         self.image = pygame.transform.scale(global_variables.towers_support[7], (self.width, self.height))
         self.image_upgrade = pygame.transform.scale(global_variables.towers_support[8], (self.width, self.height))
         self.animation_list = []
-        self.shoot_list = global_variables.damage[0:10]
+        self.shoot_list = global_variables.time[0:14]
         # Tower stuff
         self.range = 140
         self.damage = 15
@@ -705,13 +1013,13 @@ class TowerSupport3(Tower):
         distance_min = 1000
         x, y = 0, 0
         if not self.in_position:
-            for point in global_variables.game_settings[self.game_map][2]:
+            for point in global_variables.game_settings[self.game_map][4]:
                 distance = math.sqrt((point[0] - self.rect.x) ** 2 + (point[1] - self.rect.y) ** 2)
                 if distance < distance_min:
                     distance_min = distance
                     x, y = point[0], point[1]
             self.in_position = True
-            self.arrow_rect = pygame.Rect(0, 0, self.width, self.height)
+            self.arrow_rect = pygame.Rect(0, 0, self.width + 10, self.height + 10)
             self.arrow_rect.centerx = x
             self.arrow_rect.centery = y
 
@@ -757,7 +1065,7 @@ class TowerSupport4(Tower):
         self.image = pygame.transform.scale(global_variables.towers_support[10], (self.width, self.height))
         self.image_upgrade = pygame.transform.scale(global_variables.towers_support[11], (self.width, self.height))
         self.animation_list = []
-        self.shoot_list = global_variables.zip[0:14]
+        self.shoot_list = global_variables.time[0:14]
         # Tower stuff
         self.range = 150
         self.damage = 16
@@ -774,15 +1082,15 @@ class TowerSupport4(Tower):
         distance_min = 1000
         x, y = 0, 0
         if not self.in_position:
-            for point in global_variables.game_settings[self.game_map][2]:
+            for point in global_variables.game_settings[self.game_map][4]:
                 distance = math.sqrt((point[0] - self.rect.x) ** 2 + (point[1] - self.rect.y) ** 2)
                 if distance < distance_min:
                     distance_min = distance
                     x, y = point[0], point[1]
             self.in_position = True
-            self.arrow_rect = pygame.Rect(0, 0, 150, 350)
+            self.arrow_rect = pygame.Rect(0, 0, self.width + 15, self.height + 15)
             self.arrow_rect.centerx = x
-            self.arrow_rect.centery = y - 75
+            self.arrow_rect.centery = y
 
     def draw(self, surface, game_state):
         """

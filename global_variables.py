@@ -32,7 +32,7 @@ menu_bottom = [pygame.image.load('assets/menus/gui/' + str(x) + '.png') for x in
 
 # Effects
 rain = [pygame.image.load('assets/effects/rain/' + str(x) + '.png') for x in range(19)]
-fire = [pygame.image.load('assets/effects/fire/' + str(x) + '.png') for x in range(19)]
+fire = [pygame.image.load('assets/effects/fire/' + str(x) + '.png') for x in range(27)]
 freeze = [pygame.image.load('assets/effects/freeze/' + str(x) + '.png') for x in range(16)]
 stone = [pygame.image.load('assets/effects/stone/' + str(x) + '.png') for x in range(18)]
 time = [pygame.image.load('assets/effects/time/' + str(x) + '.png') for x in range(14)]
@@ -45,6 +45,7 @@ effect_icons = [pygame.image.load('assets/effects/icons/' + str(x) + '.png') for
 # Map 1
 map_1_bg = pygame.transform.scale(pygame.image.load('assets/backgrounds/1/bg.png'), (1280, 720))
 map_1_tower_positions = [(1122, 262), (856, 264), (585, 262), (502, 468), (794, 481), (1078, 480), (366, 642)]
+map_1_effect_positions = [(1117, 152), (845, 149), (581, 151), (1084, 603), (795, 598), (510, 643), (591, 554)]
 map_1_path_1 = [(1280, 100), (1100, 100), (470, 100), (384, 240), (631, 359), (702, 528), (1194, 541), (1242, 541)]
 map_1_path_2 = [(1280, 100), (1100, 100), (470, 100), (384, 240), (639, 444), (603, 509), (469, 562), (479, 690), (475, 699)]
 
@@ -83,7 +84,7 @@ map_5_path_2 = [(1280, 250), (1264, 250), (1082, 65), (979, 44), (813, 191), (77
 
 # Map 6
 map_6_bg = pygame.transform.scale(pygame.image.load('assets/backgrounds/6/bg.png'), (1280, 720))
-map_6_tower_positions = [(1018, 203), (749, 111), (876, 495), (507, 542), (337, 177), (299, 403), (368, 664), (155, 537)]
+map_6_tower_positions = [(358, 193), (569, 194), (838, 215), (708, 441), (349, 492), (461, 654), (688, 659)]
 map_6_path_1 = [(0, 80), (2, 70), (100, 80), (192, 53), (270, 87), (902, 72), (1006, 213), (850, 302), (640, 311), (541, 483), (559, 544), (402, 546),
                 (341, 656), (338, 699)]
 map_6_path_2 = [(0, 80), (2, 70), (100, 80), (192, 53), (270, 87), (902, 72), (1006, 213), (850, 302), (640, 311), (541, 483), (566, 529), (763, 554),
@@ -134,7 +135,7 @@ map_12_path_1 = [(0, 520), (39, 527), (140, 514), (198, 371), (311, 301), (498, 
 map_12_path_2 = [(0, 520), (39, 527), (140, 514), (198, 371), (311, 301), (498, 303), (625, 457), (535, 550), (522, 671), (528, 683)]
 
 game_settings = [
-    [map_1_bg, map_1_tower_positions, map_1_path_1, map_1_path_2],
+    [map_1_bg, map_1_tower_positions, map_1_path_1, map_1_path_2, map_1_effect_positions],
     [map_2_bg, map_2_tower_positions, map_2_path_1, map_2_path_2],
     [map_3_bg, map_3_tower_positions, map_3_path_1, map_3_path_2],
     [map_4_bg, map_4_tower_positions, map_4_path_1, map_4_path_2],
