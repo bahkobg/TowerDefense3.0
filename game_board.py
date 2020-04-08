@@ -11,6 +11,8 @@ class GameBoard:
 
         # General
         self.screen = pygame.display.set_mode((1280, 780), pygame.SRCALPHA)
+        self.color_red = (255,0,0)
+        self.color_green = (0,255,0)
 
         # Main Menu
         self.main_menu_bg = pygame.transform.scale(pygame.image.load('assets/backgrounds/0/bg.png'), (1280, 780))
@@ -59,68 +61,68 @@ class GameBoard:
         self.menu_tower_archer = pygame.sprite.Group()
         self.menu_tower_archer.add(
             Button(global_variables.towers_archer[0], 330, 100, 670, 400, False),
-            Button(global_variables.towers_archer[2], 370, 170, 125, 140, 'BUY_ARCHER_TOWER_1'),
-            Button(global_variables.towers_archer[7], 525, 170, 125, 140, 'BUY_ARCHER_TOWER_2'),
-            Button(global_variables.towers_archer[9], 680, 170, 125, 140, 'BUY_ARCHER_TOWER_3'),
-            Button(global_variables.towers_archer[11], 835, 170, 125, 140, 'BUY_ARCHER_TOWER_4')
+            Button(global_variables.towers_archer[2], 370, 170, 125, 140, 'BUY_ARCHER_TOWER_1', price=12),
+            Button(global_variables.towers_archer[7], 525, 170, 125, 140, 'BUY_ARCHER_TOWER_2', price=24),
+            Button(global_variables.towers_archer[9], 680, 170, 125, 140, 'BUY_ARCHER_TOWER_3', price=36),
+            Button(global_variables.towers_archer[11], 835, 170, 125, 140, 'BUY_ARCHER_TOWER_4', price=48)
         )
         # Magic Tower
         self.menu_tower_magic_opened = False
         self.menu_tower_magic = pygame.sprite.Group()
         self.menu_tower_magic.add(
             Button(global_variables.towers_magic[0], 330, 100, 670, 400, False),
-            Button(global_variables.towers_magic[2], 370, 170, 125, 140, 'BUY_MAGIC_TOWER_1'),
-            Button(global_variables.towers_magic[6], 525, 170, 125, 140, 'BUY_MAGIC_TOWER_2'),
-            Button(global_variables.towers_magic[11], 680, 170, 125, 140, 'BUY_MAGIC_TOWER_3'),
-            Button(global_variables.towers_magic[16], 835, 170, 125, 140, 'BUY_MAGIC_TOWER_4')
+            Button(global_variables.towers_magic[2], 370, 170, 125, 140, 'BUY_MAGIC_TOWER_1', 48),
+            Button(global_variables.towers_magic[6], 525, 170, 125, 140, 'BUY_MAGIC_TOWER_2', 64),
+            Button(global_variables.towers_magic[11], 680, 170, 125, 140, 'BUY_MAGIC_TOWER_3', 80),
+            Button(global_variables.towers_magic[16], 835, 170, 125, 140, 'BUY_MAGIC_TOWER_4', 96)
         )
         # Stone Tower
         self.menu_tower_stone_opened = False
         self.menu_tower_stone = pygame.sprite.Group()
         self.menu_tower_stone.add(
             Button(global_variables.towers_stone[0], 330, 100, 670, 400, False),
-            Button(global_variables.towers_stone[3], 370, 170, 125, 140, 'BUY_STONE_TOWER_1'),
-            Button(global_variables.towers_stone[6], 525, 170, 125, 140, 'BUY_STONE_TOWER_2'),
-            Button(global_variables.towers_stone[12], 680, 170, 125, 140, 'BUY_STONE_TOWER_3'),
-            Button(global_variables.towers_stone[15], 835, 170, 125, 140, 'BUY_STONE_TOWER_4')
+            Button(global_variables.towers_stone[3], 370, 170, 125, 140, 'BUY_STONE_TOWER_1', 44),
+            Button(global_variables.towers_stone[6], 525, 170, 125, 140, 'BUY_STONE_TOWER_2', 64),
+            Button(global_variables.towers_stone[12], 680, 170, 125, 140, 'BUY_STONE_TOWER_3', 84),
+            Button(global_variables.towers_stone[15], 835, 170, 125, 140, 'BUY_STONE_TOWER_4', 104)
         )
         # Support Tower
         self.menu_tower_support_opened = False
         self.menu_tower_support = pygame.sprite.Group()
         self.menu_tower_support.add(
             Button(global_variables.towers_support[0], 330, 100, 670, 400, False),
-            Button(global_variables.towers_support[1], 370, 170, 125, 140, 'BUY_SUPPORT_TOWER_1'),
-            Button(global_variables.towers_support[4], 525, 170, 125, 140, 'BUY_SUPPORT_TOWER_2'),
-            Button(global_variables.towers_support[7], 680, 170, 125, 140, 'BUY_SUPPORT_TOWER_3'),
-            Button(global_variables.towers_support[10], 835, 170, 125, 140, 'BUY_SUPPORT_TOWER_4')
+            Button(global_variables.towers_support[1], 370, 170, 125, 140, 'BUY_SUPPORT_TOWER_1', price=28),
+            Button(global_variables.towers_support[4], 525, 170, 125, 140, 'BUY_SUPPORT_TOWER_2', price=38),
+            Button(global_variables.towers_support[7], 680, 170, 125, 140, 'BUY_SUPPORT_TOWER_3', price=48),
+            Button(global_variables.towers_support[10], 835, 170, 125, 140, 'BUY_SUPPORT_TOWER_4', price=68)
         )
         # Freeze Effect
         self.menu_freeze_effect_opened = False
         self.menu_freeze_effect = pygame.sprite.Group()
         self.menu_freeze_effect.add(
             Button(global_variables.towers_support[0], 330, 100, 670, 400, False),
-            Button(global_variables.effect_icons[2], 370, 220, 140, 140, 'BUY_FREEZE')
+            Button(global_variables.effect_icons[2], 370, 220, 140, 140, False)
         )
         # Fire Effect
         self.menu_fire_effect_opened = False
         self.menu_fire_effect = pygame.sprite.Group()
         self.menu_fire_effect.add(
             Button(global_variables.towers_support[0], 330, 100, 670, 400, False),
-            Button(global_variables.effect_icons[1], 370, 220, 140, 140, 'BUY_FIRE')
+            Button(global_variables.effect_icons[1], 370, 220, 140, 140, False)
         )
         # Stones Effect
         self.menu_stones_effect_opened = False
         self.menu_stones_effect = pygame.sprite.Group()
         self.menu_stones_effect.add(
             Button(global_variables.towers_support[0], 330, 100, 670, 400, False),
-            Button(global_variables.effect_icons[7], 370, 220, 140, 140, 'BUY_STONES')
+            Button(global_variables.effect_icons[7], 370, 220, 140, 140, False)
         )
         # Rain Effect
         self.menu_rain_effect_opened = False
         self.menu_rain_effect = pygame.sprite.Group()
         self.menu_rain_effect.add(
             Button(global_variables.towers_support[0], 330, 100, 670, 400, False),
-            Button(global_variables.effect_icons[4], 370, 220, 140, 140, 'BUY_RAIN')
+            Button(global_variables.effect_icons[4], 370, 220, 140, 140, False)
         )
 
         # You Lose
@@ -166,7 +168,7 @@ class GameBoard:
             self.bottom_menu_buttons.draw(self.screen)
             self.top_menu_buttons.draw(self.screen)
             self.screen.blit(self.text_stats.render(str(global_variables.stats_money), True, (247, 187, 31)), (75, 38))
-            self.screen.blit(self.text_stats.render(str(global_variables.stats_player_mana), True, (247, 187, 31)),
+            self.screen.blit(self.text_stats.render(str(global_variables.stats_kills), True, (247, 187, 31)),
                              (75, 83))
             self.screen.blit(self.text_stats.render(str(global_variables.stats_player_health), True, (247, 187, 31)),
                              (75, 128))
@@ -201,77 +203,125 @@ class GameBoard:
                 self.screen.blit(self.text_h2.render('Archer Towers:', True, (247, 187, 31)), (470, 100))
                 self.screen.blit(self.text_p.render('Damage: 1', True, (247, 187, 31)), (370, 300))
                 self.screen.blit(self.text_p.render('Range: 120', True, (247, 187, 31)), (370, 330))
-                self.screen.blit(self.text_p.render('Attack: 0.7', True, (247, 187, 31)), (370, 360))
-                self.screen.blit(self.text_p.render('Price: 12', True, (247, 187, 31)), (370, 390))
-                self.screen.blit(self.text_p.render('Damage: 2', True, (247, 187, 31)), (525, 300))
+                self.screen.blit(self.text_p.render('Attack: 0.8', True, (247, 187, 31)), (370, 360))
+                if global_variables.stats_money >= 12:
+                    self.screen.blit(self.text_p.render('Price: 12', True, self.color_green), (370, 390))
+                else:
+                    self.screen.blit(self.text_p.render('Price: 12', True, self.color_red), (370, 390))
+                self.screen.blit(self.text_p.render('Damage: 3', True, (247, 187, 31)), (525, 300))
                 self.screen.blit(self.text_p.render('Range: 130', True, (247, 187, 31)), (525, 330))
-                self.screen.blit(self.text_p.render('Attack: 1.5', True, (247, 187, 31)), (525, 360))
-                self.screen.blit(self.text_p.render('Price: 24', True, (247, 187, 31)), (525, 390))
-                self.screen.blit(self.text_p.render('Damage: 3', True, (247, 187, 31)), (680, 300))
+                self.screen.blit(self.text_p.render('Attack: 0.7', True, (247, 187, 31)), (525, 360))
+                if global_variables.stats_money >= 24:
+                    self.screen.blit(self.text_p.render('Price: 24', True, self.color_green), (525, 390))
+                else:
+                    self.screen.blit(self.text_p.render('Price: 24', True, self.color_red), (525, 390))
+                self.screen.blit(self.text_p.render('Damage: 5', True, (247, 187, 31)), (680, 300))
                 self.screen.blit(self.text_p.render('Range: 120', True, (247, 187, 31)), (680, 330))
-                self.screen.blit(self.text_p.render('Attack: 1.8', True, (247, 187, 31)), (680, 360))
-                self.screen.blit(self.text_p.render('Price: 38', True, (247, 187, 31)), (680, 390))
-                self.screen.blit(self.text_p.render('Damage: 4', True, (247, 187, 31)), (835, 300))
+                self.screen.blit(self.text_p.render('Attack: 0.6', True, (247, 187, 31)), (680, 360))
+                if global_variables.stats_money >= 36:
+                    self.screen.blit(self.text_p.render('Price: 36', True, self.color_green), (680, 390))
+                else:
+                    self.screen.blit(self.text_p.render('Price: 36', True, self.color_red), (680, 390))
+                self.screen.blit(self.text_p.render('Damage: 7', True, (247, 187, 31)), (835, 300))
                 self.screen.blit(self.text_p.render('Range: 150', True, (247, 187, 31)), (835, 330))
-                self.screen.blit(self.text_p.render('Attack: 3', True, (247, 187, 31)), (835, 360))
-                self.screen.blit(self.text_p.render('Price: 50', True, (247, 187, 31)), (835, 390))
+                self.screen.blit(self.text_p.render('Attack: 0.5', True, (247, 187, 31)), (835, 360))
+                if global_variables.stats_money >= 48:
+                    self.screen.blit(self.text_p.render('Price: 48', True, self.color_green), (835, 390))
+                else:
+                    self.screen.blit(self.text_p.render('Price: 48', True, self.color_red), (835, 390))
             elif self.menu_tower_stone_opened:
                 self.menu_tower_stone.draw(self.screen)
                 self.screen.blit(self.text_h2.render('Stone Towers:', True, (247, 187, 31)), (470, 100))
-                self.screen.blit(self.text_p.render('Damage: 1', True, (247, 187, 31)), (370, 300))
+                self.screen.blit(self.text_p.render('Damage: 5', True, (247, 187, 31)), (370, 300))
                 self.screen.blit(self.text_p.render('Range: 120', True, (247, 187, 31)), (370, 330))
-                self.screen.blit(self.text_p.render('Attack: 0.7', True, (247, 187, 31)), (370, 360))
-                self.screen.blit(self.text_p.render('Price: 12', True, (247, 187, 31)), (370, 390))
-                self.screen.blit(self.text_p.render('Damage: 2', True, (247, 187, 31)), (525, 300))
+                self.screen.blit(self.text_p.render('Attack: 0.8', True, (247, 187, 31)), (370, 360))
+                if global_variables.stats_money >= 44:
+                    self.screen.blit(self.text_p.render('Price: 44', True, self.color_green), (370, 390))
+                else:
+                    self.screen.blit(self.text_p.render('Price: 44', True, self.color_red), (370, 390))
+                self.screen.blit(self.text_p.render('Damage: 12', True, (247, 187, 31)), (525, 300))
                 self.screen.blit(self.text_p.render('Range: 130', True, (247, 187, 31)), (525, 330))
-                self.screen.blit(self.text_p.render('Attack: 1.5', True, (247, 187, 31)), (525, 360))
-                self.screen.blit(self.text_p.render('Price: 24', True, (247, 187, 31)), (525, 390))
-                self.screen.blit(self.text_p.render('Damage: 3', True, (247, 187, 31)), (680, 300))
+                self.screen.blit(self.text_p.render('Attack: 0.7', True, (247, 187, 31)), (525, 360))
+                if global_variables.stats_money >= 64:
+                    self.screen.blit(self.text_p.render('Price: 64', True, self.color_green), (525, 390))
+                else:
+                    self.screen.blit(self.text_p.render('Price: 64', True, self.color_red), (525, 390))
+                self.screen.blit(self.text_p.render('Damage: 18', True, (247, 187, 31)), (680, 300))
                 self.screen.blit(self.text_p.render('Range: 120', True, (247, 187, 31)), (680, 330))
-                self.screen.blit(self.text_p.render('Attack: 1.8', True, (247, 187, 31)), (680, 360))
-                self.screen.blit(self.text_p.render('Price: 38', True, (247, 187, 31)), (680, 390))
-                self.screen.blit(self.text_p.render('Damage: 4', True, (247, 187, 31)), (835, 300))
+                self.screen.blit(self.text_p.render('Attack: 0.6', True, (247, 187, 31)), (680, 360))
+                if global_variables.stats_money >= 84:
+                    self.screen.blit(self.text_p.render('Price: 84', True, self.color_green), (680, 390))
+                else:
+                    self.screen.blit(self.text_p.render('Price: 84', True, self.color_red), (680, 390))
+                self.screen.blit(self.text_p.render('Damage: 24', True, (247, 187, 31)), (835, 300))
                 self.screen.blit(self.text_p.render('Range: 150', True, (247, 187, 31)), (835, 330))
-                self.screen.blit(self.text_p.render('Attack: 3', True, (247, 187, 31)), (835, 360))
-                self.screen.blit(self.text_p.render('Price: 50', True, (247, 187, 31)), (835, 390))
+                self.screen.blit(self.text_p.render('Attack: 0.5', True, (247, 187, 31)), (835, 360))
+                if global_variables.stats_money >= 104:
+                    self.screen.blit(self.text_p.render('Price: 104', True, self.color_green), (835, 390))
+                else:
+                    self.screen.blit(self.text_p.render('Price: 104', True, self.color_red), (835, 390))
             elif self.menu_tower_magic_opened:
                 self.menu_tower_magic.draw(self.screen)
                 self.screen.blit(self.text_h2.render('Magic Towers:', True, (247, 187, 31)), (470, 100))
-                self.screen.blit(self.text_p.render('Damage: 1', True, (247, 187, 31)), (370, 300))
+                self.screen.blit(self.text_p.render('Damage: 8', True, (247, 187, 31)), (370, 300))
                 self.screen.blit(self.text_p.render('Range: 120', True, (247, 187, 31)), (370, 330))
-                self.screen.blit(self.text_p.render('Attack: 0.7', True, (247, 187, 31)), (370, 360))
-                self.screen.blit(self.text_p.render('Price: 12', True, (247, 187, 31)), (370, 390))
-                self.screen.blit(self.text_p.render('Damage: 2', True, (247, 187, 31)), (525, 300))
+                self.screen.blit(self.text_p.render('Attack: 0.8', True, (247, 187, 31)), (370, 360))
+                if global_variables.stats_money >= 48:
+                    self.screen.blit(self.text_p.render('Price: 48', True, self.color_green), (370, 390))
+                else:
+                    self.screen.blit(self.text_p.render('Price: 48', True, self.color_red), (370, 390))
+                self.screen.blit(self.text_p.render('Damage: 12', True, (247, 187, 31)), (525, 300))
                 self.screen.blit(self.text_p.render('Range: 130', True, (247, 187, 31)), (525, 330))
-                self.screen.blit(self.text_p.render('Attack: 1.5', True, (247, 187, 31)), (525, 360))
-                self.screen.blit(self.text_p.render('Price: 24', True, (247, 187, 31)), (525, 390))
-                self.screen.blit(self.text_p.render('Damage: 3', True, (247, 187, 31)), (680, 300))
-                self.screen.blit(self.text_p.render('Range: 120', True, (247, 187, 31)), (680, 330))
-                self.screen.blit(self.text_p.render('Attack: 1.8', True, (247, 187, 31)), (680, 360))
-                self.screen.blit(self.text_p.render('Price: 38', True, (247, 187, 31)), (680, 390))
-                self.screen.blit(self.text_p.render('Damage: 4', True, (247, 187, 31)), (835, 300))
+                self.screen.blit(self.text_p.render('Attack: 0.7', True, (247, 187, 31)), (525, 360))
+                if global_variables.stats_money >= 64:
+                    self.screen.blit(self.text_p.render('Price: 64', True, self.color_green), (525, 390))
+                else:
+                    self.screen.blit(self.text_p.render('Price: 64', True, self.color_red), (525, 390))
+                self.screen.blit(self.text_p.render('Damage: 16', True, (247, 187, 31)), (680, 300))
+                self.screen.blit(self.text_p.render('Range: 140', True, (247, 187, 31)), (680, 330))
+                self.screen.blit(self.text_p.render('Attack: 0.6', True, (247, 187, 31)), (680, 360))
+                if global_variables.stats_money >= 80:
+                    self.screen.blit(self.text_p.render('Price: 80', True, self.color_green), (680, 390))
+                else:
+                    self.screen.blit(self.text_p.render('Price: 80', True, self.color_red), (680, 390))
+                self.screen.blit(self.text_p.render('Damage: 30', True, (247, 187, 31)), (835, 300))
                 self.screen.blit(self.text_p.render('Range: 150', True, (247, 187, 31)), (835, 330))
-                self.screen.blit(self.text_p.render('Attack: 3', True, (247, 187, 31)), (835, 360))
-                self.screen.blit(self.text_p.render('Price: 50', True, (247, 187, 31)), (835, 390))
+                self.screen.blit(self.text_p.render('Attack: 0.5', True, (247, 187, 31)), (835, 360))
+                if global_variables.stats_money >= 96:
+                    self.screen.blit(self.text_p.render('Price: 50', True, self.color_green), (835, 390))
+                else:
+                    self.screen.blit(self.text_p.render('Price: 50', True, self.color_red), (835, 390))
             elif self.menu_tower_support_opened:
                 self.menu_tower_support.draw(self.screen)
                 self.screen.blit(self.text_h2.render('Support Towers:', True, (247, 187, 31)), (470, 100))
-                self.screen.blit(self.text_p.render('Damage: 1', True, (247, 187, 31)), (370, 300))
+                self.screen.blit(self.text_p.render('Damage: 4', True, (247, 187, 31)), (370, 300))
                 self.screen.blit(self.text_p.render('Range: 120', True, (247, 187, 31)), (370, 330))
-                self.screen.blit(self.text_p.render('Attack: 0.7', True, (247, 187, 31)), (370, 360))
-                self.screen.blit(self.text_p.render('Price: 12', True, (247, 187, 31)), (370, 390))
-                self.screen.blit(self.text_p.render('Damage: 2', True, (247, 187, 31)), (525, 300))
+                self.screen.blit(self.text_p.render('Attack: 0.8', True, (247, 187, 31)), (370, 360))
+                if global_variables.stats_money >= 28:
+                    self.screen.blit(self.text_p.render('Price: 28', True, self.color_green), (370, 390))
+                else:
+                    self.screen.blit(self.text_p.render('Price: 28', True, self.color_red), (370, 390))
+                self.screen.blit(self.text_p.render('Damage: 6', True, (247, 187, 31)), (525, 300))
                 self.screen.blit(self.text_p.render('Range: 130', True, (247, 187, 31)), (525, 330))
-                self.screen.blit(self.text_p.render('Attack: 1.5', True, (247, 187, 31)), (525, 360))
-                self.screen.blit(self.text_p.render('Price: 24', True, (247, 187, 31)), (525, 390))
-                self.screen.blit(self.text_p.render('Damage: 3', True, (247, 187, 31)), (680, 300))
+                self.screen.blit(self.text_p.render('Attack: 0.7', True, (247, 187, 31)), (525, 360))
+                if global_variables.stats_money >= 38:
+                    self.screen.blit(self.text_p.render('Price: 38', True, self.color_green), (525, 390))
+                else:
+                    self.screen.blit(self.text_p.render('Price: 38', True, self.color_red), (525, 390))
+                self.screen.blit(self.text_p.render('Damage: 8', True, (247, 187, 31)), (680, 300))
                 self.screen.blit(self.text_p.render('Range: 120', True, (247, 187, 31)), (680, 330))
-                self.screen.blit(self.text_p.render('Attack: 1.8', True, (247, 187, 31)), (680, 360))
-                self.screen.blit(self.text_p.render('Price: 38', True, (247, 187, 31)), (680, 390))
-                self.screen.blit(self.text_p.render('Damage: 4', True, (247, 187, 31)), (835, 300))
+                self.screen.blit(self.text_p.render('Attack: 0.6', True, (247, 187, 31)), (680, 360))
+                if global_variables.stats_money >= 48:
+                    self.screen.blit(self.text_p.render('Price: 48', True, self.color_green), (680, 390))
+                else:
+                    self.screen.blit(self.text_p.render('Price: 48', True, self.color_red), (680, 390))
+                self.screen.blit(self.text_p.render('Damage: 10', True, (247, 187, 31)), (835, 300))
                 self.screen.blit(self.text_p.render('Range: 150', True, (247, 187, 31)), (835, 330))
-                self.screen.blit(self.text_p.render('Attack: 3', True, (247, 187, 31)), (835, 360))
-                self.screen.blit(self.text_p.render('Price: 50', True, (247, 187, 31)), (835, 390))
+                self.screen.blit(self.text_p.render('Attack: 0.5', True, (247, 187, 31)), (835, 360))
+                if global_variables.stats_money >= 68:
+                    self.screen.blit(self.text_p.render('Price: 68', True, self.color_green), (835, 390))
+                else:
+                    self.screen.blit(self.text_p.render('Price: 68', True, self.color_red), (835, 390))
             elif self.menu_freeze_effect_opened:
                 self.menu_freeze_effect.draw(self.screen)
                 self.screen.blit(self.text_h2.render('Freeze Effect', True, (247, 187, 31)), (470, 100))
@@ -429,7 +479,7 @@ class Button(pygame.sprite.Sprite):
     Defines the main button class
     """
 
-    def __init__(self, img, x, y, width, height, button_id):
+    def __init__(self, img, x, y, width, height, button_id, price=0):
         pygame.sprite.Sprite.__init__(self)
         self.sound_click = pygame.mixer.Sound('assets/sounds/click.wav')
         self.x = x
@@ -439,6 +489,7 @@ class Button(pygame.sprite.Sprite):
         self.button_id = button_id
         self.image = pygame.transform.scale(img, (self.width, self.height))
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
+        self.price = price
 
     def click(self, x, y):
         """
@@ -450,6 +501,12 @@ class Button(pygame.sprite.Sprite):
         if self.rect.collidepoint(x, y):
             if self.button_id:
                 pygame.mixer.Sound.play(self.sound_click)
-                return self.button_id
+                if self.price == 0:
+                    return self.button_id
+                elif self.price != 0 and global_variables.stats_money >= self.price:
+                    global_variables.stats_money -= self.price
+                    return self.button_id
+                else:
+                    return False
             else:
                 return False

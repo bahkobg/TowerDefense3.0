@@ -2,7 +2,7 @@ import pygame
 
 # General
 stats_kills = 0
-stats_money = 0
+stats_money = 36
 stats_player_mana = 0
 stats_player_health = 0
 
@@ -17,6 +17,12 @@ enemy_7 = [pygame.image.load('assets/enemies/6/' + str(x) + '.png') for x in ran
 enemy_8 = [pygame.image.load('assets/enemies/8/' + str(x) + '.png') for x in range(10)]
 enemy_9 = [pygame.image.load('assets/enemies/9/' + str(x) + '.png') for x in range(10)]
 enemy_10 = [pygame.image.load('assets/enemies/10/' + str(x) + '.png') for x in range(10)]
+enemy_11 = [pygame.image.load('assets/enemies/11/' + str(x) + '.png') for x in range(10)]
+enemy_12 = [pygame.image.load('assets/enemies/12/' + str(x) + '.png') for x in range(10)]
+enemy_13 = [pygame.image.load('assets/enemies/13/' + str(x) + '.png') for x in range(10)]
+enemy_14 = [pygame.image.load('assets/enemies/14/' + str(x) + '.png') for x in range(10)]
+enemy_15 = [pygame.image.load('assets/enemies/15/' + str(x) + '.png') for x in range(10)]
+enemy_16 = [pygame.image.load('assets/enemies/16/' + str(x) + '.png') for x in range(10)]
 
 # Towers
 towers_archer = [pygame.image.load('assets/towers/archer/' + str(x) + '.png') for x in range(82)]

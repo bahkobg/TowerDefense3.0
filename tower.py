@@ -223,7 +223,7 @@ class TowerArcher2(Tower):
         self.shoot_list = global_variables.towers_archer[77:82]
         # Tower stuff
         self.range = 130
-        self.damage = 2
+        self.damage = 3
         self.rate = 0.7
         self.price = 2
         self.bullets = []
@@ -253,7 +253,7 @@ class TowerArcher3(Tower):
         self.shoot_list = global_variables.towers_archer[77:82]
         # Tower stuff
         self.range = 140
-        self.damage = 3
+        self.damage = 5
         self.rate = 0.6
         self.price = 3
         self.bullets = []
@@ -283,7 +283,7 @@ class TowerArcher4(Tower):
         self.shoot_list = global_variables.towers_archer[77:82]
         # Tower stuff
         self.range = 150
-        self.damage = 4
+        self.damage = 7
         self.rate = 0.5
         self.price = 4
         self.bullets = []
@@ -313,7 +313,7 @@ class TowerMagic1(Tower):
         self.shoot_list = global_variables.freeze
         # Tower stuff
         self.range = 120
-        self.damage = 5
+        self.damage = 8
         self.rate = 0.8
         self.price = 5
         self.bullets = []
@@ -385,7 +385,7 @@ class TowerMagic2(Tower):
         self.shoot_list = global_variables.freeze
         # Tower stuff
         self.range = 130
-        self.damage = 6
+        self.damage = 12
         self.rate = 0.7
         self.price = 6
         self.bullets = []
@@ -457,7 +457,7 @@ class TowerMagic3(Tower):
         self.shoot_list = global_variables.freeze
         # Tower stuff
         self.range = 140
-        self.damage = 7
+        self.damage = 16
         self.rate = 0.6
         self.price = 7
         self.bullets = []
@@ -529,8 +529,8 @@ class TowerMagic4(Tower):
         self.shoot_list = global_variables.fire[19:27]
         # Tower stuff
         self.range = 150
-        self.damage = 8
-        self.rate = 1  # in seconds
+        self.damage = 30
+        self.rate = 0.5  # in seconds
         self.price = 8
         self.bullets = []
 
@@ -601,8 +601,8 @@ class TowerStone1(Tower):
         self.shoot_list = global_variables.stone
         # Tower stuff
         self.range = 120
-        self.damage = 9
-        self.rate = 1
+        self.damage = 10
+        self.rate = 0.8
         self.price = 9
         self.bullets = []
 
@@ -669,8 +669,8 @@ class TowerStone2(Tower):
         self.shoot_list = global_variables.stone
         # Tower stuff
         self.range = 130
-        self.damage = 10
-        self.rate = 1
+        self.damage = 12
+        self.rate = 0.7
         self.price = 10
         self.bullets = []
 
@@ -737,8 +737,8 @@ class TowerStone3(Tower):
         self.shoot_list = global_variables.stone
         # Tower stuff
         self.range = 140
-        self.damage = 11
-        self.rate = 1
+        self.damage = 18
+        self.rate = 0.7
         self.price = 11
         self.bullets = []
 
@@ -805,8 +805,8 @@ class TowerStone4(Tower):
         self.shoot_list = global_variables.stone
         # Tower stuff
         self.range = 150
-        self.damage = 12
-        self.rate = 1
+        self.damage = 24
+        self.rate = 0.5
         self.price = 12
         self.bullets = []
 
@@ -873,8 +873,8 @@ class TowerSupport1(Tower):
         self.shoot_list = global_variables.time[0:14]
         # Tower stuff
         self.range = 120
-        self.damage = 13
-        self.rate = 1
+        self.damage = 4
+        self.rate = 0.8
         self.price = 13
         self.bullets = []
 
@@ -945,8 +945,8 @@ class TowerSupport2(Tower):
         self.shoot_list = global_variables.time[0:14]
         # Tower stuff
         self.range = 130
-        self.damage = 14
-        self.rate = 1
+        self.damage = 6
+        self.rate = 0.7
         self.price = 14
         self.bullets = []
 
@@ -1017,8 +1017,8 @@ class TowerSupport3(Tower):
         self.shoot_list = global_variables.time[0:14]
         # Tower stuff
         self.range = 140
-        self.damage = 15
-        self.rate = 1
+        self.damage = 8
+        self.rate = 0.6
         self.price = 15
         self.bullets = []
 
@@ -1089,8 +1089,8 @@ class TowerSupport4(Tower):
         self.shoot_list = global_variables.time[0:14]
         # Tower stuff
         self.range = 150
-        self.damage = 16
-        self.rate = 1
+        self.damage = 10
+        self.rate = 0.5
         self.price = 16
         self.bullets = []
 

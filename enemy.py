@@ -9,6 +9,7 @@ class Enemy(pygame.sprite.Sprite):
     """
     Defines the main enemy class.
     """
+
     def __init__(self, x, y, health, map_number):
         super().__init__()
         self.x = x
@@ -22,7 +23,8 @@ class Enemy(pygame.sprite.Sprite):
         self.img_list = random.choice(
             [global_variables.enemy_1, global_variables.enemy_2, global_variables.enemy_3, global_variables.enemy_4,
              global_variables.enemy_5, global_variables.enemy_6, global_variables.enemy_7, global_variables.enemy_8, global_variables.enemy_9,
-             global_variables.enemy_10])
+             global_variables.enemy_10, global_variables.enemy_11, global_variables.enemy_12, global_variables.enemy_13, global_variables.enemy_14,
+             global_variables.enemy_15, global_variables.enemy_16])
         self.animation_index = 0
         self.flipped = False
         self.dying = False
@@ -31,7 +33,7 @@ class Enemy(pygame.sprite.Sprite):
         self.health_max = health
         self.health = self.health_max
         self.speed = 2
-        self.worth = random.randint(1,5)
+        self.worth = random.randint(2, 5)
         self.fire_resistance = 0
         self.freeze_resistance = 0
         self.lighting_resistance = 0
@@ -55,20 +57,21 @@ class Enemy(pygame.sprite.Sprite):
     def die(self):
         self.dying = True
         global_variables.stats_kills += 1
-        global_variables.stats_money += self.worth
+        if random.random() < 0.35:
+            global_variables.stats_money += self.worth
         pygame.mixer.Sound.play(self.sound_enemy_die)
         self.kill()
 
     def health_bar(self, surface):
-        width = 40  # length of the bar
+        width = 36  # length of the bar
         health_bar = width * (self.health / self.health_max)
 
         if self.flipped and self.health > 0:
-            pygame.draw.rect(surface, (255, 0, 0), (self.x + 16, self.y, width, 8))
-            pygame.draw.rect(surface, (0, 255, 0), (self.x + 16, self.y, health_bar, 8))
+            pygame.draw.rect(surface, (255, 0, 0), (self.x + 16, self.y, width, 3))
+            pygame.draw.rect(surface, (0, 255, 0), (self.x + 16, self.y, health_bar, 3))
         elif not self.flipped and self.health > 0:
-            pygame.draw.rect(surface, (255, 0, 0), (self.x, self.y, width, 8))
-            pygame.draw.rect(surface, (0, 255, 0), (self.x, self.y, health_bar, 8))
+            pygame.draw.rect(surface, (255, 0, 0), (self.x, self.y, width, 3))
+            pygame.draw.rect(surface, (0, 255, 0), (self.x, self.y, health_bar, 3))
 
     def jump(self):
         pass
@@ -127,4 +130,3 @@ class Enemy(pygame.sprite.Sprite):
                 self.animation_index += 1
             self.health_bar(surface)
             self.move()
-

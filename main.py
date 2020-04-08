@@ -31,6 +31,7 @@ class Runtime:
         self.game_settings = None
         self.game_map = None
         self.sound_you_lose = None
+        self.levels = [x for x in range(12)]
 
         # Enemies
         self.enemy_paths = None
@@ -53,17 +54,21 @@ class Runtime:
 
         self.pos = []
 
-    def setup(self, game_map):
+    def setup(self):
         """
         All variables held here, so the game can be restarted in runtime.
         :param map: int
         :return: None
         """
+
+        # Setup game map
+        game_map = self.levels[random.randint(0, 11)]
+        self.levels.remove(game_map)
+
         self.game_settings = global_variables.game_settings
         self.game_board = game_board.GameBoard(self.game_settings[game_map][0])
         self.screen = self.game_board.get_screen
         pygame.mixer.music.load('assets/sounds/music1.wav')
-        pygame.mixer.music.play(-1)
         pygame.mixer.music.set_volume(0.3)
         self.sound_you_lose = pygame.mixer.Sound('assets/sounds/youlose.wav')
         self.difficulty = 1
@@ -73,6 +78,7 @@ class Runtime:
         self.wave_level = 1
         self.timer = time.time()
         self.game_map = game_map
+        global_variables.stats_money = 36
 
         # Enemies
         pygame.time.set_timer(25, 1000)
@@ -103,12 +109,17 @@ class Runtime:
         Spawn new enemy and add it to the list.
         :return: None
         """
-        self.enemy_list.add(enemy.Enemy(self.enemy_spawn_position_x, self.enemy_spawn_position_y, (random.randint(5, 20)) * self.wave_level, self.game_map))
+        self.enemy_list.add(enemy.Enemy(self.enemy_spawn_position_x, self.enemy_spawn_position_y, (random.randint(4, 8)) * self.wave_level, self.game_map))
         if self.wave_number >= self.wave:
             self.wave_number = 0
             self.wave_level += 1
-            self.wave *= 1.5
+            self.wave *= 1.4
         self.wave_number += 1
+        if self.wave_level >= 10:
+            global_variables.stats_money = 36
+            self.wave_level = 1
+            self.game_state = 4
+            pygame.mixer.music.stop()
 
     def spawn_effect(self):
         """
@@ -154,6 +165,7 @@ class Runtime:
     def you_lose(self):
         # empty towers
         self.enemy_list.empty()
+        pygame.mixer.music.stop()
         self.game_state = 3
         pygame.mixer.Sound(self.sound_you_lose)
 
@@ -161,6 +173,7 @@ class Runtime:
         pass
 
     def run(self):
+
         running = True
         while running:
 
@@ -194,12 +207,15 @@ class Runtime:
                                 if button_clicked == 'EASY':
                                     self.difficulty = 1
                                     self.game_state = 2
+                                    pygame.mixer.music.play(-1)
                                 elif button_clicked == 'NORMAL':
                                     self.difficulty = 2
                                     self.game_state = 2
+                                    pygame.mixer.music.play(-1)
                                 elif button_clicked == 'HARD':
                                     self.difficulty = 3
                                     self.game_state = 2
+                                    pygame.mixer.music.play(-1)
 
                             # Game state - In game
                             elif self.game_state == 2:
@@ -220,14 +236,22 @@ class Runtime:
                             elif self.game_state == 3:
                                 button_clicked = self.game_board.click(mouse_pos[0], mouse_pos[1], self.game_state)
                                 if button_clicked == 'BACK':
-                                    self.setup(random.randint(0, 4))
+                                    self.setup()
                                 elif button_clicked == 'RESTART':
-                                    self.setup(random.randint(0, 4))
+                                    global_variables.stats_kills = 0
+                                    self.setup()
                                     self.game_state = 2
+                                    pygame.mixer.music.play(-1)
 
                             # Game state - You win
                             elif self.game_state == 4:
                                 button_clicked = self.game_board.click(mouse_pos[0], mouse_pos[1], self.game_state)
+                                if button_clicked == 'OPTIONS':
+                                    self.setup()
+                                elif button_clicked == 'NEXT':
+                                    self.setup()
+                                    self.game_state = 2
+                                    pygame.mixer.music.play(-1)
 
                     else:  # If mouse right button is pressed
                         # Close all opened menus
@@ -242,19 +266,20 @@ class Runtime:
             if global_variables.stats_player_health <= 0:
                 self.you_lose()
 
-            # Enemy in range of tower
-            for twr in self.towers_list:
-                enemies = pygame.sprite.spritecollide(twr, self.enemy_list, False, pygame.sprite.collide_circle)
-                if enemies:
-                    for enmy in enemies:
-                        twr.set_enemy_in_range(True)
-                        enmy.take_damage(twr.damage, twr.rate)
-                        if twr.rect.x > enmy.rect.x:
-                            twr.set_archer_flipped(True)
-                        else:
-                            twr.set_archer_flipped(False)
-                else:
-                    twr.set_enemy_in_range(False)
+            if self.game_state == 2:
+                # Enemy in range of tower
+                for twr in self.towers_list:
+                    enemies = pygame.sprite.spritecollide(twr, self.enemy_list, False, pygame.sprite.collide_circle)
+                    if enemies:
+                        for enmy in enemies:
+                            twr.set_enemy_in_range(True)
+                            enmy.take_damage(twr.damage, twr.rate)
+                            if twr.rect.x > enmy.rect.x:
+                                twr.set_archer_flipped(True)
+                            else:
+                                twr.set_archer_flipped(False)
+                    else:
+                        twr.set_enemy_in_range(False)
 
             self.draw()
         pygame.quit()
@@ -343,7 +368,7 @@ class Runtime:
 
 if __name__ == '__main__':
     g = Runtime()
-    g.setup(random.randint(0, 11))
+    g.setup()
     g.run()
 
 """
