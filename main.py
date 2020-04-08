@@ -62,7 +62,7 @@ class Runtime:
         """
 
         # Setup game map
-        game_map = self.levels[random.randint(0, 11)]
+        game_map = self.levels[random.randint(0, len(self.levels))]
         self.levels.remove(game_map)
 
         self.game_settings = global_variables.game_settings
@@ -109,7 +109,8 @@ class Runtime:
         Spawn new enemy and add it to the list.
         :return: None
         """
-        self.enemy_list.add(enemy.Enemy(self.enemy_spawn_position_x, self.enemy_spawn_position_y, (random.randint(4, 8)) * self.wave_level, self.game_map))
+        self.enemy_list.add(
+            enemy.Enemy(self.enemy_spawn_position_x, self.enemy_spawn_position_y, (random.randint(1, 10)) * self.wave_level * self.difficulty, self.game_map))
         if self.wave_number >= self.wave:
             self.wave_number = 0
             self.wave_level += 1

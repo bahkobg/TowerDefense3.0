@@ -11,6 +11,9 @@ class GameBoard:
 
         # General
         self.screen = pygame.display.set_mode((1280, 780), pygame.SRCALPHA)
+        self.icon = pygame.image.load('assets/icon.png')
+        pygame.display.set_caption("Tower Defense by Ivan Ivanov")
+        pygame.display.set_icon(self.icon)
         self.color_red = (255,0,0)
         self.color_green = (0,255,0)
 
