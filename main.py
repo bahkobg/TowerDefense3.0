@@ -62,7 +62,7 @@ class Runtime:
         """
 
         # Setup game map
-        game_map = self.levels[random.randint(0, len(self.levels))]
+        game_map = self.levels[random.randint(0, len(self.levels)-1)]
         self.levels.remove(game_map)
 
         self.game_settings = global_variables.game_settings
@@ -178,8 +178,8 @@ class Runtime:
         running = True
         while running:
 
-            # Set the game to 60 FPS
-            self.clock.tick(30)
+
+            pygame.display.set_caption(f"Tower Defense by Ivan Ivanov | FPS: {round(self.clock.get_fps())}")
 
             # Event loop
             for event in pygame.event.get():
@@ -283,6 +283,8 @@ class Runtime:
                         twr.set_enemy_in_range(False)
 
             self.draw()
+            # Set the game to 30 FPS
+            self.clock.tick(30)
         pygame.quit()
 
     def draw(self):

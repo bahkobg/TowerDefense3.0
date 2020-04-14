@@ -12,7 +12,7 @@ class GameBoard:
         # General
         self.screen = pygame.display.set_mode((1280, 780), pygame.SRCALPHA)
         self.icon = pygame.image.load('assets/icon.png')
-        pygame.display.set_caption("Tower Defense by Ivan Ivanov")
+
         pygame.display.set_icon(self.icon)
         self.color_red = (255,0,0)
         self.color_green = (0,255,0)
@@ -34,7 +34,7 @@ class GameBoard:
         self.in_game_bg = settings
         self.bottom_menu = pygame.transform.scale(pygame.image.load('assets/menus/gui/0.png'), (1340, 70))
         self.tree = pygame.transform.scale(pygame.image.load('assets/backgrounds/1/tree.png'), (67, 105))
-        self.text_stats = pygame.font.SysFont('comicsansms', 28)
+        self.text_stats = pygame.font.Font('assets/fonts/custom_font.ttf', 28)
         self.bottom_menu_buttons = pygame.sprite.Group()
         self.top_menu_buttons = pygame.sprite.Group()
         self.bottom_menu_buttons.add(
@@ -58,8 +58,8 @@ class GameBoard:
         )
 
         # Archer Tower
-        self.text_h2 = pygame.font.SysFont('comicsansms', bold=True, size=48)
-        self.text_p = pygame.font.SysFont('comicsansms', size=24)
+        self.text_h2 = pygame.font.Font('assets/fonts/custom_font.ttf', 56)
+        self.text_p = pygame.font.Font('assets/fonts/custom_font.ttf', 28)
         self.menu_tower_archer_opened = False
         self.menu_tower_archer = pygame.sprite.Group()
         self.menu_tower_archer.add(
@@ -130,7 +130,7 @@ class GameBoard:
 
         # You Lose
         self.you_lose_buttons = pygame.sprite.Group()
-        self.text_you_lose = pygame.font.SysFont('comicsansms', 48)
+        self.text_you_lose = pygame.font.Font('assets/fonts/custom_font.ttf', 48)
         self.you_lose_buttons.add(
             Button(global_variables.menu_you_lose[2], 440, 120, 400, 460, False),
             Button(global_variables.menu_you_lose[3], 504, 240, 271, 300, False),
@@ -141,7 +141,7 @@ class GameBoard:
 
         # You Win
         self.you_win_buttons = pygame.sprite.Group()
-        self.text_you_win = pygame.font.SysFont('comicsansms', 32)
+        self.text_you_win = pygame.font.Font('assets/fonts/custom_font.ttf', 32)
         self.you_win_buttons.add(
             Button(global_variables.menu_you_win[8], 440, 120, 400, 460, False),
             Button(global_variables.menu_you_win[9], 504, 240, 271, 300, False),
@@ -203,7 +203,7 @@ class GameBoard:
         if game_state == 2:
             if self.menu_tower_archer_opened:
                 self.menu_tower_archer.draw(self.screen)
-                self.screen.blit(self.text_h2.render('Archer Towers:', True, (247, 187, 31)), (470, 100))
+                self.screen.blit(self.text_h2.render('Archer Towers:', True, (247, 187, 31)), (470, 110))
                 self.screen.blit(self.text_p.render('Damage: 1', True, (247, 187, 31)), (370, 300))
                 self.screen.blit(self.text_p.render('Range: 120', True, (247, 187, 31)), (370, 330))
                 self.screen.blit(self.text_p.render('Attack: 0.8', True, (247, 187, 31)), (370, 360))
@@ -234,7 +234,7 @@ class GameBoard:
                     self.screen.blit(self.text_p.render('Price: 48', True, self.color_red), (835, 390))
             elif self.menu_tower_stone_opened:
                 self.menu_tower_stone.draw(self.screen)
-                self.screen.blit(self.text_h2.render('Stone Towers:', True, (247, 187, 31)), (470, 100))
+                self.screen.blit(self.text_h2.render('Stone Towers:', True, (247, 187, 31)), (470, 110))
                 self.screen.blit(self.text_p.render('Damage: 5', True, (247, 187, 31)), (370, 300))
                 self.screen.blit(self.text_p.render('Range: 120', True, (247, 187, 31)), (370, 330))
                 self.screen.blit(self.text_p.render('Attack: 0.8', True, (247, 187, 31)), (370, 360))
@@ -265,7 +265,7 @@ class GameBoard:
                     self.screen.blit(self.text_p.render('Price: 104', True, self.color_red), (835, 390))
             elif self.menu_tower_magic_opened:
                 self.menu_tower_magic.draw(self.screen)
-                self.screen.blit(self.text_h2.render('Magic Towers:', True, (247, 187, 31)), (470, 100))
+                self.screen.blit(self.text_h2.render('Magic Towers:', True, (247, 187, 31)), (470, 110))
                 self.screen.blit(self.text_p.render('Damage: 8', True, (247, 187, 31)), (370, 300))
                 self.screen.blit(self.text_p.render('Range: 120', True, (247, 187, 31)), (370, 330))
                 self.screen.blit(self.text_p.render('Attack: 0.8', True, (247, 187, 31)), (370, 360))
@@ -296,7 +296,7 @@ class GameBoard:
                     self.screen.blit(self.text_p.render('Price: 50', True, self.color_red), (835, 390))
             elif self.menu_tower_support_opened:
                 self.menu_tower_support.draw(self.screen)
-                self.screen.blit(self.text_h2.render('Support Towers:', True, (247, 187, 31)), (470, 100))
+                self.screen.blit(self.text_h2.render('Support Towers:', True, (247, 187, 31)), (470, 110))
                 self.screen.blit(self.text_p.render('Damage: 4', True, (247, 187, 31)), (370, 300))
                 self.screen.blit(self.text_p.render('Range: 120', True, (247, 187, 31)), (370, 330))
                 self.screen.blit(self.text_p.render('Attack: 0.8', True, (247, 187, 31)), (370, 360))
@@ -327,7 +327,7 @@ class GameBoard:
                     self.screen.blit(self.text_p.render('Price: 68', True, self.color_red), (835, 390))
             elif self.menu_freeze_effect_opened:
                 self.menu_freeze_effect.draw(self.screen)
-                self.screen.blit(self.text_h2.render('Freeze Effect', True, (247, 187, 31)), (470, 100))
+                self.screen.blit(self.text_h2.render('Freeze Effect', True, (247, 187, 31)), (470, 110))
                 self.screen.blit(self.text_p.render('Damage: 20 *', True, (247, 187, 31)), (530, 210))
                 self.screen.blit(self.text_p.render('Range: 25', True, (247, 187, 31)), (530, 240))
                 self.screen.blit(self.text_p.render('Attack: 10', True, (247, 187, 31)), (530, 270))
